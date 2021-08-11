@@ -23,22 +23,24 @@ export default function Cosmique() {
                 </Link>
             </h2>
             {galerie && galerie.images.map((image, index) =>
-                <Image
-                    key={index}
-                    src={image.pathUrlCache} // Route of the image file
-                    layout={'fill'}
-                    alt="Your Name"
-                    objectFit={'contain'}
-                />
+                <div style={{ maxWidth : "1000px", height: "600px", position: "relative" }}>
+                    <Image
+                        key={index}
+                        src={image.pathUrlCache} // Route of the image file
+                        width={500}
+                        height={500}
+                        alt="Your Name"
+                    />
+                </div>
             )}
-            <div style={{ maxWidth : "1000px", height: "600px", position: "relative" }}>
+            {/*<div style={{ maxWidth : "1000px", height: "600px", position: "relative" }}>
                 <Image
                     src="http://localhost:80/img/indatabase/galerie/content/61132f2d13f90_adwaita-wallpaper.jpeg" // Route of the image file
                     layout={'fill'}
                     alt="Your Name"
                     objectFit={'contain'}
                 />
-            </div>
+            </div>*/}
         </>
     );
     
