@@ -11,8 +11,8 @@ export default function Cosmique() {
     }
 
     useEffect(() => {
-        /*axios.get("https://90.118.74.20:8000/api/galerie/svenrybin").then(response => {handleGalerie(response.data);console.log(response)});*/
-        axios.get("https://localhost:8000/api/galerie/svenrybin").then(response => {handleGalerie(response.data);console.log(response)});
+        axios.get("https://90.118.74.20:8000/api/galerie/svenrybin").then(response => {handleGalerie(response.data);console.log(response)});
+        //axios.get("https://localhost:8000/api/galerie/svenrybin").then(response => {handleGalerie(response.data);console.log(response)});
     }, []);
 
     return (
