@@ -23,10 +23,9 @@ export default function Cosmique() {
                 </Link>
             </h2>
             {galerie && galerie.images.map((image, index) =>
-                <div style={{ maxWidth : "1000px", height: "600px", position: "relative" }}>
+                <div key={index} style={{ maxWidth : "1000px", height: "600px", position: "relative" }}>
                     <Image
-                        key={index}
-                        src={image.pathUrlCache} // Route of the image file
+                        src={image.pathUrl} // Route of the image file
                         width={500}
                         height={500}
                         alt="Your Name"
