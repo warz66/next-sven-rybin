@@ -1,4 +1,4 @@
-/*const { createServer } = require("https");
+const { createServer } = require("https");
 const { parse } = require("url");
 const next = require("next");
 const fs = require("fs");
@@ -20,4 +20,4 @@ app.prepare().then(() => {
     if (err) throw err;
     console.log("> Server started on https://localhost:3000");
   });
-});*/
+});
