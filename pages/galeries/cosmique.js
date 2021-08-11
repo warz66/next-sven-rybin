@@ -25,13 +25,13 @@ export default function Cosmique() {
     if(galerie) {
         images = galerie.images.map((image, index) => {
                     return <div key={index} style={{ position: "relative" }}>
-                                {/*<Image
+                                {<Image
                                     src={image.pathUrl} // Route of the image file
                                     width={image.tableau.width}
                                     height={image.tableau.height}
                                     alt="Your Name"
-                                />*/}
-                                <img src={image.pathUrlCache} alt="sdfsdf"></img>
+                                />}
+                                {/*<img src={image.pathUrlCache} alt="sdfsdf"></img>*/}
                             </div>
         });
     }
