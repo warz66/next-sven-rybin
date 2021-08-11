@@ -31,7 +31,7 @@ export default function Cosmique() {
                                     height={image.tableau.height}
                                     alt="Your Name"
                                 />*/}
-                                <img src={image.pathUrlCache} alt={image.title}></img>
+                                <img src={image.pathUrlCache} alt="sdfsdf"></img>
                             </div>
         });
     }
