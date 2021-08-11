@@ -22,8 +22,9 @@ export default function Cosmique() {
                     <a>Back to home</a>
                 </Link>
             </h2>
-            {galerie && galerie.images.map((image) =>
-                <Image
+            {galerie && galerie.images.map((image, index) =>
+                <Imag
+                    key={index}
                     src={image.pathUrlCache} // Route of the image file
                     layout={'fill'}
                     alt="Your Name"
