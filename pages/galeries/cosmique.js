@@ -15,9 +15,10 @@ export default function Cosmique() {
             <div style={{ maxWidth : "600px", height: "600px", position: "relative" }}>
                 <Image
                     src="https://90.118.74.20:8000/img/indatabase/galerie/content/61132f2d13f90_adwaita-wallpaper.jpeg" // Route of the image file
-                    layout={'fill'}
+                    width={500}
+                    height={250}
                     alt="Your Name"
-                    objectFit={'contain'}
+                    
                 />
             </div>
         </>
