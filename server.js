@@ -1,4 +1,4 @@
-const { createServer } = require("https");
+/*const { createServer } = require("https");
 const { parse } = require("url");
 const next = require("next");
 const fs = require("fs");
@@ -6,11 +6,13 @@ const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 const httpsOptions = {
-    key: fs.readFileSync("./certificates/RootCA.key"),
-    cert: fs.readFileSync("./certificates/RootCA.crt"),
-    ca: [fs.readFileSync('./certificates/RootCA.pem')],
-    //unlockUnauthorized : false, 
-    //rejeterUnauthorized : true,
+  key : fs.readFileSync('./certificates/localhost/localhost.decrypted.key'),
+  cert : fs.readFileSync('./certificates/localhost/localhost.crt'),
+  //key: fs.readFileSync("./rootCA.key"),
+  //cert: fs.readFileSync("./rootCA.crt"),
+  //ca: fs.readFileSync('./certificates/CA.pem'),
+  //unlockUnauthorized : false, 
+  //rejectUnauthorized: true
 };
 app.prepare().then(() => {
   createServer(httpsOptions, (req, res) => {
@@ -20,4 +22,4 @@ app.prepare().then(() => {
     if (err) throw err;
     console.log("> Server started on https://localhost:3000");
   });
-});
+});*/
