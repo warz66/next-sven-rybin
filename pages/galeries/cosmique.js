@@ -14,7 +14,7 @@ export default function Cosmique() {
             </h2>
             <div style={{ maxWidth : "600px", height: "600px", position: "relative" }}>
                 <Image
-                    src="https://90.118.74.20:8000/img/indatabase/galerie/cover/6111aa84ef06b_38.jpg" // Route of the image file
+                    src="https://90.118.74.20:8000/img/indatabase/galerie/content/61132f2d13f90_adwaita-wallpaper.jpeg" // Route of the image file
                     layout={'fill'}
                     alt="Your Name"
                     objectFit={'contain'}
