@@ -1,3 +1,6 @@
+html { 
+  overflow-y: scroll; /* force scrollbar */
+}
 html,
 body {
   padding: 0;
