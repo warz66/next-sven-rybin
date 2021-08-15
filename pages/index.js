@@ -18,6 +18,9 @@ export default function Home() {
           <Link href="/galeries/cosmique">
             <a>this page!</a>
           </Link>
+          <Link href="/galeries/images">
+            <a>this page!</a>
+          </Link>
         </h1>
 
         <p className={styles.description}>
