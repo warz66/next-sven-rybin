@@ -1,12 +1,31 @@
-#container_select {
+#container_form {
   display: flex;
   justify-content: center;
-  margin-bottom: 30px;
+  margin-bottom: 60px;
 }
 
-#container_select select {
+#container_form form {
+  display: flex;
+}
+
+#container_form select {
   font-size: 18px;
   padding: 5px;
+}
+
+#container_form .inputs_range_year {
+  opacity: 1;
+  transition: 0.3s;
+}
+
+#container_form .select_size {
+  opacity: 1;
+  transition: 0.3s;
+}
+
+#container_form .input_unchecked {
+  opacity: 0;
+  transition: 0.3s;
 }
 
 /* clear fix */

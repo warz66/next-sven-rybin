@@ -38,14 +38,12 @@ function reducer(state, action) {
 
     switch (action.type) {
         case 'galeries': {
-            let galerie;
-            action.payload.galeries.map(galerieData => {
-                if (galerieData.slug == action.payload.slug) {
-                    galerie = galerieData;
+            action.payload.galeries.map(galerie => {
+                if (galerie.id == action.payload.id) {
+                    return { ...state, galeries: action.payload.galeries, galerie: galerie, request: { id: galerie.id } };
                 }
-                return;
             });
-            return { ...state, galeries: action.payload.galeries, galerie: galerie, request: { id: galerie.id } };
+            return { ...state, galeries: action.payload.galeries, request: { page: 1 } };
         }
         case 'images': 
             return { ...state, images: action.payload.images};
@@ -67,17 +65,24 @@ function reducer(state, action) {
                 }
                 return;
             });
-            return { ...state, galerie: galerie, request: { id: action.payload.id, yearMin: action.payload.yearMin, yearMax: action.payload.yearMax} };
+            return { ...state, galerie: galerie, request: { id: action.payload.id, page: 1, sizeMin: action.payload.sizeMin, sizeMax: action.payload.sizeMax, yearMin: action.payload.yearMin, yearMax: action.payload.yearMax} };
+        }
+        case 'nextPage': {
+            console.log(state.request);
+            return { ...state, request: { ...state.request, page: state.request.page+1 }};
         }
         default:
             return initialState;    
     }
 }
 
-export default function Galeries({galerieSlug = "similique-molestiae-voluptatum-nihil-dolores-officiis-pariatur-quaerat"}) {
+export default function Galeries({galerieId = 189}) {
     const [stateGaleries, dispatch] = useReducer(reducer, initialState);
     const [galerieLoaded, setGalerieLoaded] = useState(false);
     const [moduleMasonry, setModuleMasonry] = useState(false);
+    const [valueSelect, setValueSelect] = useState(galerieId);
+    const [valueCheckedYear, setValueCheckedYear] = useState(false);
+    const [valueCheckedSize, setValueCheckedSize] = useState(false);
 
     function classNameByWidth(width) {
         width = width + stateGaleries.gap;
@@ -105,9 +110,25 @@ export default function Galeries({galerieSlug = "similique-molestiae-voluptatum-
         e.preventDefault();
         setGalerieLoaded(false);
         let id = e.target[0].value;
-        let yearMin = e.target[1].value;
-        let yearMax = e.target[2].value;
-        dispatch({type: 'changeRequest', payload: {id: id, yearMin: yearMin, yearMax: yearMax}});
+        let yearMin = e.target[4].value;
+        let yearMax = e.target[5].value;
+        var sizeMin;
+        var sizeMax;
+        switch(e.target[2].value) {
+            case 'petit':
+                sizeMin = false;
+                sizeMax = process.env.NEXT_PUBLIC_SMALL_SIZE;
+            break;
+            case 'moyen':
+                sizeMin = process.env.NEXT_PUBLIC_SMALL_SIZE;
+                sizeMax = process.env.NEXT_PUBLIC_MIDDLE_SIZE
+            break;
+            case 'grand':
+                sizeMin = process.env.NEXT_PUBLIC_MIDDLE_SIZE 
+                sizeMax = false;
+            break;
+        }
+        dispatch({type: 'changeRequest', payload: {id: id, sizeMin: sizeMin, sizeMax: sizeMax, yearMin: yearMin, yearMax: yearMax}});
     }
 
     useEffect(() => {
@@ -142,53 +163,72 @@ export default function Galeries({galerieSlug = "similique-molestiae-voluptatum-
     useEffect(() => {
         if(stateGaleries.request) {
             let id = stateGaleries.request.id ? stateGaleries.request.id : "";
-            let yearMin = stateGaleries.request.yearMin ? stateGaleries.request.yearMin : "";
-            let yearMax = stateGaleries.request.yearMax ? stateGaleries.request.yearMax : "";
-            axios.get(`http://localhost:8000/api/images?galerie.id=${id}&order[ordre]=asc&tableau.year[gte]=${yearMin}&tableau.year[lte]=${yearMax}`).then(response => {dispatch({type: 'images', payload: {images: response.data['hydra:member']}});console.log(response)});
+            let page = stateGaleries.request.page ? stateGaleries.request.page : "";
+            let sizeMin = stateGaleries.request.sizeMin && valueCheckedSize ? stateGaleries.request.sizeMin : "";
+            let sizeMax = stateGaleries.request.sizeMax && valueCheckedSize ? stateGaleries.request.sizeMax : "";
+            let yearMin = stateGaleries.request.yearMin && valueCheckedYear ? stateGaleries.request.yearMin : "";
+            let yearMax = stateGaleries.request.yearMax && valueCheckedYear ? stateGaleries.request.yearMax : "";
+            axios.get(`http://localhost:8000/api/images?galerie.reference=svenrybin&galerie.id=${id}&order[ordre]=asc&tableau.surface[gte]=${sizeMin}&tableau.surface[lte]=${sizeMax}&tableau.year[gte]=${yearMin}&tableau.year[lte]=${yearMax}&page=${page}`).then(response => {dispatch({type: 'images', payload: {images: response.data['hydra:member']}});console.log(response)});
         }
     },[stateGaleries.request]);
 
     useEffect(() => {
-        axios.get("http://localhost:8000/api/galeries?reference=svenrybin").then(response => {dispatch({type: 'galeries', payload: {galeries: response.data['hydra:member'], slug: galerieSlug}});console.log(response)});
+        axios.get("http://localhost:8000/api/galeries?reference=svenrybin").then(response => {dispatch({type: 'galeries', payload: {galeries: response.data['hydra:member'], id: galerieId}});console.log(response)});
         import('masonry-layout').then( data => {setModuleMasonry(data); console.log(data.default)});
         //axios.get("http://90.118.74.20:8000/api/galerie/svenrybin").then(response => {handleGalerie(response.data);console.log(response)});
-        //axios.get("http://localhost:8000/api/galerie/similique-molestiae-voluptatum-nihil-dolores-officiis-pariatur-quaerat").then(response => {dispatch({type: 'galerieData', payload: {galerie: response.data}});console.log(response)});
     }, []);
 
     return (
         <>
+
             <h1>Galerie Cosmique</h1>
+
             <h2>
                 <Link href="/">
                     <a>Back to home</a>
                 </Link>
             </h2>
-            {/*stateGaleries.galeries && <div id={styles.container_select}>
-                <select value={stateGaleries.galerie.id} onChange={(e) => dispatch({type: 'galerieData', payload: {galerieId: e.target.value}})}>
-                    {stateGaleries.galeries.map(galerie =>
-                        <option key={galerie.id} value={galerie.id}>{galerie.title}</option>
-                    )}
-                </select>
-            </div>*/}
-            {stateGaleries.galeries && <div id={styles.container_select}>
+
+            {stateGaleries.galeries && <div id={styles.container_form}>
                 <form onSubmit={(e) => handleSubmit(e)}>
-                    <select>
+                    <select value={valueSelect} onChange={(e) => setValueSelect(e.target.value)}>
                         <option value="">Toutes les galeries</option>
                         {stateGaleries.galeries.map(galerie =>
-                            <option key={galerie.id} value={galerie.id} selected={stateGaleries.galerie && stateGaleries.galerie.id == galerie.id ? "selected" : ""}>{galerie.title}</option>
+                            <option key={galerie.id} value={galerie.id}>{galerie.title}</option>
                         )}
                     </select>
-                    <input type="number" name="yearMin" min="1950" max="1990" defaultValue="1950"/>
-                    <input type="number" name="yearMax" min="1950" max="1990" defaultValue="1990"/>
+                    <div>
+                        <input type="checkbox" name="taille" id="" checked={valueCheckedSize} onChange={(e) => setValueCheckedSize(e.target.checked)}/><label htmlFor="taille">Taille</label>
+                        <div className={styles.select_size+`${valueCheckedSize ? "" : " "+styles.input_unchecked}` }>
+                            <select defaultValue={false}>
+                                <option value={false}>Toutes les tailles</option>
+                                <option value="petit">Petit</option>
+                                <option value="moyen">Moyen</option>
+                                <option value="grand">Grand</option>
+                            </select>
+                        </div>
+                        
+                    </div>
+                    <div>
+                        <input type="checkbox" name="periode" id="" checked={valueCheckedYear} onChange={(e) => setValueCheckedYear(e.target.checked)}/><label htmlFor="periode">Période</label>
+                        <div className={styles.inputs_range_year+`${valueCheckedYear ? "" : " "+styles.input_unchecked}` }>
+                            <input type="number" name="yearMin" min={process.env.NEXT_PUBLIC_MIN_YEAR} max={process.env.NEXT_PUBLIC_MAX_YEAR} defaultValue={process.env.NEXT_PUBLIC_MIN_YEAR}/>
+                            <input type="number" name="yearMax" min={process.env.NEXT_PUBLIC_MIN_YEAR} max={process.env.NEXT_PUBLIC_MAX_YEAR} defaultValue={process.env.NEXT_PUBLIC_MAX_YEAR}/>
+                        </div>
+                    </div>
                     <input type="submit" value="Valider"/>
                 </form>
             </div>}
+
             <div className={galerieLoaded ? styles.grid : styles.grid+' '+styles.are_images_unloaded}>
                 <div className={styles.grid_sizer}/>
                 {stateGaleries.images && stateGaleries.images.map(image =>
                     <div key={image.id} className={styles.grid_item+' '+classNameByWidth(image.tableau.width)}><img className={styles.grid_image} src={image.pathUrlCache} alt="sdfsdf" /></div>
                 )}
             </div>
+
+            <button onClick={() => dispatch({type: 'nextPage'})}>nextPage</button>
+
         </>
     );
     
