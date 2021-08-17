@@ -182,7 +182,8 @@ export default function Galeries({galerieId = 240}) {
                 itemSelector: 'none',
                 //horizontalOrder: false,
                 itemSelector: '.'+styles.grid_item,
-                gutter: 20,
+                gutter: `.${styles.gutter_sizer}`,
+                //gutter: 30,
                 percentPosition: true,
                 //columnWidth: 300,
             });
@@ -252,6 +253,16 @@ export default function Galeries({galerieId = 240}) {
         }
     }
 
+    function handleSelectTheme(e) {
+        setValueSelectTheme(e.target.value);
+        setValueSelectId("");
+    }
+
+    function handleSelectId(e) {
+        setValueSelectId(e.target.value);
+        setValueSelectTheme(e.target.options[e.target.selectedIndex].dataset.theme);
+    }
+
     return (
         <>
 
@@ -265,16 +276,16 @@ export default function Galeries({galerieId = 240}) {
 
             {stateGalerie.galeries && <div id={styles.container_form}>
                 <form onSubmit={(e) => handleSubmit(e)}>
-                    <select value={valueSelectTheme} defaultValue={stateGalerie.theme} onChange={(e) => setValueSelectTheme(e.target.value)}>
+                    <select value={valueSelectTheme} defaultValue={stateGalerie.theme} onChange={(e) => handleSelectTheme(e)}>
                         <option value="">Tous les thèmes</option>
                         {stateGalerie.themes.map((theme, index) =>
                             <option key={index} value={theme}>{theme}</option>
                         )}
                     </select>
-                    <select value={valueSelectId} onChange={(e) => setValueSelectId(e.target.value)}>
+                    <select value={valueSelectId} onChange={(e) => handleSelectId(e)}>
                         <option value="">Toutes les galeries</option>
                         {stateGalerie.galeries.map(galerie =>
-                            <option key={galerie.id} value={galerie.id}>{galerie.title}</option>
+                            <option key={galerie.id} value={galerie.id} data-theme={galerie.theme}>{galerie.title}</option>
                         )}
                     </select>
                     <div>
@@ -299,8 +310,24 @@ export default function Galeries({galerieId = 240}) {
 
             {stateGalerie.images.length > 0 && <div className={styles.grid}>
                 <div className={styles.grid_sizer}/>
+                <div className={styles.gutter_sizer}></div>
                 {stateGalerie.images.map((image , index) =>
-                    <div key={image.id} className={styles.grid_item+' '+classNameByWidth(image.tableau.width)+`${stateGalerie.galerieLoaded ? '' : ' '+imagesIsUnloaded(index)}`}><img className={styles.grid_image} src={image.pathUrlCache} alt="sdfsdf" /></div>
+                    <div key={image.id} className={styles.grid_item+' '+classNameByWidth(image.tableau.width)+`${stateGalerie.galerieLoaded ? '' : ' '+imagesIsUnloaded(index)}`}>
+                        <div>
+                            <img className={styles.grid_image} src={image.pathUrlCache} alt="sdfsdf" />
+                            <div className={styles.info_tableau}>
+                                <div>
+                                    <span>{image.tableau.title}</span><br/>
+                                    <span>{image.tableau.technique}</span>
+                                </div>
+                                <div>
+                                    <span>{image.tableau.year}</span><br/>
+                                    <span>{image.tableau.height+'x'+image.tableau.width+' cm'}</span>
+                                </div>
+                            </div>
+                            <hr />
+                        </div>
+                    </div>
                 )}
             </div>}
             
