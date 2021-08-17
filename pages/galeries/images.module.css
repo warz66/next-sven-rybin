@@ -23,10 +23,10 @@
   transition: 0.3s;
 }
 
-#container_form .input_unchecked {
+/*#container_form .input_unchecked {
   opacity: 0;
   transition: 0.3s;
-}
+}*/
 
 /* clear fix */
 .grid:after {
@@ -80,14 +80,14 @@
   opacity: 1;
   transform: translateY(0);
   transition-property: opacity, transform;
-  transition-duration: 1.5s;
-  transition-delay: 0.75s;
+  transition-duration: 1s;
+  transition-delay: 0.5s;
   
 }
 
 .are_images_unloaded img {
   opacity: 0;
-  transform: translateY(250px);
+  transform: translateY(200px);
   transition: 0s;
   height: 0px;
 }

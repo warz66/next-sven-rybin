@@ -1,17 +1,22 @@
 import Link from 'next/link'
 import styles from './images.module.css'
-import { useEffect, useState, useReducer, useCallback } from 'react'
+import { useEffect, useState, useReducer } from 'react'
 import axios from 'axios'
 import imagesLoaded from 'imagesloaded'
 
 const initialState = {
     galeries: false,
+    galerie: false,
     totalImages: 0,
     imgsPerPage: 50, // récuperer cette valeur en variable globale
     nbPages: 0,
-    galerie: false,
+    themes: [],
+    theme: false,
+    galerieVide: false,
     images: [],
     request: false,
+    previousPageLoaded: false,
+    galerieLoaded: false,
     moyenne: 0,
     max: 0,
     min: 0,
@@ -40,18 +45,31 @@ function reducer(state, action) {
     }
 
     switch (action.type) {
-        case 'galeries': {
-            action.payload.galeries.map(galerie => {
+        case 'initGalerie': {
+            let id = false;
+            let themes = [];
+            let theme = false;
+            action.payload.galeries.map((galerie, index) => {
                 if (galerie.id == action.payload.id) {
-                    return { ...state, galeries: action.payload.galeries, galerie: galerie, request: { id: galerie.id, page: 1 } };
+                    id = galerie.id;
+                    theme = galerie.theme;
+                }
+                if (galerie.theme) {
+                    themes[index] = galerie.theme
                 }
             });
-            return { ...state, galeries: action.payload.galeries, request: { page: 1 } };
+            themes = [...new Set(themes)];
+            return { ...state, galeries: action.payload.galeries, themes: themes, theme: theme, request: { id: id, page: 1 } };
         }
-        case 'images': 
-            let nbPages = Math.ceil(action.payload.totalItems/state.imgsPerPage);
-            let images = [...state.images,...action.payload.images];
-            return { ...state, totalImages: action.payload.totalItems, nbPages: nbPages, images: images};
+        case 'imagesUpdate': 
+            if(action.payload.totalItems != 0) {
+                console.log(action.payload.images);
+                let nbPages = Math.ceil(action.payload.totalItems/state.imgsPerPage);
+                let images = [...state.images, ...action.payload.images];
+                return { ...state, galerieLoaded: false , galerieVide: false, totalImages: action.payload.totalItems, nbPages: nbPages, images: images};
+            } else {
+                return { ...state, galerieLoaded: true, galerieVide: true }
+            }
         /*case 'galerieData': {
             let dataGalerie;
             state.galeries.map(galerie => {
@@ -63,38 +81,31 @@ function reducer(state, action) {
             return { ...state, galerie: dataGalerie.galerie, moyenne: dataGalerie.moyenne, min: dataGalerie.min, max: dataGalerie.max, gap: dataGalerie.gap };
         }*/
         case 'changeRequest': {
-            let galerie = false;
-            state.galeries.map(galerieData => {
-                if (galerieData.id == action.payload.id) {
-                    galerie = galerieData;
-                }
-                return;
-            });
-            return { ...state, images: [], galerie: galerie, request: { id: action.payload.id, page: 1, sizeMin: action.payload.sizeMin, sizeMax: action.payload.sizeMax, yearMin: action.payload.yearMin, yearMax: action.payload.yearMax} };
+            return { ...state, images: [], request: { id: action.payload.id, theme: action.payload.theme, page: 1, sizeMin: action.payload.sizeMin, sizeMax: action.payload.sizeMax, yearMin: action.payload.yearMin, yearMax: action.payload.yearMax} };
         }
-        case 'nextPage': {
+        case 'nextPage':
             console.log(state.request);
             if(state.request.page != state.nbPages) {
-                return { ...state, request: { ...state.request, page: state.request.page+1 }};
+                return { ...state, previousPageLoaded: false, request: { ...state.request, page: state.request.page+1 }};
             }
             return {  ...state};
-        }
+        case 'galerieLoaded': 
+            return { ...state, previousPageLoaded: true, galerieLoaded: true };
+        case 'galerieUnloaded': 
+            return { ...state, previousPageLoaded: false, galerieLoaded: false }
         default:
             return initialState;    
     }
 }
 
-export default function Galeries({galerieId = 189}) {
-    const [stateGaleries, dispatch] = useReducer(reducer, initialState);
-    const [galerieLoaded, setGalerieLoaded] = useState(false);
-    const [previousPageLoaded, setPreviousPageLoaded] = useState(true);
+export default function Galeries({galerieId = 240}) {
+    const [stateGalerie, dispatch] = useReducer(reducer, initialState);
     const [moduleMasonry, setModuleMasonry] = useState(false);
-    const [valueSelect, setValueSelect] = useState(galerieId);
-    const [valueCheckedYear, setValueCheckedYear] = useState(false);
-    const [valueCheckedSize, setValueCheckedSize] = useState(false);
+    const [valueSelectId, setValueSelectId] = useState(galerieId);
+    const [valueSelectTheme, setValueSelectTheme] = useState();
 
     function classNameByWidth(width) {
-        width = width + stateGaleries.gap;
+        width = width + stateGalerie.gap;
         if (width >= 400 && width < 600) {
             return styles.grid_item__width2;
         }
@@ -107,21 +118,17 @@ export default function Galeries({galerieId = 189}) {
         /*if (width >= 840) {
             return styles.grid_item__width5;
         }*/
-        /*if (width >= 360 && width < 520) {
-            return styles.grid_item__width2;
-        }*/
-        /*if (width >= 520 && width < 680) {
-            return styles.grid_item__width3;
-        }*/
     }    
 
     function handleSubmit(e) {
         e.preventDefault();
-        setGalerieLoaded(false);
-        setPreviousPageLoaded(true);
-        let id = e.target[0].value;
-        let yearMin = e.target[4].value;
-        let yearMax = e.target[5].value;
+
+        dispatch({  type: 'galerieUnloaded'});
+
+        let theme = e.target[0].value;
+        let id = e.target[1].value;
+        let yearMin = e.target[3].value;
+        let yearMax = e.target[4].value;
         var sizeMin;
         var sizeMax;
         switch(e.target[2].value) {
@@ -138,36 +145,35 @@ export default function Galeries({galerieId = 189}) {
                 sizeMax = false;
             break;
         }
-        dispatch({type: 'changeRequest', payload: {id: id, sizeMin: sizeMin, sizeMax: sizeMax, yearMin: yearMin, yearMax: yearMax}});
+        dispatch({type: 'changeRequest', payload: {id: id, theme: theme, sizeMin: sizeMin, sizeMax: sizeMax, yearMin: yearMin, yearMax: yearMax}});
     }
 
     function imagesIsUnloaded(index) {
-        if(stateGaleries.images.length != stateGaleries.totalImages ) {
-            if((index + 1) > (stateGaleries.images.length - stateGaleries.imgsPerPage)) {
+        if(stateGalerie.images.length != stateGalerie.totalImages ) {
+            if((index + 1) > (stateGalerie.images.length - stateGalerie.imgsPerPage)) {
                 return styles.are_images_unloaded;
             }
         } else {
-            if((index + 1) > ((stateGaleries.nbPages - 1) * stateGaleries.imgsPerPage)) {
+            if((index + 1) > ((stateGalerie.nbPages - 1) * stateGalerie.imgsPerPage)) {
                 return styles.are_images_unloaded;
             }
         } 
     }
 
     function handleScroll() {
-        const bottom = Math.ceil(window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight
-        if (bottom && previousPageLoaded) { // appel 2 fois et il y'a un trou entre le moment ou on demande la request et lorsqu'on ajoute les images au tableau de galeries.image. 
-            setPreviousPageLoaded(false);
+        let bottom = Math.ceil(window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight - 150;
+        if (bottom && stateGalerie.previousPageLoaded) {
             dispatch({type: 'nextPage'});
         }
     };
 
     useEffect(() => {
 
-        if(stateGaleries.images.length > 0 && moduleMasonry) {
+        if(stateGalerie.images.length > 0 && moduleMasonry) {
 
             var t0 = performance.now();
 
-            setGalerieLoaded(false);
+            dispatch({type: 'galerieUnloaded'});
 
             let Masonry = moduleMasonry.default;
             let msnry = new Masonry(`.${styles.grid}`, {
@@ -179,41 +185,39 @@ export default function Galeries({galerieId = 189}) {
                 gutter: 20,
                 percentPosition: true,
                 //columnWidth: 300,
-                /*visibleStyle: { transform: 'translateY(0)', opacity: 1 },
-                hiddenStyle: { transform: 'translateY(100px)', opacity: 0 },*/
             });
 
             imagesLoaded(`.${styles.grid}`).on('always', function() {
-                setGalerieLoaded(true);
-                setPreviousPageLoaded(true);
+                dispatch({ type: 'galerieLoaded'});
                 msnry.layout();
             });
             var t1 = performance.now();
             console.log("L'appel de doSomething a demandé " + (t1 - t0) + " millisecondes.")
         }
 
-    }, [stateGaleries.images, moduleMasonry]);
+    }, [stateGalerie.images, moduleMasonry]);
 
     useEffect(() => {
-        if(stateGaleries.request) {
-            let id = stateGaleries.request.id ? stateGaleries.request.id : "";
-            let page = stateGaleries.request.page ? stateGaleries.request.page : "";
-            let sizeMin = stateGaleries.request.sizeMin && valueCheckedSize ? stateGaleries.request.sizeMin : "";
-            let sizeMax = stateGaleries.request.sizeMax && valueCheckedSize ? stateGaleries.request.sizeMax : "";
-            let yearMin = stateGaleries.request.yearMin && valueCheckedYear ? stateGaleries.request.yearMin : "";
-            let yearMax = stateGaleries.request.yearMax && valueCheckedYear ? stateGaleries.request.yearMax : "";
-            axios.get(`http://localhost:8000/api/images?galerie.reference=svenrybin&galerie.id=${id}&order[ordre]=asc&tableau.surface[gte]=${sizeMin}&tableau.surface[lte]=${sizeMax}&tableau.year[gte]=${yearMin}&tableau.year[lte]=${yearMax}&page=${page}`).then(response => {dispatch({type: 'images', payload: {images: response.data['hydra:member'], totalItems: response.data['hydra:totalItems']}});console.log(response)});
+        if(stateGalerie.request) {
+            let id = stateGalerie.request.id ? stateGalerie.request.id : "";
+            let theme = stateGalerie.request.theme ? `&galerie.theme=${stateGalerie.request.theme }` : "";
+            let page = stateGalerie.request.page ? stateGalerie.request.page : "";
+            let sizeMin = stateGalerie.request.sizeMin ? stateGalerie.request.sizeMin : "";
+            let sizeMax = stateGalerie.request.sizeMax ? stateGalerie.request.sizeMax : "";
+            let yearMin = stateGalerie.request.yearMin ? stateGalerie.request.yearMin : "";
+            let yearMax = stateGalerie.request.yearMax ? stateGalerie.request.yearMax : "";
+            axios.get(`http://localhost:8000/api/images?galerie.reference=svenrybin&galerie.id=${id}${theme}&order[ordre]=asc&tableau.surface[gte]=${sizeMin}&tableau.surface[lte]=${sizeMax}&tableau.year[gte]=${yearMin}&tableau.year[lte]=${yearMax}&page=${page}`).then(response => {dispatch({type: 'imagesUpdate', payload: {images: response.data['hydra:member'], totalItems: response.data['hydra:totalItems']}});console.log(response)});
         }
-    },[stateGaleries.request]);
+    },[stateGalerie.request]);
 
     useEffect(() => {
-        axios.get("http://localhost:8000/api/galeries?reference=svenrybin").then(response => {dispatch({type: 'galeries', payload: {galeries: response.data['hydra:member'], id: galerieId}});console.log(response)});
+        axios.get("http://localhost:8000/api/galeries?reference=svenrybin").then(response => {dispatch({type: 'initGalerie', payload: {galeries: response.data['hydra:member'], id: galerieId}});console.log(response)});
         import('masonry-layout').then( data => setModuleMasonry(data));
         //axios.get("http://90.118.74.20:8000/api/galerie/svenrybin").then(response => {handleGalerie(response.data);console.log(response)});
     }, []);
 
     useEffect(()=> {
-        if(previousPageLoaded) { // && stateGaleries.nbPages > 1
+        if(stateGalerie.previousPageLoaded) { 
             window.addEventListener('scroll', handleScroll, {
                 passive: true
             });
@@ -221,30 +225,31 @@ export default function Galeries({galerieId = 189}) {
         return(()=> {
             window.removeEventListener('scroll', handleScroll);
         });
-    },[previousPageLoaded])
+    },[stateGalerie.previousPageLoaded])
 
     function StatutGalerieBottom() {
-        
-        //if(!previousPageLoaded) { // stateGaleries.request.page > 1
-            var statut;
-            if(galerieLoaded && previousPageLoaded && (stateGaleries.request.page == stateGaleries.nbPages)) {
-                statut = <div>
-                            <h3>Fin de la galerie</h3>
-                        </div>;
-                 
-            } else if((stateGaleries.request.page > 1) && previousPageLoaded) {
-                statut = <div>
-                            <h3>Loading...</h3>
-                        </div>; 
+        if(stateGalerie.request.page > 1) {
+            if(stateGalerie.galerieLoaded && stateGalerie.previousPageLoaded && (stateGalerie.request.page == stateGalerie.nbPages)) {
+                var statut = <h3>Fin de la galerie</h3>
+            } else {
+                var statut = <h3>Loading...</h3>
             }
             return (
                 <div id={styles.next_statut_galerie}>
                     <hr/>
-                    {statut}
+                    <div>{statut}</div>
                 </div>
             );
-       // }
-        return false;
+        } else {
+            return (
+                <div id={styles.next_statut_galerie} style={{display: stateGalerie.galerieLoaded ? '' :  'none' } }>
+                    <hr/>
+                    <div>
+                        <h3>Fin de la galerie</h3>
+                    </div>
+                </div>
+            );
+        }
     }
 
     return (
@@ -258,17 +263,22 @@ export default function Galeries({galerieId = 189}) {
                 </Link>
             </h2>
 
-            {stateGaleries.galeries && <div id={styles.container_form}>
+            {stateGalerie.galeries && <div id={styles.container_form}>
                 <form onSubmit={(e) => handleSubmit(e)}>
-                    <select value={valueSelect} onChange={(e) => setValueSelect(e.target.value)}>
+                    <select value={valueSelectTheme} defaultValue={stateGalerie.theme} onChange={(e) => setValueSelectTheme(e.target.value)}>
+                        <option value="">Tous les thèmes</option>
+                        {stateGalerie.themes.map((theme, index) =>
+                            <option key={index} value={theme}>{theme}</option>
+                        )}
+                    </select>
+                    <select value={valueSelectId} onChange={(e) => setValueSelectId(e.target.value)}>
                         <option value="">Toutes les galeries</option>
-                        {stateGaleries.galeries.map(galerie =>
+                        {stateGalerie.galeries.map(galerie =>
                             <option key={galerie.id} value={galerie.id}>{galerie.title}</option>
                         )}
                     </select>
                     <div>
-                        <input type="checkbox" name="taille" id="" checked={valueCheckedSize} onChange={(e) => setValueCheckedSize(e.target.checked)}/><label htmlFor="taille">Taille</label>
-                        <div className={styles.select_size+`${valueCheckedSize ? "" : " "+styles.input_unchecked}` }>
+                        <div className={styles.select_size}>
                             <select defaultValue={false}>
                                 <option value={false}>Toutes les tailles</option>
                                 <option value="petit">Petit</option>
@@ -276,11 +286,9 @@ export default function Galeries({galerieId = 189}) {
                                 <option value="grand">Grand</option>
                             </select>
                         </div>
-                        
                     </div>
                     <div>
-                        <input type="checkbox" name="periode" id="" checked={valueCheckedYear} onChange={(e) => setValueCheckedYear(e.target.checked)}/><label htmlFor="periode">Période</label>
-                        <div className={styles.inputs_range_year+`${valueCheckedYear ? "" : " "+styles.input_unchecked}` }>
+                        <div className={styles.inputs_range_year}>
                             <input type="number" name="yearMin" min={process.env.NEXT_PUBLIC_MIN_YEAR} max={process.env.NEXT_PUBLIC_MAX_YEAR} defaultValue={process.env.NEXT_PUBLIC_MIN_YEAR}/>
                             <input type="number" name="yearMax" min={process.env.NEXT_PUBLIC_MIN_YEAR} max={process.env.NEXT_PUBLIC_MAX_YEAR} defaultValue={process.env.NEXT_PUBLIC_MAX_YEAR}/>
                         </div>
@@ -289,36 +297,26 @@ export default function Galeries({galerieId = 189}) {
                 </form>
             </div>}
 
-            {stateGaleries.images.length > 0 && <div className={styles.grid}>
+            {stateGalerie.images.length > 0 && <div className={styles.grid}>
                 <div className={styles.grid_sizer}/>
-                {stateGaleries.images.map((image , index) =>
-                    <div key={image.id} className={styles.grid_item+' '+classNameByWidth(image.tableau.width)+`${galerieLoaded ? '' : ' '+imagesIsUnloaded(index)}`}><img className={styles.grid_image} src={image.pathUrlCache} alt="sdfsdf" /></div>
+                {stateGalerie.images.map((image , index) =>
+                    <div key={image.id} className={styles.grid_item+' '+classNameByWidth(image.tableau.width)+`${stateGalerie.galerieLoaded ? '' : ' '+imagesIsUnloaded(index)}`}><img className={styles.grid_image} src={image.pathUrlCache} alt="sdfsdf" /></div>
                 )}
             </div>}
             
-            {!galerieLoaded && stateGaleries.request.page == 1 &&
+            {!stateGalerie.galerieLoaded && stateGalerie.request.page == 1 &&
                 <div id={styles.first_loading_galerie}>
                     <h3>Loading...</h3>
                 </div>
             }
 
+            {stateGalerie.galerieVide && stateGalerie.galerieLoaded &&
+                <div>
+                    <h3>Aucun resultat</h3>
+                </div>
+            }
+
             <StatutGalerieBottom/>
-
-            {/*stateGaleries.request.page > 1 && <div id={styles.next_statut_galerie}>
-                <hr />
-                {!galerieLoaded && (stateGaleries.request.page != stateGaleries.nbPages) &&
-                    <div>
-                        <h3>Loading...</h3>
-                    </div>
-                }
-                {(stateGaleries.request.page == stateGaleries.nbPages) && 
-                    <div>
-                        <h3>Fin de la galerie</h3>
-                    </div>
-                }
-            </div>*/}
-
-            {/*<button style={{ position: 'fixed', bottom: '0' }} onClick={() => dispatch({type: 'nextPage'})}>nextPage</button>*/}
 
         </>
     );
