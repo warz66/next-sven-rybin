@@ -23,11 +23,6 @@
   transition: 0.3s;
 }
 
-/*#container_form .input_unchecked {
-  opacity: 0;
-  transition: 0.3s;
-}*/
-
 /* clear fix */
 .grid:after {
   content: '';
@@ -69,10 +64,6 @@
 
 /*.grid_item__width4 { 
   width: calc((100% - 220px) * ( 5 / 12 ) + 80px); 
-}*/
-
-/*.grid_item__width5 { 
-  width: calc((100% - 40px) * ( 5 / 5 ) + 40px);
 }*/
 
 .grid_item > div {

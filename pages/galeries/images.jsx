@@ -1,8 +1,10 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import styles from './images.module.css'
 import { useEffect, useState, useReducer } from 'react'
 import axios from 'axios'
 import imagesLoaded from 'imagesloaded'
+import SimpleReactLightbox, { SRLWrapper } from 'simple-react-lightbox'
 
 const initialState = {
     galeries: false,
@@ -103,6 +105,7 @@ export default function Galeries({galerieId = 240}) {
     const [moduleMasonry, setModuleMasonry] = useState(false);
     const [valueSelectId, setValueSelectId] = useState(galerieId);
     const [valueSelectTheme, setValueSelectTheme] = useState();
+    const [indexLightbox, setIndexLightbox] = useState(0);
 
     function classNameByWidth(width) {
         width = width + stateGalerie.gap;
@@ -115,9 +118,6 @@ export default function Galeries({galerieId = 240}) {
         if (width >= 800) {
             return styles.grid_item__width4;
         }
-        /*if (width >= 840) {
-            return styles.grid_item__width5;
-        }*/
     }    
 
     function handleSubmit(e) {
@@ -175,6 +175,7 @@ export default function Galeries({galerieId = 240}) {
 
             dispatch({type: 'galerieUnloaded'});
 
+            console.log(moduleMasonry);
             let Masonry = moduleMasonry.default;
             let msnry = new Masonry(`.${styles.grid}`, {
                 columnWidth: `.${styles.grid_sizer}`,
@@ -183,9 +184,7 @@ export default function Galeries({galerieId = 240}) {
                 //horizontalOrder: false,
                 itemSelector: '.'+styles.grid_item,
                 gutter: `.${styles.gutter_sizer}`,
-                //gutter: 30,
                 percentPosition: true,
-                //columnWidth: 300,
             });
 
             imagesLoaded(`.${styles.grid}`).on('always', function() {
@@ -205,16 +204,17 @@ export default function Galeries({galerieId = 240}) {
             let page = stateGalerie.request.page ? stateGalerie.request.page : "";
             let sizeMin = stateGalerie.request.sizeMin ? stateGalerie.request.sizeMin : "";
             let sizeMax = stateGalerie.request.sizeMax ? stateGalerie.request.sizeMax : "";
-            let yearMin = stateGalerie.request.yearMin ? stateGalerie.request.yearMin : "";
-            let yearMax = stateGalerie.request.yearMax ? stateGalerie.request.yearMax : "";
-            axios.get(`http://localhost:8000/api/images?galerie.reference=svenrybin&galerie.id=${id}${theme}&order[ordre]=asc&tableau.surface[gte]=${sizeMin}&tableau.surface[lte]=${sizeMax}&tableau.year[gte]=${yearMin}&tableau.year[lte]=${yearMax}&page=${page}`).then(response => {dispatch({type: 'imagesUpdate', payload: {images: response.data['hydra:member'], totalItems: response.data['hydra:totalItems']}});console.log(response)});
+            let yearMin = ""/*stateGalerie.request.yearMin ? stateGalerie.request.yearMin : "";*/
+            let yearMax = ""/*stateGalerie.request.yearMax ? stateGalerie.request.yearMax : "";*/
+        {/*axios.get(`http://localhost:8000/api/images?galerie.reference=svenrybin&galerie.id=${id}${theme}&order[ordre]=asc&tableau.surface[gte]=${sizeMin}&tableau.surface[lte]=${sizeMax}&tableau.year[gte]=${yearMin}&tableau.year[lte]=${yearMax}&page=${page}`).then(response => {dispatch({type: 'imagesUpdate', payload: {images: response.data['hydra:member'], totalItems: response.data['hydra:totalItems']}});console.log(response)});*/}
+        axios.get(`http://90.118.74.20:8000/api/images?galerie.reference=svenrybin&galerie.id=${id}${theme}&order[ordre]=asc&tableau.surface[gte]=${sizeMin}&tableau.surface[lte]=${sizeMax}&tableau.year[gte]=${yearMin}&tableau.year[lte]=${yearMax}&page=${page}`).then(response => {dispatch({type: 'imagesUpdate', payload: {images: response.data['hydra:member'], totalItems: response.data['hydra:totalItems']}});console.log(response)});
         }
     },[stateGalerie.request]);
 
     useEffect(() => {
-        axios.get("http://localhost:8000/api/galeries?reference=svenrybin").then(response => {dispatch({type: 'initGalerie', payload: {galeries: response.data['hydra:member'], id: galerieId}});console.log(response)});
+        {/*axios.get("http://localhost:8000/api/galeries?reference=svenrybin").then(response => {dispatch({type: 'initGalerie', payload: {galeries: response.data['hydra:member'], id: galerieId}});console.log(response)});*/}
+        axios.get("http://90.118.74.20:8000/api/galeries?reference=svenrybin").then(response => {dispatch({type: 'initGalerie', payload: {galeries: response.data['hydra:member'], id: galerieId}});console.log(response)});
         import('masonry-layout').then( data => setModuleMasonry(data));
-        //axios.get("http://90.118.74.20:8000/api/galerie/svenrybin").then(response => {handleGalerie(response.data);console.log(response)});
     }, []);
 
     useEffect(()=> {
@@ -263,88 +263,132 @@ export default function Galeries({galerieId = 240}) {
         setValueSelectTheme(e.target.options[e.target.selectedIndex].dataset.theme);
     }
 
+    const callbacks = {
+        onSlideChange: object => {console.log(object);
+            if(object.action = "right") {
+                setIndexLightbox(object.index);
+            }
+        },
+        /*onLightboxOpened: object => console.log(object),
+        onLightboxClosed: object => console.log(object),
+        onCountSlides: object => console.log(object)*/
+    };
+
+    useEffect(()=>{
+        if((stateGalerie.images.length > 0) && (indexLightbox > (stateGalerie.images.length - 5)) && (indexLightbox < ((stateGalerie.nbPages - 1) * stateGalerie.imgsPerPage))) { 
+            dispatch({type: 'nextPage'});
+        }
+    },[indexLightbox,stateGalerie.images]);
+
+    const options = {
+        /*settings: {
+          overlayColor: "rgb(25, 136, 124)",
+          autoplaySpeed: 1500,
+          transitionSpeed: 900,
+        },
+        buttons: {
+          backgroundColor: "#1b5245",
+          iconColor: "rgba(126, 172, 139, 0.8)",
+        },
+        caption: {
+          captionColor: "#a6cfa5",
+          captionFontFamily: "Raleway, sans-serif",
+          captionFontWeight: "300",
+          captionTextTransform: "uppercase",
+        }*/
+      };
+    
+
     return (
         <>
+            <SimpleReactLightbox>
+                <h1>Galerie Cosmique</h1>
 
-            <h1>Galerie Cosmique</h1>
-
-            <h2>
-                <Link href="/">
-                    <a>Back to home</a>
-                </Link>
-            </h2>
-
-            {stateGalerie.galeries && <div id={styles.container_form}>
-                <form onSubmit={(e) => handleSubmit(e)}>
-                    <select value={valueSelectTheme} defaultValue={stateGalerie.theme} onChange={(e) => handleSelectTheme(e)}>
-                        <option value="">Tous les thèmes</option>
-                        {stateGalerie.themes.map((theme, index) =>
-                            <option key={index} value={theme}>{theme}</option>
-                        )}
-                    </select>
-                    <select value={valueSelectId} onChange={(e) => handleSelectId(e)}>
-                        <option value="">Toutes les galeries</option>
-                        {stateGalerie.galeries.map(galerie =>
-                            <option key={galerie.id} value={galerie.id} data-theme={galerie.theme}>{galerie.title}</option>
-                        )}
-                    </select>
-                    <div>
-                        <div className={styles.select_size}>
-                            <select defaultValue={false}>
-                                <option value={false}>Toutes les tailles</option>
-                                <option value="petit">Petit</option>
-                                <option value="moyen">Moyen</option>
-                                <option value="grand">Grand</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div>
-                        <div className={styles.inputs_range_year}>
-                            <input type="number" name="yearMin" min={process.env.NEXT_PUBLIC_MIN_YEAR} max={process.env.NEXT_PUBLIC_MAX_YEAR} defaultValue={process.env.NEXT_PUBLIC_MIN_YEAR}/>
-                            <input type="number" name="yearMax" min={process.env.NEXT_PUBLIC_MIN_YEAR} max={process.env.NEXT_PUBLIC_MAX_YEAR} defaultValue={process.env.NEXT_PUBLIC_MAX_YEAR}/>
-                        </div>
-                    </div>
-                    <input type="submit" value="Valider"/>
-                </form>
-            </div>}
-
-            {stateGalerie.images.length > 0 && <div className={styles.grid}>
-                <div className={styles.grid_sizer}/>
-                <div className={styles.gutter_sizer}></div>
-                {stateGalerie.images.map((image , index) =>
-                    <div key={image.id} className={styles.grid_item+' '+classNameByWidth(image.tableau.width)+`${stateGalerie.galerieLoaded ? '' : ' '+imagesIsUnloaded(index)}`}>
-                        <div>
-                            <img className={styles.grid_image} src={image.pathUrlCache} alt="sdfsdf" />
-                            <div className={styles.info_tableau}>
-                                <div>
-                                    <span>{image.tableau.title}</span><br/>
-                                    <span>{image.tableau.technique}</span>
-                                </div>
-                                <div>
-                                    <span>{image.tableau.year}</span><br/>
-                                    <span>{image.tableau.height+'x'+image.tableau.width+' cm'}</span>
-                                </div>
-                            </div>
-                            <hr />
-                        </div>
-                    </div>
-                )}
-            </div>}
+                <h2>
+                    <Link href="/">
+                        <a>Back to home</a>
+                    </Link>
+                </h2>
             
-            {!stateGalerie.galerieLoaded && stateGalerie.request.page == 1 &&
-                <div id={styles.first_loading_galerie}>
-                    <h3>Loading...</h3>
-                </div>
-            }
+                {stateGalerie.galeries && <div id={styles.container_form}>
+                    <form onSubmit={(e) => handleSubmit(e)}>
+                        <select value={valueSelectTheme} defaultValue={stateGalerie.theme} onChange={(e) => handleSelectTheme(e)}>
+                            <option value="">Tous les thèmes</option>
+                            {stateGalerie.themes.map((theme, index) =>
+                                <option key={index} value={theme}>{theme}</option>
+                            )}
+                        </select>
+                        <select value={valueSelectId} onChange={(e) => handleSelectId(e)}>
+                            <option value="">Toutes les galeries</option>
+                            {stateGalerie.galeries.map(galerie =>
+                                <option key={galerie.id} value={galerie.id} data-theme={galerie.theme}>{galerie.title}</option>
+                            )}
+                        </select>
+                        <div>
+                            <div className={styles.select_size}>
+                                <select defaultValue={false}>
+                                    <option value={false}>Toutes les tailles</option>
+                                    <option value="petit">Petit</option>
+                                    <option value="moyen">Moyen</option>
+                                    <option value="grand">Grand</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <div className={styles.inputs_range_year}>
+                                <input type="number" name="yearMin" min={process.env.NEXT_PUBLIC_MIN_YEAR} max={process.env.NEXT_PUBLIC_MAX_YEAR} defaultValue={process.env.NEXT_PUBLIC_MIN_YEAR}/>
+                                <input type="number" name="yearMax" min={process.env.NEXT_PUBLIC_MIN_YEAR} max={process.env.NEXT_PUBLIC_MAX_YEAR} defaultValue={process.env.NEXT_PUBLIC_MAX_YEAR}/>
+                            </div>
+                        </div>
+                        <input type="submit" value="Valider"/>
+                    </form>
+                </div>}
 
-            {stateGalerie.galerieVide && stateGalerie.galerieLoaded &&
-                <div>
-                    <h3>Aucun resultat</h3>
-                </div>
-            }
+                {stateGalerie.images.length > 0 && <SRLWrapper options={options} callbacks={callbacks}><div className={styles.grid}>
+                    <div className={styles.grid_sizer}/>
+                    <div className={styles.gutter_sizer}></div>
+                    {stateGalerie.images.map((image , index) =>
+                        <div key={image.id} className={styles.grid_item+' '+classNameByWidth(image.tableau.width)+`${stateGalerie.galerieLoaded ? '' : ' '+imagesIsUnloaded(index)}`}>
+                            <div>
+                                <a href={image.pathUrl} data-attribute="SRL">
+                                    <img className={styles.grid_image} src={image.pathUrlCache} alt={image.tableau.year+'-'+image.tableau.height+'x'+image.tableau.width+' cm'+'-'+image.tableau.technique+'-'+image.tableau.title+'-'+image.caption } />
+                                    {/*<Image
+                                        src={image.pathUrlCache}
+                                        width={300}
+                                        height={(image.tableau.height/image.tableau.width)* 300}
+                                        alt="fgsdfg"
+                                    />*/}
+                                </a>
+                                <div className={styles.info_tableau}>
+                                    <div>
+                                        <span>{image.tableau.title}</span><br/>
+                                        <span>{image.tableau.technique}</span>
+                                    </div>
+                                    <div>
+                                        <span>{image.tableau.year}</span><br/>
+                                        <span>{image.tableau.height+'x'+image.tableau.width+' cm'}</span>
+                                    </div>
+                                </div>
+                                <hr />
+                            </div>
+                        </div>
+                    )}
+                </div></SRLWrapper>}
+                
+                {!stateGalerie.galerieLoaded && stateGalerie.request.page == 1 &&
+                    <div id={styles.first_loading_galerie}>
+                        <h3>Loading...</h3>
+                    </div>
+                }
 
-            <StatutGalerieBottom/>
+                {stateGalerie.galerieVide && stateGalerie.galerieLoaded &&
+                    <div>
+                        <h3>Aucun resultat</h3>
+                    </div>
+                }
 
+                <StatutGalerieBottom/>
+            </SimpleReactLightbox>
         </>
     );
     

@@ -10,8 +10,10 @@
     "lol": "node server.js"
   },
   "dependencies": {
+    "@fancyapps/ui": "^4.0.0-beta.1",
     "axios": "^0.21.1",
     "dotenv": "^10.0.0",
+    "fslightbox": "^3.3.0-2",
     "imagesloaded": "^4.1.4",
     "infinite-scroll": "^4.0.1",
     "masonry-layout": "^4.2.2",
@@ -20,7 +22,8 @@
     "react-dom": "17.0.2",
     "react-infinite-scroll-component": "^6.1.0",
     "react-masonry-component": "^6.3.0",
-    "react-masonry-css": "^1.0.16"
+    "react-masonry-css": "^1.0.16",
+    "simple-react-lightbox": "^3.6.7"
   },
   "devDependencies": {
     "eslint": "7.32.0",
