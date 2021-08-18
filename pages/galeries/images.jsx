@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import Image from 'next/image'
+//import Image from 'next/image'
 import styles from './images.module.css'
 import { useEffect, useState, useReducer } from 'react'
 import axios from 'axios'
