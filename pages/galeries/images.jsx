@@ -207,13 +207,13 @@ export default function Galeries({galerieId = 240}) {
             let yearMin = ""/*stateGalerie.request.yearMin ? stateGalerie.request.yearMin : "";*/
             let yearMax = ""/*stateGalerie.request.yearMax ? stateGalerie.request.yearMax : "";*/
         {/*axios.get(`http://localhost:8000/api/images?galerie.reference=svenrybin&galerie.id=${id}${theme}&order[ordre]=asc&tableau.surface[gte]=${sizeMin}&tableau.surface[lte]=${sizeMax}&tableau.year[gte]=${yearMin}&tableau.year[lte]=${yearMax}&page=${page}`).then(response => {dispatch({type: 'imagesUpdate', payload: {images: response.data['hydra:member'], totalItems: response.data['hydra:totalItems']}});console.log(response)});*/}
-        axios.get(`http://90.118.74.20/api/images?galerie.reference=svenrybin&galerie.id=${id}${theme}&order[ordre]=asc&tableau.surface[gte]=${sizeMin}&tableau.surface[lte]=${sizeMax}&tableau.year[gte]=${yearMin}&tableau.year[lte]=${yearMax}&page=${page}`).then(response => {dispatch({type: 'imagesUpdate', payload: {images: response.data['hydra:member'], totalItems: response.data['hydra:totalItems']}});console.log(response)});
+        axios.get(`https://90.118.74.20:8000/api/images?galerie.reference=svenrybin&galerie.id=${id}${theme}&order[ordre]=asc&tableau.surface[gte]=${sizeMin}&tableau.surface[lte]=${sizeMax}&tableau.year[gte]=${yearMin}&tableau.year[lte]=${yearMax}&page=${page}`).then(response => {dispatch({type: 'imagesUpdate', payload: {images: response.data['hydra:member'], totalItems: response.data['hydra:totalItems']}});console.log(response)});
         }
     },[stateGalerie.request]);
 
     useEffect(() => {
         {/*axios.get("http://localhost:8000/api/galeries?reference=svenrybin").then(response => {dispatch({type: 'initGalerie', payload: {galeries: response.data['hydra:member'], id: galerieId}});console.log(response)});*/}
-        axios.get("http://90.118.74.20/api/galeries?reference=svenrybin").then(response => {dispatch({type: 'initGalerie', payload: {galeries: response.data['hydra:member'], id: galerieId}});console.log(response)});
+        axios.get("https://90.118.74.20:8000/api/galeries?reference=svenrybin").then(response => {dispatch({type: 'initGalerie', payload: {galeries: response.data['hydra:member'], id: galerieId}});console.log(response)});
         import('masonry-layout').then( data => setModuleMasonry(data));
     }, []);
 
