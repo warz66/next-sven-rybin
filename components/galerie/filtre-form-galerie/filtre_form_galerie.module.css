@@ -1,0 +1,41 @@
+#container_form {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    margin-bottom: 60px;
+    
+  }
+  
+  #container_form form > div:first-of-type {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1440px; 
+    width: 100%;
+    column-gap: 80px;
+  }
+
+  #container_form form > div:last-of-type {
+    display: flex;
+    justify-content: center;
+  }
+  
+  #container_form select {
+    font-size: 16px;
+    padding: 16px 12px;
+    background: #FBFAF8 0% 0% no-repeat padding-box;
+    /*box-shadow: 0px 1px 0px #0000004D;*/
+    /*border: 1px solid #000029;*/
+    border-top: none;
+    border-left: 0.5px solid rgba(0, 0, 77, 0.5);
+    border-bottom: 1px solid #0000004D;  
+  }
+  
+  #container_form .inputs_range_year {
+    opacity: 1;
+    transition: 0.3s;
+  }
+  
+  #container_form .select_size {
+    opacity: 1;
+    transition: 0.3s;
+  }

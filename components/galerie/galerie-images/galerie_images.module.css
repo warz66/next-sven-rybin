@@ -1,0 +1,154 @@
+/* clear fix */
+.grid:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+  
+  .grid {
+    margin: 0 50px;
+    overflow: hidden;
+  }
+  
+  .grid_sizer {
+    width: calc( (100% - 21%)/ 8);  
+  }
+  
+  .gutter_sizer {
+    width: 3%;  
+  }
+  
+  /*.grid_sizer,*/
+  .grid_item {
+    width: calc((100% - 21%) * ( 2 / 8 ) + 3%); 
+  }
+  
+  .grid_item {
+    /*margin-bottom: 3vw;*/
+    z-index:1;
+    float: left;
+  }
+  
+  .grid_item > div {
+    margin-bottom: 3vw;
+  }
+  
+  /*.grid_item__width2 { 
+    width: calc((100% - 180px) * ( 3 / 10 ) + 40px); 
+  }
+  
+  .grid_item__width3 { 
+    width: calc((100% - 180px) * ( 4 / 10 ) + 60px);
+  }*/
+  
+  /*.grid_item__width4 { 
+    width: calc((100% - 220px) * ( 5 / 12 ) + 80px); 
+  }*/
+  
+  .grid_item > div {
+    opacity: 1;
+    transform: translateY(0);
+    transition-property: opacity, transform;
+    transition-duration: 1s;
+    transition-delay: 0.5s;
+    
+  }
+  
+  .grid_item img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .are_images_unloaded > div {
+    opacity: 0;
+    transform: translateY(200px);
+    transition: 0s;
+  }
+  
+  /*.are_images_unloaded > img {
+    height: 0px !important;
+  }*/
+  
+  /*.are_images_unloaded .info_tableau, .are_images_unloaded hr, .are_images_unloaded a {
+    display: none;
+  }*/
+  
+  .info_tableau {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .grid_item hr {
+    margin-bottom: 0px
+  }
+  
+  .info_tableau > div:first-of-type {
+    text-transform: capitalize;
+  }
+  
+  .info_tableau > div:last-of-type {
+    text-align: end;
+  }
+  
+  /*.are_images_unloaded img {
+    height: 0px;
+  }*/
+  
+  #first_loading_galerie {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    justify-content: center;
+  }
+  
+  #next_statut_galerie {
+    margin-top: 10px;
+  }
+  
+  #next_statut_galerie > hr {
+    margin: 0 50px;
+    opacity: 0.3;
+  }
+  
+  #next_statut_galerie > div {
+    display: flex;
+    justify-content: center;
+  }
+  
+  @media (max-width: 1400px) {
+    .gutter_sizer {
+      width: 4%;
+    }
+    .grid_sizer,
+    .grid_item {
+        width: calc((100% - 8%)/ 3);
+    }
+    .grid_item > div{
+      margin-bottom: 4vw;
+    }
+  }
+  
+  @media (max-width: 1050px) {
+    .gutter_sizer {
+      width: 5%;
+    }
+    .grid_sizer,
+    .grid_item {
+        width: calc((100% - 5%)/ 2);
+    }
+    .grid_item > div {
+      margin-bottom: 5vw;
+    }
+  }
+  
+  @media (max-width: 650px) {
+    .grid_sizer,
+    .grid_item {
+        width: 100%;
+    }
+    .grid_item > div {
+      margin-bottom: 40px;
+    }
+  }
