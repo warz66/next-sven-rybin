@@ -102,10 +102,10 @@ function reducer(state, action) {
 export default function Galeries({galerieId = 240}) {
     const [stateGalerie, dispatch] = useReducer(reducer, initialState);
     const [moduleMasonry, setModuleMasonry] = useState(false);
-    const [masonry, setMasonry] = useState();
     const [valueSelectId, setValueSelectId] = useState(galerieId);
     const [valueSelectTheme, setValueSelectTheme] = useState();
     const [indexLightbox, setIndexLightbox] = useState(0);
+    const [previousPageLoaded, setPreviousPageLoaded] = useState(false);
 
     function classNameByWidth(width) {
         width = width + stateGalerie.gap;
@@ -158,36 +158,25 @@ export default function Galeries({galerieId = 240}) {
                 return styles.are_images_unloaded;
             }
         } 
-        return;
     }
 
     function handleScroll() {
-        let bottom = Math.ceil(window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight/* - 150*/;
-        if (bottom && stateGalerie.previousPageLoaded) {
+        let bottom = Math.ceil(window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight;
+        if (bottom && stateGalerie.previousPageLoaded/*previousPageLoaded*/) {
+            console.log(previousPageLoaded);
             dispatch({type: 'nextPage'});
+            setPreviousPageLoaded(false);
         }
     };
 
-    function handleSelectTheme(e) {
-        setValueSelectTheme(e.target.value);
-        setValueSelectId("");
-    }
-
-    function handleSelectId(e) {
-        setValueSelectId(e.target.value);
-        setValueSelectTheme(e.target.options[e.target.selectedIndex].dataset.theme);
-    }
-
-    function onAlways() {
-        dispatch({ type: 'galerieLoaded'});
-    }
-
     useEffect(() => {
-        if(stateGalerie.galerieLoaded && masonry) masonry.layout();
-    },[stateGalerie.galerieLoaded]);
 
-    useEffect(() => {
-        if(moduleMasonry) {
+        if(stateGalerie.images.length > 0 && moduleMasonry) {
+
+            var t0 = performance.now();
+
+            dispatch({type: 'galerieUnloaded'});
+
             let Masonry = moduleMasonry.default;
             let msnry = new Masonry(`.${styles.grid}`, {
                 columnWidth: `.${styles.grid_sizer}`,
@@ -198,48 +187,19 @@ export default function Galeries({galerieId = 240}) {
                 gutter: `.${styles.gutter_sizer}`,
                 percentPosition: true,
             });
-            setMasonry(msnry);
-        }
-    },[moduleMasonry]);
 
-    useEffect(() => {
-
-        if(stateGalerie.images.length > 0 && masonry) {
-            var t0 = performance.now();
-            dispatch({ type: 'galerieUnloaded'});
-
-            masonry.reloadItems();
-            
-            var imgLoad = imagesLoaded(`.${styles.grid}`);
-            imgLoad.on('always', onAlways);
-            var t1 = performance.now();
-            console.log("L'appel de doSomething a demandé " + (t1 - t0) + " millisecondes.");
-            /*return(()=> {
-                var t0 = performance.now();
-                imgLoad.off('always', onAlways);
-                var t1 = performance.now();
-                console.log("L'appel de doSomething a demandé " + (t1 - t0) + " millisecondes.");
-            });*/
-        }   
-        
-    },[stateGalerie.images]);
-
-    useEffect(() => {
-        if((stateGalerie.images.length > 0) && (indexLightbox > (stateGalerie.images.length - 5)) && (indexLightbox < ((stateGalerie.nbPages - 1) * stateGalerie.imgsPerPage))) { 
-            dispatch({type: 'nextPage'});
-        }
-    },[indexLightbox,stateGalerie.images]);
-
-    useEffect(()=> {
-        if(stateGalerie.previousPageLoaded) { 
-            window.addEventListener('scroll', handleScroll, {
-                passive: true
+            imagesLoaded(`.${styles.grid}`).on('done', function() {
+                //console.log('lol');
+                dispatch({ type: 'galerieLoaded'});
+                msnry.layout();
+                //setPreviousPageLoaded(true);
             });
+
+            var t1 = performance.now();
+            console.log("L'appel de doSomething a demandé " + (t1 - t0) + " millisecondes.")
         }
-        return(()=> {
-            window.removeEventListener('scroll', handleScroll);
-        });
-    },[stateGalerie.previousPageLoaded]);
+
+    }, [stateGalerie.images, moduleMasonry]);
 
     useEffect(() => {
         if(stateGalerie.request) {
@@ -260,6 +220,17 @@ export default function Galeries({galerieId = 240}) {
         {/*axios.get("https://90.118.74.20:8000/api/galeries?reference=svenrybin").then(response => {dispatch({type: 'initGalerie', payload: {galeries: response.data['hydra:member'], id: galerieId}});console.log(response)});*/}
         import('masonry-layout').then( data => setModuleMasonry(data));
     }, []);
+
+    useEffect(()=> {
+        if(stateGalerie.previousPageLoaded) { 
+            window.addEventListener('scroll', handleScroll, {
+                //passive: true
+            });
+        }
+        return(()=> {
+            window.removeEventListener('scroll', handleScroll);
+        });
+    },[stateGalerie.previousPageLoaded])
 
     function StatutGalerieBottom() {
         if(stateGalerie.request.page > 1) {
@@ -286,6 +257,16 @@ export default function Galeries({galerieId = 240}) {
         }
     }
 
+    function handleSelectTheme(e) {
+        setValueSelectTheme(e.target.value);
+        setValueSelectId("");
+    }
+
+    function handleSelectId(e) {
+        setValueSelectId(e.target.value);
+        setValueSelectTheme(e.target.options[e.target.selectedIndex].dataset.theme);
+    }
+
     const callbacks = {
         onSlideChange: object => {console.log(object);
             if(object.action = "right") {
@@ -297,53 +278,34 @@ export default function Galeries({galerieId = 240}) {
         onCountSlides: object => console.log(object)*/
     };
 
+    useEffect(()=>{
+        if((stateGalerie.images.length > 0) && (indexLightbox > (stateGalerie.images.length - 5)) && (indexLightbox < ((stateGalerie.nbPages - 1) * stateGalerie.imgsPerPage))) { 
+            dispatch({type: 'nextPage'});
+        }
+    },[indexLightbox,stateGalerie.images]);
+
     const options = {
         /*settings: {
-            autoplaySpeed: 3000,
-            boxShadow: 'none',
-            disableKeyboardControls: false,
-            disablePanzoom: false,
-            disableWheelControls: false,
-            hideControlsAfter: false,
-            lightboxTransitionSpeed: 0.3,
-            lightboxTransitionTimingFunction: 'linear',
-            overlayColor: 'rgba(30, 30, 30, 0.9)',
-            slideAnimationType: 'fade',
-            slideSpringValues: [300, 50],
-            slideTransitionSpeed: 0.6,
-            slideTransitionTimingFunction: 'linear',
-            usingPreact: false
+          overlayColor: "rgb(25, 136, 124)",
+          autoplaySpeed: 1500,
+          transitionSpeed: 900,
         },
         buttons: {
-            backgroundColor: 'rgba(30,30,36,0.8)',
-            iconColor: 'rgba(255, 255, 255, 0.8)',
-            iconPadding: '10px',
-            showAutoplayButton: true,
-            showCloseButton: true,
-            showDownloadButton: true,
-            showFullscreenButton: true,
-            showNextButton: true,
-            showPrevButton: true,
-            showThumbnailsButton: true,
-            size: '40px'
+          backgroundColor: "#1b5245",
+          iconColor: "rgba(126, 172, 139, 0.8)",
         },
         caption: {
-            captionAlignment: 'start',
-            captionColor: '#FFFFFF',
-            captionContainerPadding: '20px 0 30px 0',
-            captionFontFamily: 'inherit',
-            captionFontSize: 'inherit',
-            captionFontStyle: 'inherit',
-            captionFontWeight: 'inherit',
-            captionTextTransform: 'inherit',
-            showCaption: true
+          captionColor: "#a6cfa5",
+          captionFontFamily: "Raleway, sans-serif",
+          captionFontWeight: "300",
+          captionTextTransform: "uppercase",
         }*/
       };
     
 
     return (
         <>
-            {/*<SimpleReactLightbox>*/}
+            <SimpleReactLightbox>
                 <h1>Galerie Cosmique</h1>
 
                 <h2>
@@ -386,40 +348,36 @@ export default function Galeries({galerieId = 240}) {
                     </form>
                 </div>}
 
-                <SRLWrapper options={options} callbacks={callbacks}>
-                    <div className={styles.grid}>
-                        <div className={styles.grid_sizer}/>
-                        <div className={styles.gutter_sizer}/>
-                        {stateGalerie.images.length > 0 && 
-                            stateGalerie.images.map((image , index) =>
-                                <div key={image.id} className={styles.grid_item/*+' '+classNameByWidth(image.tableau.width)*/+`${stateGalerie.galerieLoaded ? '' : ' '+imagesIsUnloaded(index)}`}>
+                {stateGalerie.images.length > 0 && <SRLWrapper options={options} callbacks={callbacks}><div className={styles.grid}>
+                    <div className={styles.grid_sizer}/>
+                    <div className={styles.gutter_sizer}></div>
+                    {stateGalerie.images.map((image , index) =>
+                        <div key={image.id} className={styles.grid_item/*+' '+classNameByWidth(image.tableau.width)*/+`${stateGalerie.galerieLoaded ? '' : ' '+imagesIsUnloaded(index)}`}>
+                            <div>
+                                <a href={image.pathUrl} data-attribute="SRL">
+                                    <img className={styles.grid_image} src={image.pathUrlCache} alt={image.tableau.year+'-'+image.tableau.height+'x'+image.tableau.width+' cm'+'-'+image.tableau.technique+'-'+image.tableau.title+'-'+image.caption } />
+                                    {/*<Image
+                                        src={image.pathUrlCache}
+                                        width={300}
+                                        height={(image.tableau.height/image.tableau.width)* 300}
+                                        alt="fgsdfg"
+                                    />*/}
+                                </a>
+                                <div className={styles.info_tableau}>
                                     <div>
-                                        <a href={image.pathUrl} data-attribute="SRL">
-                                            <img className={styles.grid_image} src={image.pathUrlCache} alt={image.tableau.year+'-'+image.tableau.height+'x'+image.tableau.width+' cm'+'-'+image.tableau.technique+'-'+image.tableau.title+'-'+image.caption } />
-                                            {/*<Image
-                                                src={image.pathUrlCache}
-                                                width={300}
-                                                height={(image.tableau.height/image.tableau.width)* 300}
-                                                alt="fgsdfg"
-                                            />*/}
-                                        </a>
-                                        <div className={styles.info_tableau}>
-                                            <div>
-                                                <span>{image.tableau.title}</span><br/>
-                                                <span>{image.tableau.technique}</span>
-                                            </div>
-                                            <div>
-                                                <span>{image.tableau.year}</span><br/>
-                                                <span>{image.tableau.height+'x'+image.tableau.width+' cm'}</span>
-                                            </div>
-                                        </div>
-                                        <hr />
+                                        <span>{image.tableau.title}</span><br/>
+                                        <span>{image.tableau.technique}</span>
+                                    </div>
+                                    <div>
+                                        <span>{image.tableau.year}</span><br/>
+                                        <span>{image.tableau.height+'x'+image.tableau.width+' cm'}</span>
                                     </div>
                                 </div>
-                            )
-                        }
-                    </div>
-                </SRLWrapper>
+                                <hr />
+                            </div>
+                        </div>
+                    )}
+                </div></SRLWrapper>}
                 
                 {!stateGalerie.galerieLoaded && stateGalerie.request.page == 1 &&
                     <div id={styles.first_loading_galerie}>
@@ -434,7 +392,7 @@ export default function Galeries({galerieId = 240}) {
                 }
 
                 <StatutGalerieBottom/>
-            {/*</SimpleReactLightbox>*/}
+            </SimpleReactLightbox>
         </>
     );
     
