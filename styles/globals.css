@@ -40,7 +40,7 @@ a {
   text-decoration: none;
 }
 
-input, select {
+input {
   font-family: 'Spartan', sans-serif;
   outline: none;
   color: var(--primary-typo);

@@ -1,5 +1,6 @@
 import '../styles/minireset.min.css'
 import '../styles/globals.css'
+import '../styles/react-dropdown.css'
 import SimpleReactLightbox from 'simple-react-lightbox'
 import Head from 'next/head'
 

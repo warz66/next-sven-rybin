@@ -5,7 +5,6 @@ import styles2 from '../../components/galerie/galerie-images/galerie_images.modu
 import { useEffect, useState, useReducer } from 'react'
 import axios from 'axios'
 import imagesLoaded from 'imagesloaded'
-import SimpleReactLightbox, { SRLWrapper } from 'simple-react-lightbox'
 import GalerieImages from '../../components/galerie/galerie-images/GalerieImages'
 import FiltreFormGalerie from '../../components/galerie/filtre-form-galerie/FiltreFormGalerie'
 
@@ -15,8 +14,10 @@ const initialState = {
     totalImages: 0,
     imgsPerPage: 50, // récuperer cette valeur en variable globale
     nbPages: 0,
+    galeriesSelect: {},
+    galerieSelect: {},
     themes: [],
-    theme: false,
+    theme: '',
     galerieVide: false,
     images: [],
     request: false,
@@ -53,18 +54,23 @@ function reducer(state, action) {
         case 'initGalerie': {
             let id = false;
             let themes = [];
-            let theme = false;
+            let theme = '';
+            let galeriesSelect = [{value: '0-Tous les thèmes', label: 'Toutes les galeries'}];
+            let galerieSelect = {};
             action.payload.galeries.map((galerie, index) => {
                 if (galerie.id == action.payload.id) {
                     id = galerie.id;
                     theme = galerie.theme;
+                    galerieSelect = { value: galerie.id+'-'+galerie.theme, label: galerie.title }
                 }
                 if (galerie.theme) {
-                    themes[index] = galerie.theme
+                    themes[index] = galerie.theme;
                 }
+                galeriesSelect = [...galeriesSelect, {value: galerie.id+'-'+galerie.theme, label: galerie.title}]
             });
             themes = [...new Set(themes)];
-            return { ...state, galeries: action.payload.galeries, themes: themes, theme: theme, request: { id: id, page: 1 } };
+            themes.unshift('Tous les thèmes');
+            return { ...state, galeries: action.payload.galeries, galerieSelect: galerieSelect, galeriesSelect: galeriesSelect, themes: themes, theme: theme, request: { id: id, page: 1 } };
         }
         case 'imagesUpdate': 
             if(action.payload.totalItems != 0) {
@@ -211,8 +217,8 @@ export default function Galeries({galerieId = 240}) {
             let page = stateGalerie.request.page ? stateGalerie.request.page : "";
             let sizeMin = stateGalerie.request.sizeMin ? stateGalerie.request.sizeMin : "";
             let sizeMax = stateGalerie.request.sizeMax ? stateGalerie.request.sizeMax : "";
-            let yearMin = ""/*stateGalerie.request.yearMin ? stateGalerie.request.yearMin : "";*/
-            let yearMax = ""/*stateGalerie.request.yearMax ? stateGalerie.request.yearMax : "";*/
+            let yearMin = /*""*/stateGalerie.request.yearMin ? stateGalerie.request.yearMin : "";
+            let yearMax = /*""*/stateGalerie.request.yearMax ? stateGalerie.request.yearMax : "";
         axios.get(`http://localhost:8000/api/images?galerie.reference=svenrybin&galerie.id=${id}${theme}&order[ordre]=asc&tableau.surface[gte]=${sizeMin}&tableau.surface[lte]=${sizeMax}&tableau.year[gte]=${yearMin}&tableau.year[lte]=${yearMax}&page=${page}`).then(response => {dispatch({type: 'imagesUpdate', payload: {images: response.data['hydra:member'], totalItems: response.data['hydra:totalItems']}});console.log(response)});
         {/*axios.get(`https://90.118.74.20:8000/api/images?galerie.reference=svenrybin&galerie.id=${id}${theme}&order[ordre]=asc&tableau.surface[gte]=${sizeMin}&tableau.surface[lte]=${sizeMax}&tableau.year[gte]=${yearMin}&tableau.year[lte]=${yearMax}&page=${page}`).then(response => {dispatch({type: 'imagesUpdate', payload: {images: response.data['hydra:member'], totalItems: response.data['hydra:totalItems']}});console.log(response)});*/}
         }
@@ -258,7 +264,7 @@ export default function Galeries({galerieId = 240}) {
                     <h2>Galerie</h2>
                 </div>
 
-                <FiltreFormGalerie dispatch={dispatch} galerieId={galerieId} galeries={stateGalerie.galeries} theme={stateGalerie.theme} themes={stateGalerie.themes}/>
+                {stateGalerie.galeries && <FiltreFormGalerie dispatch={dispatch} galerieSelect={stateGalerie.galerieSelect} galeriesSelect={stateGalerie.galeriesSelect} theme={stateGalerie.theme} themes={stateGalerie.themes}/>}
 
                 <GalerieImages styles={styles2} images={stateGalerie.images} galerieLoaded={stateGalerie.galerieLoaded} imagesIsUnloaded={imagesIsUnloaded} setIndexLightbox={setIndexLightbox}/> 
                 

@@ -21,9 +21,11 @@
     "next": "11.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "react-dropdown": "^1.9.2",
     "react-infinite-scroll-component": "^6.1.0",
     "react-masonry-component": "^6.3.0",
     "react-masonry-css": "^1.0.16",
+    "react-select": "^4.3.1",
     "simple-react-lightbox": "^3.6.7"
   },
   "devDependencies": {

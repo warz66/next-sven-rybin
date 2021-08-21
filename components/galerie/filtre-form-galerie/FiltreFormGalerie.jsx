@@ -1,22 +1,40 @@
 import styles from './filtre_form_galerie.module.css'
 import { useState } from 'react'
+import Dropdown from 'react-dropdown';
+//import 'react-dropdown/style.css';
 
-export default function FiltreFormGalerie({dispatch, galerieId, galeries, theme, themes}) {
-    const [valueSelectId, setValueSelectId] = useState(galerieId);
-    const [valueSelectTheme, setValueSelectTheme] = useState();
+export default function FiltreFormGalerie({dispatch, galerieSelect, galeriesSelect, theme, themes}) {
+    const [valueSelectGalerie, setValueSelectGalerie] = useState(galerieSelect);
+    const [valueSelectTheme, setValueSelectTheme] = useState(theme);
+    const [valueSelectSize, setValueSelectSize] = useState('0')
 
     function handleSubmit(e) {
         e.preventDefault();
 
         dispatch({  type: 'galerieUnloaded'});
 
-        let theme = e.target[0].value;
-        let id = e.target[1].value;
-        let yearMin = e.target[3].value;
-        let yearMax = e.target[4].value;
+        let id;
+        if(valueSelectGalerie.value.split('-')[0] != '0') {
+            id = valueSelectGalerie.value.split('-')[0];
+        } else {
+            id = '';
+        }
+
+        let theme;
+        if(valueSelectTheme != 'Tous les thèmes') {
+            theme = valueSelectTheme;
+        } else {
+            theme = '';
+        }
+
+        console.log(theme);
+
+        let yearMin = e.target[0].value;
+        let yearMax = e.target[1].value;
+
         var sizeMin;
         var sizeMax;
-        switch(e.target[2].value) {
+        switch(valueSelectSize) {
             case 'petit':
                 sizeMin = false;
                 sizeMax = process.env.NEXT_PUBLIC_SMALL_SIZE;
@@ -30,53 +48,48 @@ export default function FiltreFormGalerie({dispatch, galerieId, galeries, theme,
                 sizeMax = false;
             break;
         }
+
         dispatch({type: 'changeRequest', payload: {id: id, theme: theme, sizeMin: sizeMin, sizeMax: sizeMax, yearMin: yearMin, yearMax: yearMax}});
     }
 
     function handleSelectTheme(e) {
-        setValueSelectTheme(e.target.value);
-        setValueSelectId("");
+        setValueSelectTheme(e.value);
+        setValueSelectGalerie({value: '0-Tous les thèmes', label: 'Toutes les galeries'});
     }
 
-    function handleSelectId(e) {
-        setValueSelectId(e.target.value);
-        setValueSelectTheme(e.target.options[e.target.selectedIndex].dataset.theme);
+    function handleSelectGalerie(e) {
+        setValueSelectTheme(e.value.split('-')[1]);
+        setValueSelectGalerie(e);
     }
+
+    function handleSelectSize(e) {
+        setValueSelectSize(e.value);
+    }
+
+    const sizesSelect = [
+        { value: '0', label: 'Toutes les tailles' },
+        { value: 'petit', label: 'Petit' },
+        { value: 'moyen', label: 'Moyen' },
+        { value: 'grand', label: 'Grand' }
+    ]
 
     return (
         <>
-            {galeries && <div id={styles.container_form}>
+            <div id={styles.container_form}>
                 <form onSubmit={(e) => handleSubmit(e)}>
                     <div>
                         <div className={styles.custom_select}>
                             <label htmlFor="select-themes">Thèmes</label>
-                            <select id="select-themes" value={valueSelectTheme} defaultValue={theme} onChange={(e) => handleSelectTheme(e)}>
-                                <optgroup/>
-                                <optgroup><option value="">Tous les thèmes</option></optgroup>
-                                {themes.map((theme, index) =>
-                                    <optgroup><option key={index} value={theme}>{theme}</option></optgroup>
-                                )}
-                                <optgroup/>
-                            </select>
+                            <Dropdown controlClassName={styles.select_control_themes} options={themes} onChange={(e) => handleSelectTheme(e)} value={valueSelectTheme} placeholder="Thèmes..."/>
                         </div>
                         <div className={styles.custom_select}>
                             <label htmlFor="select-galeries">Galeries</label>
-                            <select id="select-galeries" value={valueSelectId} onChange={(e) => handleSelectId(e)}>
-                                <option value="">Toutes les galeries</option>
-                                {galeries.map(galerie =>
-                                    <option key={galerie.id} value={galerie.id} data-theme={galerie.theme}>{galerie.title}</option>
-                                )}
-                            </select>
+                            <Dropdown controlClassName={styles.select_control_galeries} options={galeriesSelect} onChange={(e) => handleSelectGalerie(e)} value={valueSelectGalerie} placeholder="Galeries..."/>
                         </div>
                         <div>
                             <div className={styles.custom_select}>
                                 <label htmlFor="select-tailles">Tailles</label>
-                                <select id="select-tailles" defaultValue={false}>
-                                    <option value={false}>Toutes les tailles</option>
-                                    <option value="petit">Petit</option>
-                                    <option value="moyen">Moyen</option>
-                                    <option value="grand">Grand</option>
-                                </select>
+                                <Dropdown controlClassName={styles.select_control_sizes} options={sizesSelect} onChange={(e) => handleSelectSize(e)} value={valueSelectSize} placeholder="Tailles..."/>
                             </div>
                         </div>
                         <div>
@@ -93,7 +106,7 @@ export default function FiltreFormGalerie({dispatch, galerieId, galeries, theme,
                         <input type="submit" value="VALIDER"/>
                     </div>
                 </form>
-            </div>}
+            </div>
         </>    
     );
 }
