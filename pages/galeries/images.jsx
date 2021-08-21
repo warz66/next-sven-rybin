@@ -253,13 +253,10 @@ export default function Galeries({galerieId = 240}) {
 
         <main id={styles.galerie}>
             {/*<SimpleReactLightbox>*/}
-                <h1>Galerie Cosmique</h1>
-
-                <h2>
-                    <Link href="/">
-                        <a>Back to home</a>
-                    </Link>
-                </h2>
+                <div id={styles.galerie_title}>
+                    <h3>SVEN RYBIN</h3>
+                    <h2>Galerie</h2>
+                </div>
 
                 <FiltreFormGalerie dispatch={dispatch} galerieId={galerieId} galeries={stateGalerie.galeries} theme={stateGalerie.theme} themes={stateGalerie.themes}/>
 

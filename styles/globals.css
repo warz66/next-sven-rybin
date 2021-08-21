@@ -1,12 +1,38 @@
 /*html { 
   overflow-y: scroll;
 }*/
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+
+:root {
+  --white: #fff;
+  --white-solid: #fdfdfd;
+  --ebony-clay: #2d3242;
+  --mongoose: #b1a079;
+  --pampas: #f5f3ef;
+  --grey: #3e4351;
+}
+
+:root .light_mode {
+  --primary-typo: var(--mongoose); 
+  --secondary-typo: var(--ebony-clay);
+  --primary-bg: var(--white);
+  --secondary-bg: var(--pampas);
+  --tertiary-bg: var(--white-solid);
+  --form-item-bg: var(--pampas);
+}
+
+:root .dark_mode {
+  --primary-typo: var(--white); 
+  --secondary-typo: var(--mongoose);
+  --tertiary-typo: var(--ebony-clay);
+  --primary-bg: var(--ebony-clay);
+  --secondary-bg: var(--grey);
+  --tertiary-bg: var(--mongoose);
+  --form-item-bg: var(--ebony-clay);
+}
+
+html {
+  background-color: var(--primary-bg);
+  font-family: 'Spartan', sans-serif;
 }
 
 a {
@@ -14,6 +40,72 @@ a {
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
+input, select {
+  font-family: 'Spartan', sans-serif;
+  outline: none;
+  color: var(--primary-typo);
+  background-color: var(--secondary-bg);
+  letter-spacing: 0.32px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+input[type="submit"] {
+  padding: 18px 36px 15px 36px;
+  border: 1px solid var(--mongoose);
+  background-color: transparent;
+  font-weight: 600;
+  box-shadow: 0px 1px 0px #0000004D;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+input[type="submit"]:hover {
+  background-color: var(--mongoose);
+  color: var(--white);
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-weight: bold;
+  font-size: 96px;
+  line-height: 128px;
+  color: var(--primary-typo);
+}
+
+h2 {
+  font-family: 'Playfair Display', serif;
+  font-weight: normal;
+  font-size: 96px;
+  line-height: 128px;
+  color: var(--secondary-typo);
+}
+
+h3 {
+  font-family: 'Spartan', sans-serif;
+  font-weight: medium;
+  font-size: 16px;
+  line-height: 40px;
+  color: var(--primary-typo);
+}
+
+h4 {
+  font-family: 'EB Garamond', serif;
+  font-size: 32px;
+}
+
+h5 {
+  font-family: 'EB Garamond', serif;
+  font-size: 54px;
+}
+
+h6 {
+  font-family: 'EB Garamond', serif;
+  font-size: 30px;
+}
+
+p {
+  font-family: 'EB Garamond', serif;
+  font-size: 20px;
+  line-height: 30px;
 }

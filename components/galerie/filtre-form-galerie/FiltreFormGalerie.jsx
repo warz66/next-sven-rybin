@@ -48,21 +48,30 @@ export default function FiltreFormGalerie({dispatch, galerieId, galeries, theme,
             {galeries && <div id={styles.container_form}>
                 <form onSubmit={(e) => handleSubmit(e)}>
                     <div>
-                        <select value={valueSelectTheme} defaultValue={theme} onChange={(e) => handleSelectTheme(e)}>
-                            <option value="">Tous les thèmes</option>
-                            {themes.map((theme, index) =>
-                                <option key={index} value={theme}>{theme}</option>
-                            )}
-                        </select>
-                        <select value={valueSelectId} onChange={(e) => handleSelectId(e)}>
-                            <option value="">Toutes les galeries</option>
-                            {galeries.map(galerie =>
-                                <option key={galerie.id} value={galerie.id} data-theme={galerie.theme}>{galerie.title}</option>
-                            )}
-                        </select>
+                        <div className={styles.custom_select}>
+                            <label htmlFor="select-themes">Thèmes</label>
+                            <select id="select-themes" value={valueSelectTheme} defaultValue={theme} onChange={(e) => handleSelectTheme(e)}>
+                                <optgroup/>
+                                <optgroup><option value="">Tous les thèmes</option></optgroup>
+                                {themes.map((theme, index) =>
+                                    <optgroup><option key={index} value={theme}>{theme}</option></optgroup>
+                                )}
+                                <optgroup/>
+                            </select>
+                        </div>
+                        <div className={styles.custom_select}>
+                            <label htmlFor="select-galeries">Galeries</label>
+                            <select id="select-galeries" value={valueSelectId} onChange={(e) => handleSelectId(e)}>
+                                <option value="">Toutes les galeries</option>
+                                {galeries.map(galerie =>
+                                    <option key={galerie.id} value={galerie.id} data-theme={galerie.theme}>{galerie.title}</option>
+                                )}
+                            </select>
+                        </div>
                         <div>
-                            <div className={styles.select_size}>
-                                <select defaultValue={false}>
+                            <div className={styles.custom_select}>
+                                <label htmlFor="select-tailles">Tailles</label>
+                                <select id="select-tailles" defaultValue={false}>
                                     <option value={false}>Toutes les tailles</option>
                                     <option value="petit">Petit</option>
                                     <option value="moyen">Moyen</option>
@@ -71,14 +80,17 @@ export default function FiltreFormGalerie({dispatch, galerieId, galeries, theme,
                             </div>
                         </div>
                         <div>
-                            <div className={styles.inputs_range_year}>
-                                <input type="number" name="yearMin" min={process.env.NEXT_PUBLIC_MIN_YEAR} max={process.env.NEXT_PUBLIC_MAX_YEAR} defaultValue={process.env.NEXT_PUBLIC_MIN_YEAR}/>
-                                <input type="number" name="yearMax" min={process.env.NEXT_PUBLIC_MIN_YEAR} max={process.env.NEXT_PUBLIC_MAX_YEAR} defaultValue={process.env.NEXT_PUBLIC_MAX_YEAR}/>
+                            <div>
+                                <label htmlFor="inputs-periode">Période</label>
+                                <div id="inputs-periode" className={styles.inputs_range_year}>
+                                    <input type="number" name="yearMin" min={process.env.NEXT_PUBLIC_MIN_YEAR} max={process.env.NEXT_PUBLIC_MAX_YEAR} defaultValue={process.env.NEXT_PUBLIC_MIN_YEAR}/>
+                                    <input type="number" name="yearMax" min={process.env.NEXT_PUBLIC_MIN_YEAR} max={process.env.NEXT_PUBLIC_MAX_YEAR} defaultValue={process.env.NEXT_PUBLIC_MAX_YEAR}/>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div>
-                        <input id={styles.valider} type="submit" value="Valider"/>
+                        <input type="submit" value="VALIDER"/>
                     </div>
                 </form>
             </div>}

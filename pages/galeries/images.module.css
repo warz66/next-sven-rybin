@@ -1,5 +1,11 @@
 #galerie {
-  background-color: #FBFAF8;
+  
+}
+
+#galerie_title {
+  margin-top: 200px;
+  text-align: center;
+  margin-bottom: 100px;
 }
 
 #first_loading_galerie {
