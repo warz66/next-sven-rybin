@@ -81,6 +81,12 @@ h2 {
   color: var(--secondary-typo);
 }
 
+@media(max-width: 500px) {
+  h2 {
+    font-size: 80px;
+  }
+}
+
 h3 {
   font-family: 'Spartan', sans-serif;
   font-weight: medium;
@@ -108,4 +114,12 @@ p {
   font-family: 'EB Garamond', serif;
   font-size: 20px;
   line-height: 30px;
+}
+
+.clignote {
+  animation: clignote 1s linear infinite;
+}
+
+@keyframes clignote {  
+  50% { opacity: 0; }
 }

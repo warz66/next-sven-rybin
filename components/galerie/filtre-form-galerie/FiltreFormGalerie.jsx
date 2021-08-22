@@ -1,7 +1,6 @@
 import styles from './filtre_form_galerie.module.css'
 import { useState } from 'react'
 import Dropdown from 'react-dropdown';
-//import 'react-dropdown/style.css';
 
 export default function FiltreFormGalerie({dispatch, galerieSelect, galeriesSelect, theme, themes}) {
     const [valueSelectGalerie, setValueSelectGalerie] = useState(galerieSelect);
@@ -78,19 +77,17 @@ export default function FiltreFormGalerie({dispatch, galerieSelect, galeriesSele
             <div id={styles.container_form}>
                 <form onSubmit={(e) => handleSubmit(e)}>
                     <div>
-                        <div className={styles.custom_select}>
+                        <div>
                             <label htmlFor="select-themes">Thèmes</label>
-                            <Dropdown controlClassName={styles.select_control_themes} options={themes} onChange={(e) => handleSelectTheme(e)} value={valueSelectTheme} placeholder="Thèmes..."/>
-                        </div>
-                        <div className={styles.custom_select}>
-                            <label htmlFor="select-galeries">Galeries</label>
-                            <Dropdown controlClassName={styles.select_control_galeries} options={galeriesSelect} onChange={(e) => handleSelectGalerie(e)} value={valueSelectGalerie} placeholder="Galeries..."/>
+                            <Dropdown id="select-themes" controlClassName={styles.select_control_themes} options={themes} onChange={(e) => handleSelectTheme(e)} value={valueSelectTheme} placeholder="Thèmes..."/>
                         </div>
                         <div>
-                            <div className={styles.custom_select}>
-                                <label htmlFor="select-tailles">Tailles</label>
-                                <Dropdown controlClassName={styles.select_control_sizes} options={sizesSelect} onChange={(e) => handleSelectSize(e)} value={valueSelectSize} placeholder="Tailles..."/>
-                            </div>
+                            <label htmlFor="select-galeries">Galeries</label>
+                            <Dropdown id="select-galeries" controlClassName={styles.select_control_galeries} options={galeriesSelect} onChange={(e) => handleSelectGalerie(e)} value={valueSelectGalerie} placeholder="Galeries..."/>
+                        </div>
+                        <div>
+                            <label htmlFor="select-tailles">Tailles</label>
+                            <Dropdown id="select-tailles" controlClassName={styles.select_control_sizes} options={sizesSelect} onChange={(e) => handleSelectSize(e)} value={valueSelectSize} placeholder="Tailles..."/>
                         </div>
                         <div>
                             <div>

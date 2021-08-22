@@ -54,9 +54,9 @@ function reducer(state, action) {
         case 'initGalerie': {
             let id = false;
             let themes = [];
-            let theme = '';
+            let theme = 'Tous les thèmes';
             let galeriesSelect = [{value: '0-Tous les thèmes', label: 'Toutes les galeries'}];
-            let galerieSelect = {};
+            let galerieSelect = {value: '0-Tous les thèmes', label: 'Toutes les galeries'};
             action.payload.galeries.map((galerie, index) => {
                 if (galerie.id == action.payload.id) {
                     id = galerie.id;
@@ -235,7 +235,7 @@ export default function Galeries({galerieId = 240}) {
             if(stateGalerie.galerieLoaded && stateGalerie.previousPageLoaded && (stateGalerie.request.page == stateGalerie.nbPages)) {
                 var statut = <h3>Fin de la galerie</h3>
             } else {
-                var statut = <h3>Loading...</h3>
+                var statut = <h3 className="clignote">Chargement...</h3>
             }
             return (
                 <div id={styles.next_statut_galerie}>
@@ -266,21 +266,21 @@ export default function Galeries({galerieId = 240}) {
 
                 {stateGalerie.galeries && <FiltreFormGalerie dispatch={dispatch} galerieSelect={stateGalerie.galerieSelect} galeriesSelect={stateGalerie.galeriesSelect} theme={stateGalerie.theme} themes={stateGalerie.themes}/>}
 
-                <GalerieImages styles={styles2} images={stateGalerie.images} galerieLoaded={stateGalerie.galerieLoaded} imagesIsUnloaded={imagesIsUnloaded} setIndexLightbox={setIndexLightbox}/> 
-                
                 {!stateGalerie.galerieLoaded && stateGalerie.request.page == 1 &&
                     <div id={styles.first_loading_galerie}>
-                        <h3>Loading...</h3>
+                        <h3 className="clignote">Chargement...</h3>
                     </div>
                 }
 
                 {stateGalerie.galerieVide && stateGalerie.galerieLoaded &&
-                    <div>
-                        <h3>Aucun resultat</h3>
+                    <div id={styles.galerie_vide}>
+                        <h3>Aucun resultat.</h3>
                     </div>
                 }
 
-                <StatutGalerieBottom/>
+                <GalerieImages styles={styles2} images={stateGalerie.images} galerieLoaded={stateGalerie.galerieLoaded} imagesIsUnloaded={imagesIsUnloaded} setIndexLightbox={setIndexLightbox}/>
+
+                {!stateGalerie.galerieVide && <StatutGalerieBottom/>}
             {/*</SimpleReactLightbox>*/}
         </main>
 

@@ -9,6 +9,7 @@
     color: var(--primary-typo);
     background-color: var(--secondary-bg);
     font-size: 16px;
+    min-height: 51px;
     /*max-width: 480px;
     min-width: 230px;
     width: 100%;*/
