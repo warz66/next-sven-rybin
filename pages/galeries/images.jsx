@@ -224,7 +224,7 @@ export default function Galeries({galerieId = 240}) {
                 if(stateGalerie.galerieLoaded && stateGalerie.previousPageLoaded && (stateGalerie.request.page == stateGalerie.nbPages)) {
                     var statut = <span>Fin de la galerie</span>
                 } else if(stateGalerie.errorImagesUpdate) {
-                    var statut = <span>Erreur de communication avec l'Api. Les prochaines images ne pourront être chargées.</span>  
+                    var statut = <span>{"Erreur de communication avec l'Api. Les prochaines images ne pourront être chargées."}</span>  
                 } else {
                     var statut = <span className="clignote">Chargement...</span>
                 }
@@ -262,7 +262,7 @@ export default function Galeries({galerieId = 240}) {
     function GalerieFirstLoadStatut() {
         if(!stateGalerie.galerieLoaded && stateGalerie.request.page == 1) {
             if(stateGalerie.errorImagesUpdate) {
-                var statut = <span>Erreur de communication avec l'Api. Les images ne pourront être chargées.</span>  
+                var statut = <span>{"Erreur de communication avec l'Api. Les images ne pourront être chargées."}</span>  
             } else {
                 var statut = <span className="clignote">Chargement...</span>
             }
@@ -286,7 +286,7 @@ export default function Galeries({galerieId = 240}) {
 
             {stateGalerie.errorInitGalerie &&
                 <div id={styles.galerie_error}>
-                    <span>Erreur de communication avec l'Api. Veuillez réessayer ultérieurement et nous vous prions de nous en excuser.</span>
+                    <span>{"Erreur de communication avec l'Api. Veuillez réessayer ultérieurement et nous vous prions de nous en excuser."}</span>
                     <div>
                         <Link href="/">
                             <span className="btn">Accueil</span>
