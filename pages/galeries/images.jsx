@@ -24,8 +24,8 @@ const initialState = {
     galeriesSelect: {},
     galerieSelect: {},
     sizeSelect: '0', 
-    themes: [],
-    theme: '',
+    themesSelect: [],
+    themeSelect: '',
     minYearSelect: process.env.NEXT_PUBLIC_MIN_YEAR,
     maxYearSelect: process.env.NEXT_PUBLIC_MAX_YEAR,
     galerieVide: false,
@@ -39,24 +39,24 @@ function reducer(state, action) {
     switch (action.type) {
         case 'initGalerie': {
             let id = false;
-            let themes = [];
-            let theme = 'Tous les thèmes';
+            let themesSelect = [];
+            let themeSelect = 'Tous les thèmes';
             let galeriesSelect = [{value: '0-Tous les thèmes', label: 'Toutes les galeries'}];
             let galerieSelect = {value: '0-Tous les thèmes', label: 'Toutes les galeries'};
             action.payload.galeries.map((galerie, index) => {
                 if (galerie.id == action.payload.id) {
                     id = galerie.id;
-                    theme = galerie.theme;
+                    themeSelect = galerie.theme;
                     galerieSelect = { value: galerie.id+'-'+galerie.theme, label: galerie.title }
                 }
                 if (galerie.theme) {
-                    themes[index] = galerie.theme;
+                    themesSelect[index] = galerie.theme;
                 }
                 galeriesSelect = [...galeriesSelect, {value: galerie.id+'-'+galerie.theme, label: galerie.title}]
             });
-            themes = [...new Set(themes)];
-            themes.unshift('Tous les thèmes');
-            return { ...state, clientAxios: action.payload.clientAxios, galeriesLoaded: true, galeries: action.payload.galeries, galerieSelect: galerieSelect, galeriesSelect: galeriesSelect, themes: themes, theme: theme, request: { id: id, page: 1 } };
+            themesSelect = [...new Set(themesSelect)];
+            themesSelect.unshift('Tous les thèmes');
+            return { ...state, clientAxios: action.payload.clientAxios, galeriesLoaded: true, galeries: action.payload.galeries, galerieSelect: galerieSelect, galeriesSelect: galeriesSelect, themesSelect: themesSelect, themeSelect: themeSelect, request: { id: id, page: 1 } };
         }
         case 'errorInitGalerie': 
             return { ...state, errorInitGalerie: true };
@@ -71,7 +71,7 @@ function reducer(state, action) {
         case 'errorImagesUpdate':
             return { ...state, errorImagesUpdate: true }
         case 'changeRequest': {
-            return { ...state, galerieSelect: action.payload.galerieSelect, theme: action.payload.theme, sizeSelect: action.payload.sizeSelect, minYearSelect: action.payload.minYearSelect, maxYearSelect: action.payload.maxYearSelect, images: [], request: { id: action.payload.id, theme: action.payload.theme, page: 1, sizeMin: action.payload.sizeMin, sizeMax: action.payload.sizeMax, yearMin: action.payload.yearMin, yearMax: action.payload.yearMax} };
+            return { ...state, galerieSelect: action.payload.galerieSelect, themeSelect: action.payload.themeSelect, sizeSelect: action.payload.sizeSelect, minYearSelect: action.payload.minYearSelect, maxYearSelect: action.payload.maxYearSelect, images: [], request: { id: action.payload.id, theme: action.payload.theme, page: 1, sizeMin: action.payload.sizeMin, sizeMax: action.payload.sizeMax, yearMin: action.payload.yearMin, yearMax: action.payload.yearMax} };
         }
         case 'nextPage':
             console.log(state.request);
@@ -250,7 +250,7 @@ export default function Galeries({galerieId = 240}) {
 
     function FiltreFormGalerieLoaded() {
         if (stateGalerie.galeriesLoaded) {
-            return <FiltreFormGalerie dispatch={dispatch} galerieSelect={stateGalerie.galerieSelect} galeriesSelect={stateGalerie.galeriesSelect} theme={stateGalerie.theme} themes={stateGalerie.themes} sizeSelect={stateGalerie.sizeSelect} minYearSelect={stateGalerie.minYearSelect} maxYearSelect={stateGalerie.maxYearSelect}/>
+            return <FiltreFormGalerie dispatch={dispatch} galerieSelect={stateGalerie.galerieSelect} galeriesSelect={stateGalerie.galeriesSelect} themeSelect={stateGalerie.themeSelect} themesSelect={stateGalerie.themesSelect} sizeSelect={stateGalerie.sizeSelect} minYearSelect={stateGalerie.minYearSelect} maxYearSelect={stateGalerie.maxYearSelect}/>
         } else if(!stateGalerie.errorInitGalerie) {
             return  <div id={styles.galerie_filtre_loaded}>
                         <span className="clignote">Chargement...</span>
@@ -299,7 +299,7 @@ export default function Galeries({galerieId = 240}) {
 
             {stateGalerie.galerieVide && stateGalerie.galerieLoaded &&
                 <div id={styles.galerie_vide}>
-                    <span>Aucun resultat.</span>
+                    <span>{"Aucun résultat."}</span>
                 </div>
             }
 

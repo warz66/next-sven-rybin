@@ -2,9 +2,9 @@ import styles from './filtre_form_galerie.module.css'
 import { useEffect, useState } from 'react'
 import Dropdown from 'react-dropdown';
 
-export default function FiltreFormGalerie({dispatch, galerieSelect, galeriesSelect, theme, themes, sizeSelect, minYearSelect, maxYearSelect}) {
+export default function FiltreFormGalerie({dispatch, galerieSelect, galeriesSelect, themeSelect, themesSelect, sizeSelect, minYearSelect, maxYearSelect}) {
     const [valueSelectGalerie, setValueSelectGalerie] = useState(galerieSelect);
-    const [valueSelectTheme, setValueSelectTheme] = useState(theme);
+    const [valueSelectTheme, setValueSelectTheme] = useState(themeSelect);
     const [valueSelectSize, setValueSelectSize] = useState(sizeSelect);
 
     function handleSubmit(e) {
@@ -20,10 +20,13 @@ export default function FiltreFormGalerie({dispatch, galerieSelect, galeriesSele
         }
 
         let theme;
+        let themeSelect;
         if(valueSelectTheme != 'Tous les thèmes') {
             theme = valueSelectTheme;
+            themeSelect = valueSelectTheme;
         } else {
             theme = '';
+            themeSelect = 'Tous les thèmes';
         }
 
         let yearMin = e.target[0].value;
@@ -46,7 +49,7 @@ export default function FiltreFormGalerie({dispatch, galerieSelect, galeriesSele
             break;
         }
 
-        dispatch({type: 'changeRequest', payload: {galerieSelect: valueSelectGalerie, theme: valueSelectTheme, sizeSelect: valueSelectSize, minYearSelect: yearMin, maxYearSelect: yearMax, id: id, theme: theme, sizeMin: sizeMin, sizeMax: sizeMax, yearMin: yearMin, yearMax: yearMax}});
+        dispatch({type: 'changeRequest', payload: {galerieSelect: valueSelectGalerie, themeSelect: themeSelect, sizeSelect: valueSelectSize, minYearSelect: yearMin, maxYearSelect: yearMax, id: id, theme: theme, sizeMin: sizeMin, sizeMax: sizeMax, yearMin: yearMin, yearMax: yearMax}});
     }
 
     function handleSelectTheme(e) {
@@ -77,7 +80,7 @@ export default function FiltreFormGalerie({dispatch, galerieSelect, galeriesSele
                     <div>
                         <div>
                             <label htmlFor="select-themes">Thèmes</label>
-                            <Dropdown id="select-themes" controlClassName={styles.select_control_themes} options={themes} onChange={(e) => handleSelectTheme(e)} value={valueSelectTheme} placeholder="Thèmes..."/>
+                            <Dropdown id="select-themes" controlClassName={styles.select_control_themes} options={themesSelect} onChange={(e) => handleSelectTheme(e)} value={valueSelectTheme} placeholder="Thèmes..."/>
                         </div>
                         <div>
                             <label htmlFor="select-galeries">Galeries</label>
