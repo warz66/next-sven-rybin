@@ -1,20 +1,6 @@
-import styles from './galerie_images.module.css'
-import SimpleReactLightbox, { SRLWrapper } from 'simple-react-lightbox'
+import { SRLWrapper } from 'simple-react-lightbox'
 
 export default function GalerieImages({styles, images, galerieLoaded, imagesIsUnloaded, setIndexLightbox}) {
-
-    /*function imagesIsUnloaded(index) {
-        if(stateGalerie.images.length != stateGalerie.totalImages ) {
-            if((index + 1) > (stateGalerie.images.length - stateGalerie.imgsPerPage)) {
-                return styles.are_images_unloaded;
-            }
-        } else {
-            if((index + 1) > ((stateGalerie.nbPages - 1) * stateGalerie.imgsPerPage)) {
-                return styles.are_images_unloaded;
-            }
-        } 
-        return;
-    }*/
 
     const callbacks = {
         onSlideChange: object => {console.log(object);
@@ -78,16 +64,10 @@ export default function GalerieImages({styles, images, galerieLoaded, imagesIsUn
                 <div className={styles.gutter_sizer}/>
                 {images.length > 0 && 
                     images.map((image , index) =>
-                        <div key={image.id} className={styles.grid_item/*+' '+classNameByWidth(image.tableau.width)*/+`${galerieLoaded ? '' : ' '+imagesIsUnloaded(index)}`}>
+                        <div key={image.id} className={styles.grid_item+`${galerieLoaded ? '' : ' '+imagesIsUnloaded(index)}`}>
                             <div>
                                 <a href={image.pathUrl} data-attribute="SRL">
                                     <img className={styles.grid_image} src={image.pathUrlCache} alt={image.tableau.year+'-'+image.tableau.height+'x'+image.tableau.width+' cm'+'-'+image.tableau.technique+'-'+image.tableau.title+'-'+image.caption } />
-                                    {/*<Image
-                                        src={image.pathUrlCache}
-                                        width={300}
-                                        height={(image.tableau.height/image.tableau.width)* 300}
-                                        alt="fgsdfg"
-                                    />*/}
                                 </a>
                                 <div className={styles.info_tableau}>
                                     <div>

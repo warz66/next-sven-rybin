@@ -1,54 +1,40 @@
 import Link from 'next/link'
-//import Image from 'next/image'
 import styles from './images.module.css'
 import styles2 from '../../components/galerie/galerie-images/galerie_images.module.css'
 import { useEffect, useState, useReducer } from 'react'
 import axios from 'axios'
+import axiosRetry from 'axios-retry'
 import imagesLoaded from 'imagesloaded'
 import GalerieImages from '../../components/galerie/galerie-images/GalerieImages'
 import FiltreFormGalerie from '../../components/galerie/filtre-form-galerie/FiltreFormGalerie'
 
 const initialState = {
+    adress: process.env.NEXT_PUBLIC_GALERIES_ADRESS, 
+    reference: process.env.NEXT_PUBLIC_GALERIES_REFERENCE, 
+    clientAxios: null,
     galeries: false,
+    galeriesLoaded: false,
     galerie: false,
+    galerieLoaded: false,
+    errorInitGalerie: false,
+    errorImagesUpdate: false,
     totalImages: 0,
-    imgsPerPage: 50, // récuperer cette valeur en variable globale
+    imgsPerPage: process.env.NEXT_PUBLIC_GALERIES_IMGS_PER_PAGE,
     nbPages: 0,
     galeriesSelect: {},
     galerieSelect: {},
+    sizeSelect: '0', 
     themes: [],
     theme: '',
+    minYearSelect: process.env.NEXT_PUBLIC_MIN_YEAR,
+    maxYearSelect: process.env.NEXT_PUBLIC_MAX_YEAR,
     galerieVide: false,
     images: [],
     request: false,
     previousPageLoaded: false,
-    galerieLoaded: false,
-    moyenne: 0,
-    max: 0,
-    min: 0,
-    gap: 0
 };
   
 function reducer(state, action) {
-
-    function calcSpecGalerie(galerie) {
-        let dataGalerie = new Object();
-        let images = galerie.images;
-        let arrayWidth = [];
-        let sum = 0;
-        images.map((image, i) => {
-            if (image.tableau.width) {
-                arrayWidth[i] = image.tableau.width;
-                sum += arrayWidth[i]; 
-            }
-        });
-        dataGalerie.moyenne = sum/arrayWidth.length;
-        dataGalerie.min = Math.min(...arrayWidth);
-        dataGalerie.max = Math.max(...arrayWidth);
-        dataGalerie.gap = ((dataGalerie.min + dataGalerie.max) / 2) - dataGalerie.moyenne;
-        dataGalerie.galerie = galerie;
-        return dataGalerie;
-    }
 
     switch (action.type) {
         case 'initGalerie': {
@@ -70,28 +56,22 @@ function reducer(state, action) {
             });
             themes = [...new Set(themes)];
             themes.unshift('Tous les thèmes');
-            return { ...state, galeries: action.payload.galeries, galerieSelect: galerieSelect, galeriesSelect: galeriesSelect, themes: themes, theme: theme, request: { id: id, page: 1 } };
+            return { ...state, clientAxios: action.payload.clientAxios, galeriesLoaded: true, galeries: action.payload.galeries, galerieSelect: galerieSelect, galeriesSelect: galeriesSelect, themes: themes, theme: theme, request: { id: id, page: 1 } };
         }
+        case 'errorInitGalerie': 
+            return { ...state, errorInitGalerie: true };
         case 'imagesUpdate': 
             if(action.payload.totalItems != 0) {
                 let nbPages = Math.ceil(action.payload.totalItems/state.imgsPerPage);
                 let images = [...state.images, ...action.payload.images];
                 return { ...state, galerieLoaded: false , galerieVide: false, totalImages: action.payload.totalItems, nbPages: nbPages, images: images};
             } else {
-                return { ...state, galerieLoaded: true, galerieVide: true }
+                return { ...state, errorImagesUpdate: false, galerieLoaded: true, galerieVide: true };
             }
-        /*case 'galerieData': {
-            let dataGalerie;
-            state.galeries.map(galerie => {
-                if (galerie.id == action.payload.galerieId) {
-                    dataGalerie = calcSpecGalerie(galerie);
-                }
-                return;
-            });
-            return { ...state, galerie: dataGalerie.galerie, moyenne: dataGalerie.moyenne, min: dataGalerie.min, max: dataGalerie.max, gap: dataGalerie.gap };
-        }*/
+        case 'errorImagesUpdate':
+            return { ...state, errorImagesUpdate: true }
         case 'changeRequest': {
-            return { ...state, images: [], request: { id: action.payload.id, theme: action.payload.theme, page: 1, sizeMin: action.payload.sizeMin, sizeMax: action.payload.sizeMax, yearMin: action.payload.yearMin, yearMax: action.payload.yearMax} };
+            return { ...state, galerieSelect: action.payload.galerieSelect, theme: action.payload.theme, sizeSelect: action.payload.sizeSelect, minYearSelect: action.payload.minYearSelect, maxYearSelect: action.payload.maxYearSelect, images: [], request: { id: action.payload.id, theme: action.payload.theme, page: 1, sizeMin: action.payload.sizeMin, sizeMax: action.payload.sizeMax, yearMin: action.payload.yearMin, yearMax: action.payload.yearMax} };
         }
         case 'nextPage':
             console.log(state.request);
@@ -102,7 +82,7 @@ function reducer(state, action) {
         case 'galerieLoaded': 
             return { ...state, previousPageLoaded: true, galerieLoaded: true };
         case 'galerieUnloaded': 
-            return { ...state, previousPageLoaded: false, galerieLoaded: false }
+            return { ...state, previousPageLoaded: false, galerieLoaded: false };
         default:
             return initialState;    
     }
@@ -110,11 +90,12 @@ function reducer(state, action) {
 
 export default function Galeries({galerieId = 240}) {
     const [stateGalerie, dispatch] = useReducer(reducer, initialState);
+    //const [clientAxios, setClientAxios] = useState();
     const [moduleMasonry, setModuleMasonry] = useState(false);
     const [masonry, setMasonry] = useState();
     const [indexLightbox, setIndexLightbox] = useState(0);
     
-    function classNameByWidth(width) {
+    /*function classNameByWidth(width) {
         width = width + stateGalerie.gap;
         if (width >= 400 && width < 600) {
             return styles.grid_item__width2;
@@ -125,7 +106,7 @@ export default function Galeries({galerieId = 240}) {
         if (width >= 800) {
             return styles.grid_item__width4;
         }
-    }    
+    } */
 
     function imagesIsUnloaded(index) {
         if(stateGalerie.images.length != stateGalerie.totalImages ) {
@@ -174,21 +155,17 @@ export default function Galeries({galerieId = 240}) {
     useEffect(() => {
 
         if(stateGalerie.images.length > 0 && masonry) {
-            var t0 = performance.now();
+
             dispatch({ type: 'galerieUnloaded'});
 
             masonry.reloadItems();
             
             var imgLoad = imagesLoaded(`.${styles2.grid}`);
             imgLoad.on('always', onAlways);
-            var t1 = performance.now();
-            console.log("L'appel de doSomething a demandé " + (t1 - t0) + " millisecondes.");
-            /*return(()=> {
-                var t0 = performance.now();
+
+            return(()=> {
                 imgLoad.off('always', onAlways);
-                var t1 = performance.now();
-                console.log("L'appel de doSomething a demandé " + (t1 - t0) + " millisecondes.");
-            });*/
+            });
         }   
         
     },[stateGalerie.images]);
@@ -219,71 +196,118 @@ export default function Galeries({galerieId = 240}) {
             let sizeMax = stateGalerie.request.sizeMax ? stateGalerie.request.sizeMax : "";
             let yearMin = /*""*/stateGalerie.request.yearMin ? stateGalerie.request.yearMin : "";
             let yearMax = /*""*/stateGalerie.request.yearMax ? stateGalerie.request.yearMax : "";
-        axios.get(`http://localhost:8000/api/images?galerie.reference=svenrybin&galerie.id=${id}${theme}&order[ordre]=asc&tableau.surface[gte]=${sizeMin}&tableau.surface[lte]=${sizeMax}&tableau.year[gte]=${yearMin}&tableau.year[lte]=${yearMax}&page=${page}`).then(response => {dispatch({type: 'imagesUpdate', payload: {images: response.data['hydra:member'], totalItems: response.data['hydra:totalItems']}});console.log(response)});
-        {/*axios.get(`https://90.118.74.20:8000/api/images?galerie.reference=svenrybin&galerie.id=${id}${theme}&order[ordre]=asc&tableau.surface[gte]=${sizeMin}&tableau.surface[lte]=${sizeMax}&tableau.year[gte]=${yearMin}&tableau.year[lte]=${yearMax}&page=${page}`).then(response => {dispatch({type: 'imagesUpdate', payload: {images: response.data['hydra:member'], totalItems: response.data['hydra:totalItems']}});console.log(response)});*/}
+
+            stateGalerie.clientAxios.get(`/images?galerie.reference=${stateGalerie.reference}&galerie.id=${id}${theme}&order[ordre]=asc&tableau.surface[gte]=${sizeMin}&tableau.surface[lte]=${sizeMax}&tableau.year[gte]=${yearMin}&tableau.year[lte]=${yearMax}&page=${page}`).then(response => {dispatch({type: 'imagesUpdate', payload: {images: response.data['hydra:member'], totalItems: response.data['hydra:totalItems']}});console.log(response)}).catch(error => {dispatch({type:'errorImagesUpdate'});console.log(error)});
         }
     },[stateGalerie.request]);
 
     useEffect(() => {
-        axios.get("http://localhost:8000/api/galeries?reference=svenrybin").then(response => {dispatch({type: 'initGalerie', payload: {galeries: response.data['hydra:member'], id: galerieId}});console.log(response)});
-        {/*axios.get("https://90.118.74.20:8000/api/galeries?reference=svenrybin").then(response => {dispatch({type: 'initGalerie', payload: {galeries: response.data['hydra:member'], id: galerieId}});console.log(response)});*/}
+        const client = axios.create({ baseURL: stateGalerie.adress });
+        axiosRetry(client, {
+            retries: 3,
+            retryDelay: (retryCount) => {
+                console.log(`retry attempt: ${retryCount}`);
+                return retryCount * 1000;
+            },
+            retryCondition: (error) => {
+                return error.response.status >= 400;
+            },
+        });
+        client.get(`/galeries?reference=${stateGalerie.reference}`).then(response => {dispatch({type: 'initGalerie', payload: { clientAxios: client, galeries: response.data['hydra:member'], id: galerieId}});console.log(response)}).catch(error => {dispatch({type:'errorInitGalerie'});console.log(error)});
+
         import('masonry-layout').then( data => setModuleMasonry(data));
     }, []);
 
     function StatutGalerieBottom() {
-        if(stateGalerie.request.page > 1) {
-            if(stateGalerie.galerieLoaded && stateGalerie.previousPageLoaded && (stateGalerie.request.page == stateGalerie.nbPages)) {
-                var statut = <h3>Fin de la galerie</h3>
-            } else {
-                var statut = <h3 className="clignote">Chargement...</h3>
-            }
-            return (
-                <div id={styles.next_statut_galerie}>
-                    <hr/>
-                    <div>{statut}</div>
-                </div>
-            );
-        } else {
-            return (
-                <div id={styles.next_statut_galerie} style={{display: stateGalerie.galerieLoaded ? '' :  'none' } }>
-                    <hr/>
-                    <div>
-                        <h3>Fin de la galerie</h3>
+        if(!stateGalerie.galerieVide) {
+            if(stateGalerie.request.page > 1) {
+                if(stateGalerie.galerieLoaded && stateGalerie.previousPageLoaded && (stateGalerie.request.page == stateGalerie.nbPages)) {
+                    var statut = <span>Fin de la galerie</span>
+                } else if(stateGalerie.errorImagesUpdate) {
+                    var statut = <span>Erreur de communication avec l'Api. Les prochaines images ne pourront être chargées.</span>  
+                } else {
+                    var statut = <span className="clignote">Chargement...</span>
+                }
+                return (
+                    <div id={styles.next_statut_galerie}>
+                        <hr/>
+                        <div>{statut}</div>
                     </div>
-                </div>
-            );
+                );
+            } else {
+                return (
+                    <div id={styles.next_statut_galerie} style={{display: stateGalerie.galerieLoaded ? '' :  'none' } }>
+                        <hr/>
+                        <div>
+                            <span>Fin de la galerie</span>
+                        </div>
+                    </div>
+                );
+            }
         }
+        return null;
+    }
+
+    function FiltreFormGalerieLoaded() {
+        if (stateGalerie.galeriesLoaded) {
+            return <FiltreFormGalerie dispatch={dispatch} galerieSelect={stateGalerie.galerieSelect} galeriesSelect={stateGalerie.galeriesSelect} theme={stateGalerie.theme} themes={stateGalerie.themes} sizeSelect={stateGalerie.sizeSelect} minYearSelect={stateGalerie.minYearSelect} maxYearSelect={stateGalerie.maxYearSelect}/>
+        } else if(!stateGalerie.errorInitGalerie) {
+            return  <div id={styles.galerie_filtre_loaded}>
+                        <span className="clignote">Chargement...</span>
+                    </div>
+        }
+        return null;
+    }
+
+    function GalerieFirstLoadStatut() {
+        if(!stateGalerie.galerieLoaded && stateGalerie.request.page == 1) {
+            if(stateGalerie.errorImagesUpdate) {
+                var statut = <span>Erreur de communication avec l'Api. Les images ne pourront être chargées.</span>  
+            } else {
+                var statut = <span className="clignote">Chargement...</span>
+            }
+            return <div id={styles.galerie_first_loading}>
+                        {statut}
+                   </div>
+        }
+        return null;
     }
 
     return (
 
         <main id={styles.galerie}>
-            {/*<SimpleReactLightbox>*/}
-                <div id={styles.galerie_title}>
-                    <h3>SVEN RYBIN</h3>
-                    <h2>Galerie</h2>
+
+            <div id={styles.galerie_title}>
+                <h3>SVEN RYBIN</h3>
+                <h2>Galerie</h2>
+            </div>
+
+            <FiltreFormGalerieLoaded/>
+
+            {stateGalerie.errorInitGalerie &&
+                <div id={styles.galerie_error}>
+                    <span>Erreur de communication avec l'Api. Veuillez réessayer ultérieurement et nous vous prions de nous en excuser.</span>
+                    <div>
+                        <Link href="/">
+                            <span className="btn">Accueil</span>
+                        </Link>
+                    </div>
                 </div>
+            }
 
-                {stateGalerie.galeries && <FiltreFormGalerie dispatch={dispatch} galerieSelect={stateGalerie.galerieSelect} galeriesSelect={stateGalerie.galeriesSelect} theme={stateGalerie.theme} themes={stateGalerie.themes}/>}
+            <GalerieFirstLoadStatut/>
 
-                {!stateGalerie.galerieLoaded && stateGalerie.request.page == 1 &&
-                    <div id={styles.first_loading_galerie}>
-                        <h3 className="clignote">Chargement...</h3>
-                    </div>
-                }
+            {stateGalerie.galerieVide && stateGalerie.galerieLoaded &&
+                <div id={styles.galerie_vide}>
+                    <span>Aucun resultat.</span>
+                </div>
+            }
 
-                {stateGalerie.galerieVide && stateGalerie.galerieLoaded &&
-                    <div id={styles.galerie_vide}>
-                        <h3>Aucun resultat.</h3>
-                    </div>
-                }
+            <GalerieImages styles={styles2} images={stateGalerie.images} galerieLoaded={stateGalerie.galerieLoaded} imagesIsUnloaded={imagesIsUnloaded} setIndexLightbox={setIndexLightbox}/>
 
-                <GalerieImages styles={styles2} images={stateGalerie.images} galerieLoaded={stateGalerie.galerieLoaded} imagesIsUnloaded={imagesIsUnloaded} setIndexLightbox={setIndexLightbox}/>
+            <StatutGalerieBottom/>
 
-                {!stateGalerie.galerieVide && <StatutGalerieBottom/>}
-            {/*</SimpleReactLightbox>*/}
         </main>
 
     );
-    
 }

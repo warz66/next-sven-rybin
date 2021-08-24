@@ -40,7 +40,7 @@ a {
   text-decoration: none;
 }
 
-input {
+input, .btn {
   font-family: 'Spartan', sans-serif;
   outline: none;
   color: var(--primary-typo);
@@ -50,17 +50,17 @@ input {
   cursor: pointer;
 }
 
-input[type="submit"] {
+input[type="submit"], .btn {
   padding: 18px 36px 15px 36px;
   border: 1px solid var(--mongoose);
   background-color: transparent;
   font-weight: 600;
-  box-shadow: 0px 1px 0px #0000004D;
+  /*box-shadow: 0px 1px 0px #0000004D;*/
   font-size: 14px;
   transition: 0.3s;
 }
 
-input[type="submit"]:hover {
+input[type="submit"]:hover, .btn:hover {
   background-color: var(--mongoose);
   color: var(--white);
 }
@@ -81,9 +81,9 @@ h2 {
   color: var(--secondary-typo);
 }
 
-@media(max-width: 500px) {
+@media(max-width: 420px) {
   h2 {
-    font-size: 80px;
+    font-size: 23vw;
   }
 }
 

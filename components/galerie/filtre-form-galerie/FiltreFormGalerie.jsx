@@ -1,16 +1,16 @@
 import styles from './filtre_form_galerie.module.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Dropdown from 'react-dropdown';
 
-export default function FiltreFormGalerie({dispatch, galerieSelect, galeriesSelect, theme, themes}) {
+export default function FiltreFormGalerie({dispatch, galerieSelect, galeriesSelect, theme, themes, sizeSelect, minYearSelect, maxYearSelect}) {
     const [valueSelectGalerie, setValueSelectGalerie] = useState(galerieSelect);
     const [valueSelectTheme, setValueSelectTheme] = useState(theme);
-    const [valueSelectSize, setValueSelectSize] = useState('0')
+    const [valueSelectSize, setValueSelectSize] = useState(sizeSelect);
 
     function handleSubmit(e) {
         e.preventDefault();
 
-        dispatch({  type: 'galerieUnloaded'});
+        dispatch({type: 'galerieUnloaded'});
 
         let id;
         if(valueSelectGalerie.value.split('-')[0] != '0') {
@@ -25,8 +25,6 @@ export default function FiltreFormGalerie({dispatch, galerieSelect, galeriesSele
         } else {
             theme = '';
         }
-
-        console.log(theme);
 
         let yearMin = e.target[0].value;
         let yearMax = e.target[1].value;
@@ -48,7 +46,7 @@ export default function FiltreFormGalerie({dispatch, galerieSelect, galeriesSele
             break;
         }
 
-        dispatch({type: 'changeRequest', payload: {id: id, theme: theme, sizeMin: sizeMin, sizeMax: sizeMax, yearMin: yearMin, yearMax: yearMax}});
+        dispatch({type: 'changeRequest', payload: {galerieSelect: valueSelectGalerie, theme: valueSelectTheme, sizeSelect: valueSelectSize, minYearSelect: yearMin, maxYearSelect: yearMax, id: id, theme: theme, sizeMin: sizeMin, sizeMax: sizeMax, yearMin: yearMin, yearMax: yearMax}});
     }
 
     function handleSelectTheme(e) {
@@ -93,8 +91,8 @@ export default function FiltreFormGalerie({dispatch, galerieSelect, galeriesSele
                             <div>
                                 <label htmlFor="inputs-periode">Période</label>
                                 <div id="inputs-periode" className={styles.inputs_range_year}>
-                                    <input type="number" name="yearMin" min={process.env.NEXT_PUBLIC_MIN_YEAR} max={process.env.NEXT_PUBLIC_MAX_YEAR} defaultValue={process.env.NEXT_PUBLIC_MIN_YEAR}/>
-                                    <input type="number" name="yearMax" min={process.env.NEXT_PUBLIC_MIN_YEAR} max={process.env.NEXT_PUBLIC_MAX_YEAR} defaultValue={process.env.NEXT_PUBLIC_MAX_YEAR}/>
+                                    <input type="number" name="yearMin" min={process.env.NEXT_PUBLIC_MIN_YEAR} max={process.env.NEXT_PUBLIC_MAX_YEAR} defaultValue={minYearSelect}/>
+                                    <input type="number" name="yearMax" min={process.env.NEXT_PUBLIC_MIN_YEAR} max={process.env.NEXT_PUBLIC_MAX_YEAR} defaultValue={maxYearSelect}/>
                                 </div>
                             </div>
                         </div>

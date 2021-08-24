@@ -6,34 +6,9 @@
 }
 
 .grid {
-  margin: 0 50px;
   overflow: hidden;
   max-width: 1750px;
   margin: 0 auto;
-}
-
-@media(max-width: 1850px) {
-  .grid {
-    margin: 0 50px;
-  }   
-}
-
-@media(max-width: 1250px) {
-  .grid {
-    margin: 0 40px;
-  }
-}
-
-@media(max-width: 900px) {
-  .grid {
-    margin: 0 30px;
-  }
-}
-
-@media(max-width: 500px) {
-  .grid {
-    margin: 0 15px;
-  }
 }
 
 .grid_sizer {
