@@ -90,23 +90,9 @@ function reducer(state, action) {
 
 export default function Galeries({galerieId = 240}) {
     const [stateGalerie, dispatch] = useReducer(reducer, initialState);
-    //const [clientAxios, setClientAxios] = useState();
     const [moduleMasonry, setModuleMasonry] = useState(false);
     const [masonry, setMasonry] = useState();
     const [indexLightbox, setIndexLightbox] = useState(0);
-    
-    /*function classNameByWidth(width) {
-        width = width + stateGalerie.gap;
-        if (width >= 400 && width < 600) {
-            return styles.grid_item__width2;
-        }
-        if (width >= 600 && width < 800) {
-            return styles.grid_item__width3;
-        }
-        if (width >= 800) {
-            return styles.grid_item__width4;
-        }
-    } */
 
     function imagesIsUnloaded(index) {
         if(stateGalerie.images.length != stateGalerie.totalImages ) {
@@ -141,9 +127,7 @@ export default function Galeries({galerieId = 240}) {
             let Masonry = moduleMasonry.default;
             let msnry = new Masonry(`.${styles2.grid}`, {
                 columnWidth: `.${styles2.grid_sizer}`,
-                //columnWidth: '.'+styles.grid_sizer,
                 itemSelector: 'none',
-                //horizontalOrder: false,
                 itemSelector: '.'+styles2.grid_item,
                 gutter: `.${styles2.gutter_sizer}`,
                 percentPosition: true,
@@ -286,7 +270,7 @@ export default function Galeries({galerieId = 240}) {
 
             {stateGalerie.errorInitGalerie &&
                 <div id={styles.galerie_error}>
-                    <span>{"Erreur de communication avec l'Api. Veuillez réessayer ultérieurement et nous vous prions de nous en excuser."}</span>
+                    <span>{"Erreur de communication avec l'Api. Veuillez réessayer ultérieurement, nous vous prions de nous en excuser."}</span>
                     <div>
                         <Link href="/">
                             <span className="btn">Accueil</span>

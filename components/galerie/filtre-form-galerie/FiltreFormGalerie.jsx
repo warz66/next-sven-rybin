@@ -1,5 +1,5 @@
 import styles from './filtre_form_galerie.module.css'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Dropdown from 'react-dropdown';
 
 export default function FiltreFormGalerie({dispatch, galerieSelect, galeriesSelect, themeSelect, themesSelect, sizeSelect, minYearSelect, maxYearSelect}) {
