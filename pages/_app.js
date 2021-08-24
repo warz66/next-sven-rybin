@@ -8,7 +8,6 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <meta httpEquiv="Content-Security-Policy" content="upgrade-insecure-requests"/>
         <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&family=Playfair+Display:wght@400;600;700&family=Spartan:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet"/>
       </Head>
       <SimpleReactLightbox>
