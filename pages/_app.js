@@ -3,8 +3,12 @@ import '../styles/globals.css'
 import '../styles/react-dropdown.css'
 import SimpleReactLightbox from 'simple-react-lightbox'
 import Head from 'next/head'
+import Footer from '../components/footer/Footer'
+import Header from '../components/header/Header'
+import RetourHaut from '../components/retour-haut/RetourHaut'
 
 function MyApp({ Component, pageProps }) {
+
   return (
     <>
       <Head>
@@ -12,7 +16,10 @@ function MyApp({ Component, pageProps }) {
       </Head>
       <SimpleReactLightbox>
         <div className={"light_mode"}>
+          <Header/>
           <Component {...pageProps} />
+          <Footer/>
+          <RetourHaut/>
         </div>
       </SimpleReactLightbox>
     </>

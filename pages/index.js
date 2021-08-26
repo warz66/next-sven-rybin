@@ -15,10 +15,7 @@ export default function Home() {
       <main className={styles.main}>
         <h1 className={styles.title}>
           Read{' '}
-          <Link href="/galeries/cosmique">
-            <a>this page!</a>
-          </Link>
-          <Link href="/galeries/images">
+          <Link href="/galerie">
             <a>this page!</a>
           </Link>
         </h1>

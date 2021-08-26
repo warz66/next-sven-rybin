@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import styles from './images.module.css'
+import styles from './galerie.module.css'
 import styles2 from '../../components/galerie/galerie-images/galerie_images.module.css'
 import { useEffect, useState, useReducer } from 'react'
 import axios from 'axios'
@@ -7,6 +7,7 @@ import axiosRetry from 'axios-retry'
 import imagesLoaded from 'imagesloaded'
 import GalerieImages from '../../components/galerie/galerie-images/GalerieImages'
 import FiltreFormGalerie from '../../components/galerie/filtre-form-galerie/FiltreFormGalerie'
+import Head from 'next/head'
 
 const initialState = {
     clientAxios: null,
@@ -282,6 +283,10 @@ export default function Galeries({galerieId = 240}) {
     return (
 
         <main id={styles.galerie}>
+
+            <Head>
+                <title>Galerie | Sven Rybin</title>
+            </Head>
 
             <div id={styles.galerie_title}>
                 <h3>SVEN RYBIN</h3>
