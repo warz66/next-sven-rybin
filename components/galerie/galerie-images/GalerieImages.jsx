@@ -1,6 +1,6 @@
 import { SRLWrapper } from 'simple-react-lightbox'
 
-export default function GalerieImages({styles, images, galerieLoaded, imagesIsUnloaded, setIndexLightbox}) {
+export default function GalerieImages({styles, images, formatWebp, galerieLoaded, imagesIsUnloaded, setIndexLightbox}) {
 
     const callbacks = {
         onSlideChange: object => {console.log(object);
@@ -54,7 +54,7 @@ export default function GalerieImages({styles, images, galerieLoaded, imagesIsUn
             captionTextTransform: 'inherit',
             showCaption: true
         }*/
-      };
+    };
 
     return(
 
@@ -67,19 +67,21 @@ export default function GalerieImages({styles, images, galerieLoaded, imagesIsUn
                         <div key={image.id} className={styles.grid_item+`${galerieLoaded ? '' : ' '+imagesIsUnloaded(index)}`}>
                             <div>
                                 <a href={image.pathUrl} data-attribute="SRL">
-                                    <img className={styles.grid_image} src={image.pathUrlCache} alt={image.tableau.year+'-'+image.tableau.height+'x'+image.tableau.width+' cm'+'-'+image.tableau.technique+'-'+image.tableau.title+'-'+image.caption } />
+                                    <img className={styles.grid_image} src={formatWebp ? image.pathUrlWebpCache : image.pathUrlCache} alt={image.tableau.year+'-'+image.tableau.height+'x'+image.tableau.width+' cm'+'-'+image.tableau.technique+'-'+image.tableau.title+'-'+image.caption } />
                                 </a>
-                                <div className={styles.info_tableau}>
-                                    <div>
-                                        <span>{image.tableau.title}</span><br/>
-                                        <span>{image.tableau.technique}</span>
+                                {(image.tableau.title || image.tableau.technique || image.tableau.year || (image.tableau.height && image.tableau.width)) && <div>
+                                    <div className={styles.info_tableau}>
+                                        <div>
+                                            <span>{image.tableau.title}</span>
+                                            <span>{image.tableau.technique}</span>
+                                        </div>
+                                        <div>
+                                            <span>{image.tableau.year}</span>
+                                            <span>{image.tableau.height && image.tableau.width ? image.tableau.height+'x'+image.tableau.width+' cm' : ""}</span>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <span>{image.tableau.year}</span><br/>
-                                        <span>{image.tableau.height+'x'+image.tableau.width+' cm'}</span>
-                                    </div>
-                                </div>
-                                <hr />
+                                    <hr />
+                                </div>}
                             </div>
                         </div>
                     )

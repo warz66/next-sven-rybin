@@ -34,11 +34,55 @@
   text-align: center;
 }
 
+/*#galerie_title > div {
+  position: relative;
+}
+
+#galerie_title > div > span {
+  margin-top: -20px;
+  position: absolute;
+  font-family: 'Playfair Display', serif;
+  color: var(--ebony-clay);
+  opacity: 0.1;
+  font-size: 144px;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  transform: translate(-50%,-50%);
+}*/
+
 @media(max-width: 1060px) {
   #galerie_title {
     margin-top: 100px;
   }  
 }
+
+/*#galerie:after, #galerie:before {
+  content: "";
+  position: absolute;
+  opacity: 0.1;
+  z-index: -1;
+  width: 160px;
+  height: 160px;
+  background: url("https://images.vexels.com/media/users/3/159505/isolated/lists/9502c2dd9a9524e31aea711089464b7d-planet-saturn-orbit-celestial-body-stroke.png");
+  background-size: 50%;
+  background-repeat: no-repeat;
+}
+
+#galerie:after {
+  left: 1134px;
+  top: 262px;
+  animation: moveY 25s linear infinite alternate;
+}
+
+#galerie:before {
+  right: 650px;
+  top: 8vh;
+  animation: spin 15s linear infinite normal;
+}
+
+@keyframes spin{0%{transform:rotate(0deg)}to{transform:rotate(-1turn)}}
+@keyframes moveY{0%{transform:translateY(-100%)}to{transform:translateY(100%)}}*/
 
 #galerie_first_loading, #galerie_vide, #galerie_error, #galerie_filtre_loaded {
   margin: 0 auto;

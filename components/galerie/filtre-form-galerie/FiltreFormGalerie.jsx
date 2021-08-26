@@ -2,10 +2,10 @@ import styles from './filtre_form_galerie.module.css'
 import { useState } from 'react'
 import Dropdown from 'react-dropdown';
 
-export default function FiltreFormGalerie({dispatch, galerieSelect, galeriesSelect, themeSelect, themesSelect, sizeSelect, minYearSelect, maxYearSelect}) {
-    const [valueSelectGalerie, setValueSelectGalerie] = useState(galerieSelect);
-    const [valueSelectTheme, setValueSelectTheme] = useState(themeSelect);
-    const [valueSelectSize, setValueSelectSize] = useState(sizeSelect);
+export default function FiltreFormGalerie({dispatch, data}) {
+    const [valueSelectGalerie, setValueSelectGalerie] = useState(data.galerieSelect);
+    const [valueSelectTheme, setValueSelectTheme] = useState(data.themeSelect);
+    const [valueSelectSize, setValueSelectSize] = useState(data.sizeSelect);
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -80,11 +80,11 @@ export default function FiltreFormGalerie({dispatch, galerieSelect, galeriesSele
                     <div>
                         <div>
                             <label htmlFor="select-themes">Thèmes</label>
-                            <Dropdown id="select-themes" controlClassName={styles.select_control_themes} options={themesSelect} onChange={(e) => handleSelectTheme(e)} value={valueSelectTheme} placeholder="Thèmes..."/>
+                            <Dropdown id="select-themes" controlClassName={styles.select_control_themes} options={data.themesSelect} onChange={(e) => handleSelectTheme(e)} value={valueSelectTheme} placeholder="Thèmes..."/>
                         </div>
                         <div>
                             <label htmlFor="select-galeries">Galeries</label>
-                            <Dropdown id="select-galeries" controlClassName={styles.select_control_galeries} options={galeriesSelect} onChange={(e) => handleSelectGalerie(e)} value={valueSelectGalerie} placeholder="Galeries..."/>
+                            <Dropdown id="select-galeries" controlClassName={styles.select_control_galeries} options={data.galeriesSelect} onChange={(e) => handleSelectGalerie(e)} value={valueSelectGalerie} placeholder="Galeries..."/>
                         </div>
                         <div>
                             <label htmlFor="select-tailles">Tailles</label>
@@ -94,8 +94,8 @@ export default function FiltreFormGalerie({dispatch, galerieSelect, galeriesSele
                             <div>
                                 <label htmlFor="inputs-periode">Période</label>
                                 <div id="inputs-periode" className={styles.inputs_range_year}>
-                                    <input type="number" name="yearMin" min={process.env.NEXT_PUBLIC_MIN_YEAR} max={process.env.NEXT_PUBLIC_MAX_YEAR} defaultValue={minYearSelect}/>
-                                    <input type="number" name="yearMax" min={process.env.NEXT_PUBLIC_MIN_YEAR} max={process.env.NEXT_PUBLIC_MAX_YEAR} defaultValue={maxYearSelect}/>
+                                    <input type="number" name="yearMin" min={process.env.NEXT_PUBLIC_MIN_YEAR} max={process.env.NEXT_PUBLIC_MAX_YEAR} defaultValue={data.minYearSelect}/>
+                                    <input type="number" name="yearMax" min={process.env.NEXT_PUBLIC_MIN_YEAR} max={process.env.NEXT_PUBLIC_MAX_YEAR} defaultValue={data.maxYearSelect}/>
                                 </div>
                             </div>
                         </div>
