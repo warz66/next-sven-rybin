@@ -75,14 +75,12 @@
 #next_statut_galerie {
   margin-top: 10px;
   line-height: 40px;
-}
-
-#next_statut_galerie > hr {
-  opacity: 0.3;
+  /*border-top: 1px solid rgba(255, 255, 255, 0.3);*/
 }
 
 #next_statut_galerie > div {
   display: flex;
   justify-content: center;
-  margin: 10px 0px;
+  /*margin: 10px 0px;*/
+  margin-bottom: 25px;
 }

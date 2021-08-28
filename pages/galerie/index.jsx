@@ -242,7 +242,6 @@ export default function Galeries({galerieId = 240}) {
             }
             return (
                 <div id={styles.next_statut_galerie} style={{ display: ((stateGalerie.request.page == 1 || !stateGalerie.request.page) && stateGalerie.previousPageLoaded == false) ? "none" : "block"}}>
-                    <hr/>
                     <div>{statut}</div>
                 </div>
             );
