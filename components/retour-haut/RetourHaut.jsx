@@ -10,7 +10,7 @@ export default function RetourHaut() {
 
     useEffect(() => {
         function handleRetourHautVisible ()  {
-            window.onscroll = function(e) {
+            window.onscroll = function() {
                 (window.pageYOffset > 1500) ? setRetourHautVisible(true) : setRetourHautVisible(false);
             };
         };

@@ -94,9 +94,11 @@
     border-bottom-left-radius: 2px;
 }*/
 
-.Dropdown-option:hover {
-    background-color: var(--white-solid);
-    color: var(--primary-typo);
+@media (hover: hover) and (pointer: fine) {
+    .Dropdown-option:hover {
+        background-color: var(--white-solid);
+        color: var(--primary-typo);
+    }
 }
 
 .Dropdown-option.is-selected {

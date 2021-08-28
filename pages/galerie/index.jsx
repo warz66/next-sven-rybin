@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import styles from './galerie.module.css'
 import styles2 from '../../components/galerie/galerie-images/galerie_images.module.css'
-import { useEffect, useState, useReducer } from 'react'
+import { useEffect, useState, useReducer, useRef } from 'react'
 import axios from 'axios'
 import axiosRetry from 'axios-retry'
 import imagesLoaded from 'imagesloaded'
@@ -106,6 +106,7 @@ export default function Galeries({galerieId = 240}) {
     const [moduleMasonry, setModuleMasonry] = useState(false);
     const [masonry, setMasonry] = useState();
     const [indexLightbox, setIndexLightbox] = useState(0);
+    const lastImgRef = useRef(null);
 
     function imagesIsUnloaded(index) {
         if(stateGalerie.images.length != stateGalerie.totalImages ) {
@@ -120,10 +121,14 @@ export default function Galeries({galerieId = 240}) {
         return;
     }
 
-    function handleScroll() {
-        let bottom = Math.ceil(window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight/* - 150*/;
-        if (bottom && stateGalerie.previousPageLoaded) {
-            dispatch({type: 'nextPage'});
+    function handleScroll() { // faire mieux pour les perforances
+        if(lastImgRef && stateGalerie.previousPageLoaded) {
+            let rect = lastImgRef.current.getBoundingClientRect();
+            let elemTop = rect.top;
+            let elemBottom = rect.bottom;
+            if((elemTop >= 0) && (elemBottom <= window.innerHeight)) {
+                dispatch({type: 'nextPage'});
+            }
         }
     };
 
@@ -183,6 +188,7 @@ export default function Galeries({galerieId = 240}) {
     },[indexLightbox,stateGalerie.images]);
 
     useEffect(()=> {
+        console.log(stateGalerie.previousPageLoaded);
         if(stateGalerie.previousPageLoaded) { 
             window.addEventListener('scroll', handleScroll, {
                 passive: true
@@ -227,31 +233,20 @@ export default function Galeries({galerieId = 240}) {
 
     function StatutGalerieBottom() {
         if(!stateGalerie.galerieVide) {
-            if(stateGalerie.request.page > 1) {
-                if(stateGalerie.galerieLoaded && stateGalerie.previousPageLoaded && (stateGalerie.request.page == stateGalerie.nbPages)) {
-                    var statut = <span>Fin de la galerie</span>
-                } else if(stateGalerie.errorImagesUpdate) {
-                    var statut = <span>{"Erreur de communication avec l'Api. Les prochaines images ne pourront être chargées."}</span>  
-                } else {
-                    var statut = <span className="clignote">Chargement...</span>
-                }
-                return (
-                    <div id={styles.next_statut_galerie}>
-                        <hr/>
-                        <div>{statut}</div>
-                    </div>
-                );
+            if(stateGalerie.galerieLoaded && stateGalerie.previousPageLoaded && (stateGalerie.request.page == stateGalerie.nbPages)) {
+                var statut = <span>Fin de la galerie</span>
+            } else if(stateGalerie.errorImagesUpdate) {
+                var statut = <span>{"Erreur de communication avec l'Api. Les prochaines images ne pourront être chargées."}</span>  
             } else {
-                return (
-                    <div id={styles.next_statut_galerie} style={{display: stateGalerie.galerieLoaded ? '' :  'none' } }>
-                        <hr/>
-                        <div>
-                            <span>Fin de la galerie</span>
-                        </div>
-                    </div>
-                );
+                var statut = <span className="clignote">Chargement...</span>
             }
-        }
+            return (
+                <div id={styles.next_statut_galerie} style={{ display: ((stateGalerie.request.page == 1 || !stateGalerie.request.page) && stateGalerie.previousPageLoaded == false) ? "none" : "block"}}>
+                    <hr/>
+                    <div>{statut}</div>
+                </div>
+            );
+        } 
         return null;
     }
 
@@ -291,10 +286,6 @@ export default function Galeries({galerieId = 240}) {
             <div id={styles.galerie_title}>
                 <h3>SVEN RYBIN</h3>
                 <h2>Galerie</h2>
-                {/*<div>
-                    {<span>Galerie</span>}
-                    <h2>Galerie</h2>
-                </div>*/}
             </div>
 
             <FiltreFormGalerieLoaded/>
@@ -318,7 +309,7 @@ export default function Galeries({galerieId = 240}) {
                 </div>
             }
 
-            <GalerieImages styles={styles2} images={stateGalerie.images} formatWebp={stateGalerie.formatWebp} galerieLoaded={stateGalerie.galerieLoaded} imagesIsUnloaded={imagesIsUnloaded} setIndexLightbox={setIndexLightbox}/>
+            <GalerieImages styles={styles2} images={stateGalerie.images} formatWebp={stateGalerie.formatWebp} galerieLoaded={stateGalerie.galerieLoaded} imagesIsUnloaded={imagesIsUnloaded} setIndexLightbox={setIndexLightbox} lastImgRef={lastImgRef}/>
 
             <StatutGalerieBottom/>
 

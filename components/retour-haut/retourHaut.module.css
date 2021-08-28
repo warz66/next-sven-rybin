@@ -4,13 +4,12 @@
     height: 50px;
     background-color: #f5f3ef66;
     position: fixed;
-    right: 22px;
+    right: 20px;
     opacity: 1;
-    z-index: 10000;
+    z-index: 1000;
     transition: all ease-in 0.5s;
     cursor: pointer;
     border: 1px solid var(--mongoose);
-    /*backface-visibility: hidden;*/
 }
 
 #btn_retour_haut:before { 
@@ -23,11 +22,13 @@
     top: 47%;
     left: 50%;
     transform: translate(-50%,-50%);
-} 
+}
 
-#btn_retour_haut:hover {
-    transition: all ease-in 0.3s;
-    background-color: #f5f3ef;
+@media (hover: hover) and (pointer: fine) {
+    #btn_retour_haut:hover {
+        transition: all ease-in 0.3s;
+        background-color: #f5f3ef;
+    }
 }
 
 #btn_retour_haut.invisible {
@@ -37,7 +38,7 @@
 }
 
 #btn_retour_haut.visible {
-    bottom: 22px;
+    bottom: 20px;
     opacity: 1;
 }
 

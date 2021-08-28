@@ -18,6 +18,7 @@
   --secondary-bg: var(--pampas);
   --tertiary-bg: var(--white-solid);
   --form-item-bg: var(--pampas);
+  --footer-bg: var(--grey);
 }
 
 :root .dark_mode {
@@ -28,6 +29,7 @@
   --secondary-bg: var(--grey);
   --tertiary-bg: var(--mongoose);
   --form-item-bg: var(--ebony-clay);
+  --footer-bg: var(--ebony-clay);
 }
 
 html {
@@ -60,9 +62,11 @@ input[type="submit"], .btn {
   transition: 0.3s;
 }
 
-input[type="submit"]:hover, .btn:hover {
-  background-color: var(--mongoose);
-  color: var(--white);
+@media (hover: hover) and (pointer: fine) {
+  input[type="submit"]:hover, .btn:hover {
+    background-color: var(--mongoose);
+    color: var(--white);
+  }
 }
 
 h1 {
