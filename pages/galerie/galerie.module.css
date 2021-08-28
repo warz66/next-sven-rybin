@@ -3,6 +3,7 @@
   margin: 0 50px;
   color: var(--mongoose);
   min-height: calc(100vh - 150px);
+  padding-top: 150px;
 }
 
 @media(max-width: 1850px) {
@@ -30,14 +31,25 @@
 }
 
 #galerie_title {
-  margin-top: 150px;
+  /*margin-top: 150px;*/
   text-align: center;
+}
+
+#galerie_title h3 {
+  color: var(--mongoose);
+}
+
+#galerie_title h2 {
+  color: var(--tertiary-typo);
 }
 
 @media(max-width: 1060px) {
   #galerie_title {
-    margin-top: 100px;
+    /*margin-top: 100px;*/
   }  
+  #galerie {
+    padding-top: 100px;
+  }
 }
 
 #galerie_first_loading, #galerie_vide, #galerie_error, #galerie_filtre_loaded {

@@ -6,7 +6,7 @@
     box-shadow: 0px 1px 0px 0.2px #0000004D;
     border: none;
     border-radius: 0px;
-    color: var(--primary-typo);
+    /*color: var(--primary-typo);*/
     background-color: var(--secondary-bg);
     font-size: 16px;
     min-height: 51px;
@@ -76,7 +76,7 @@
 
 .Dropdown-option {
     box-sizing: border-box;
-    color: var(--primary-typo);
+    /*color: var(--primary-typo);*/
     cursor: pointer;
     display: block;
     padding: 10px 10px;
@@ -96,14 +96,14 @@
 
 @media (hover: hover) and (pointer: fine) {
     .Dropdown-option:hover {
-        background-color: var(--white-solid);
-        color: var(--primary-typo);
+        background-color: var(--mongoose);
+        color: var(--white);
     }
 }
 
 .Dropdown-option.is-selected {
-    background-color: var(--white-solid);
-    color: var(--primary-typo);
+    background-color: var(--mongoose);
+    color: var(--white);
 }
 
 .Dropdown-noresults {

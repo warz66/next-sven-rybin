@@ -6,6 +6,7 @@
   --white: #fff;
   --white-solid: #fdfdfd;
   --ebony-clay: #2d3242;
+  --mirage: #161928;
   --mongoose: #b1a079;
   --pampas: #f5f3ef;
   --grey: #3e4351;
@@ -14,22 +15,25 @@
 :root .light_mode {
   --primary-typo: var(--mongoose); 
   --secondary-typo: var(--ebony-clay);
+  --tertiary-typo: var(--ebony-clay);
   --primary-bg: var(--white);
   --secondary-bg: var(--pampas);
   --tertiary-bg: var(--white-solid);
-  --form-item-bg: var(--pampas);
   --footer-bg: var(--grey);
+
+  background-color: var(--primary-bg);
 }
 
 :root .dark_mode {
   --primary-typo: var(--white); 
   --secondary-typo: var(--mongoose);
-  --tertiary-typo: var(--ebony-clay);
+  --tertiary-typo: var(--white);
   --primary-bg: var(--ebony-clay);
   --secondary-bg: var(--grey);
   --tertiary-bg: var(--mongoose);
-  --form-item-bg: var(--ebony-clay);
-  --footer-bg: var(--ebony-clay);
+  --footer-bg: var(--mirage);
+
+  background-color: var(--primary-bg);
 }
 
 html {
@@ -45,7 +49,7 @@ a {
 input, .btn {
   font-family: 'Spartan', sans-serif;
   outline: none;
-  color: var(--primary-typo);
+  color: var(--mongoose);
   background-color: var(--secondary-bg);
   letter-spacing: 0.32px;
   font-size: 16px;

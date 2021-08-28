@@ -3,9 +3,10 @@
     flex-direction: column;
     justify-content: center;
     background-color: var(--footer-bg);
-    padding: 35px 15px;
+    padding: 40px 15px;
     color: var(--mongoose);
     font-size: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 #footer > div:first-of-type {
@@ -16,7 +17,6 @@
 
 #footer > div:nth-child(2) {
     margin: 0 auto 20px auto;
-
 }
 
 #footer > div:nth-child(2) ul {

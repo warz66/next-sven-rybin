@@ -45,7 +45,6 @@
 #container_form .inputs_range_year input[type="number"] {
   width: calc((300px - 10px ) / 2);
   padding: 16px 12px;
-  background-color: var(--form-item-bg);
 }
 
 #container_form .inputs_range_year input[type="number"]:first-of-type {
