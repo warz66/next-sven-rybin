@@ -41,6 +41,34 @@ html {
   font-family: 'Spartan', sans-serif;
 }
 
+.global_padding {
+  padding: 0 50px;
+}
+
+@media(max-width: 1850px) {
+  .global_padding {
+    padding: 0 50px;
+  }   
+}
+
+@media(max-width: 1250px) {
+  .global_padding {
+    padding: 0 40px;
+  }
+}
+
+@media(max-width: 900px) {
+  .global_padding {
+    padding: 0 30px;
+  }
+}
+
+@media(max-width: 500px) {
+  .global_padding {
+    padding: 0 15px;
+  }
+}
+
 a {
   color: inherit;
   text-decoration: none;

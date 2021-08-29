@@ -1,0 +1,319 @@
+#header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    max-width: 1540px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--tertiary-typo);
+    /*font-family: 'Playfair Display', serif;*/
+    letter-spacing: 1px;
+}
+
+#header > div:first-of-type {
+    margin-right: auto;
+}
+
+#header > div:first-of-type img {
+    width: 140px;
+}
+
+#header > div:nth-child(2) {
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+    margin-right: 150px;
+    height: max-content;
+}
+
+#header > div:nth-child(2) ul {
+    display: flex;
+    gap: 60px;
+}
+
+#header > div:nth-child(2) ul a {
+    position: relative;
+    transition: .3s;
+}
+
+#header > div:nth-child(2) ul a:hover {
+    color: var(--mongoose);
+    filter: brightness(1.1);
+}
+
+#header > div:nth-child(2) ul a:after {
+    position: absolute;
+    content: "";
+    left: 0;
+    bottom: -4px;
+    height: 1px;
+    width: 0;
+    opacity: 0;
+    background-color: var(--mongoose);
+    transition: .3s;
+}
+
+#header > div:nth-child(2) ul a:hover:after {
+    width: 100%;
+    opacity: 1;
+}
+
+#header > div:last-of-type {
+    position: relative;
+    width: 34px;
+    height: 34px;
+}
+
+@media(max-width: 1150px) {
+    #header {
+        justify-content: space-between;
+    }
+    #header > div:first-of-type {
+        margin-right: initial;
+    }
+    #header > div:nth-child(2) {
+        margin-left: initial;
+        margin-right: 0;
+    }
+    #header > div:nth-child(2) ul {
+        gap: 40px;
+    }    
+}
+
+@media(max-width: 1000px) {
+    /* creer le menu burger */
+}
+
+/*************************/
+
+.switch_mode label {
+    box-sizing:content-box;
+	position:absolute;
+	left:50%;
+	top:50%;
+	--c:translate(-50%,-50%);
+	transform:var(--c);
+    cursor: pointer;
+}
+
+.switch_mode .switch {
+	position:relative;
+	left:0;top:0;
+	width:26px;
+	height:26px;
+}
+
+.switch_mode label > input {
+	position:absolute;
+	left:0;
+	top:0;
+	z-index:5;
+	opacity:0;
+}
+
+.switch_mode .switch span {
+	display:block;
+	position:absolute;
+	left:50%;
+	top:50%;
+	transform:var(--c);
+	border-radius:50%;
+	width:70%;
+	height:70%;
+	background:var(--tertiary-typo);
+	border:3px solid var(--primary-bg);
+}
+
+.switch_mode .switch div {
+	position:absolute;
+	left:0;top:0;
+	width:100%;
+	height:100%;
+}
+
+.switch_mode .switch div::before, .switch_mode .switch div::after {
+	content:" ";
+	display:block;
+	position:absolute;
+	left:50%;
+	top:50%;
+	transform:var(--c);
+	background:var(--tertiary-typo);
+	width:12%;
+	height:130%;
+	border-radius:10px;
+}
+
+.switch_mode .switch div:nth-child(1)::before {
+	transform:var(--c) rotate(0deg);
+}
+
+.switch_mode .switch div:nth-child(1)::after {
+	transform:var(--c) rotate(45deg); /*45deg increment each time*/
+}
+
+.switch_mode .switch div:nth-child(2)::before {
+	transform:var(--c) rotate(90deg);
+}
+
+.switch_mode .switch div:nth-child(2)::after {
+	transform:var(--c) rotate(135deg);
+}
+
+.switch_mode .switch::before, .switch::after {
+	content:" ";
+	position:absolute;
+	left:50%;
+	top:50%;
+	transform:var(--c);
+	border-radius:50%;
+	background:var(--primary-bg);
+}
+
+.switch_mode .switch::before {
+	width:0%;
+	height:0%;
+	z-index:10;
+}
+
+.switch_mode .switch::after {
+	width:50%;
+	height:50%;
+}
+
+.switch_mode input:not(:checked) ~ .switch span {
+    width:100%; /*width change*/
+    height:100%; /*height change*/
+    background: var(--tertiary-typo); /*color change*/
+    /*we get a full moon*/
+}
+
+.switch_mode .animation_ok input:not(:checked) ~ .switch span {
+    animation: anim3 0.75s ease;
+}
+
+.switch_mode input:checked ~ .switch span {
+    width:70%; /*width change*/
+    height:70%; /*height change*/
+    background: var(--tertiary-typo); /*color change*/
+    /*we get a full moon*/
+}
+
+.switch_mode .animation_ok input:checked ~ .switch span {
+    animation: anim3 0.75s ease reverse ;
+}
+
+.switch_mode input:not(:checked) ~ .switch div::before,
+.switch_mode input:not(:checked) ~ .switch div::after {
+    height:50%; /*we hide the sun-rays*/
+}
+
+.switch_mode .animation_ok input:not(:checked) ~ .switch div::before,
+.switch_mode .animation_ok input:not(:checked) ~ .switch div::after {
+    animation: anim2 0.75s ease ;
+}
+
+.switch_mode input:checked ~ .switch div::before,
+.switch_mode input:checked ~ .switch div::after {
+    height:130%; /*we hide the sun-rays*/
+}
+
+.switch_mode .animation_ok input:checked ~ .switch div::before,
+.switch_mode .animation_ok input:checked ~ .switch div::after {
+    animation: anim2 0.75s ease reverse ;
+}
+
+.switch_mode input:not(:checked) ~ .switch::before { /*we draw a white circle a left-top corner to show a half moon*/
+    left:30%;
+    top:30%;
+    width:90%;
+    height:90%;
+}
+
+.switch_mode .animation_ok input:not(:checked) ~ .switch::before { /*we draw a white circle a left-top corner to show a half moon*/
+    animation: anim1 0.75s ease ;
+}
+
+.switch_mode input:checked ~ .switch::before { /*we draw a white circle a left-top corner to show a half moon*/
+    left:50%;
+    top:50%;
+    width:30%;
+    height:30%;
+}
+
+.switch_mode .animation_ok input:checked ~ .switch::before { /*we draw a white circle a left-top corner to show a half moon*/
+    animation: anim1 0.75s ease reverse ;
+}
+
+.switch_mode input:not(:checked) ~ .switch::after { /*we hide the sun outline*/
+    width:0%;
+    height:0%;
+}
+
+.switch_mode input:checked ~ .switch::after { /*we hide the sun outline*/
+    width:50%; 
+    height:50%;
+}
+
+.switch_mode .animation_ok input:checked ~ .switch::after {
+    animation: anim4 0.75s ease;
+}
+
+.switch_mode .animation_ok input:checked ~ .switch {
+    animation: rotate 1.25s ease 0.15s;
+}
+
+@keyframes rotate {
+    to {
+        transform:rotate(180deg);
+    }
+}
+
+@keyframes anim1 {
+    from {
+        left:50%;
+        top:50%;
+        width:30%;
+        height:30%;
+    }
+    to {
+        left:30%;
+        top:30%;
+        width:90%;
+        height:90%;
+    }
+}
+
+@keyframes anim2 {
+    from {
+        height: 130%;
+    }
+    to {
+        height: 0%;
+    }
+}
+
+@keyframes anim3 {
+    from {
+        width:70%; 
+        height:70%;
+    }
+    to {
+        width:100%;
+        height:100%;
+    }
+}
+
+@keyframes anim4 {
+    from {
+        width:0%; 
+        height:0%;
+    }
+    to {
+        width:50%;
+        height:50%;
+    }
+}

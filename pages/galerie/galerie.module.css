@@ -1,33 +1,8 @@
 #galerie {
   position: relative;
-  margin: 0 50px;
   color: var(--mongoose);
   min-height: calc(100vh - 150px);
-  padding-top: 150px;
-}
-
-@media(max-width: 1850px) {
-  #galerie {
-    margin: 0 50px;
-  }   
-}
-
-@media(max-width: 1250px) {
-  #galerie {
-    margin: 0 40px;
-  }
-}
-
-@media(max-width: 900px) {
-  #galerie {
-    margin: 0 30px;
-  }
-}
-
-@media(max-width: 500px) {
-  #galerie {
-    margin: 0 15px;
-  }
+  padding-top: 100px;
 }
 
 #galerie_title {

@@ -276,7 +276,7 @@ export default function Galeries({galerieId = 240}) {
 
     return (
 
-        <main id={styles.galerie}>
+        <main id={styles.galerie} className="global_padding">
 
             <Head>
                 <title>Galerie | Sven Rybin</title>
