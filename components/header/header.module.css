@@ -1,5 +1,6 @@
 #header {
     display: flex;
+    position: relative;
     align-items: center;
     width: 100%;
     margin: 0 auto;
@@ -23,8 +24,6 @@
 
 #header > div:nth-child(2) {
     margin-left: auto;
-    display: flex;
-    flex-direction: row;
     margin-right: 150px;
     height: max-content;
 }
@@ -67,6 +66,10 @@
     height: 34px;
 }
 
+#menu_burger {
+    display: none;
+}
+
 @media(max-width: 1150px) {
     #header {
         justify-content: space-between;
@@ -84,7 +87,68 @@
 }
 
 @media(max-width: 1000px) {
-    /* creer le menu burger */
+    #menu_burger {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    #menu_burger span {
+        display: block;
+        position: relative;
+        width: 35px;
+        height: 20px;
+        border-top: 2px solid var(--tertiary-typo);
+        border-bottom: 2px solid var(--tertiary-typo);
+        cursor: pointer;
+    }
+    #menu_burger span::after {
+        content: ' ';
+        position: absolute;
+        width: 30px;
+        height:2px;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        background-color: var(--tertiary-typo);
+    }
+    #header > div:nth-child(2) {
+        overflow: hidden;
+        position: absolute;
+        z-index: 1000;
+        top: 110px;
+        bottom: 0;
+        right: 0;
+        width: 0;
+        height: 160px;
+        transition: width .3s;
+        background-color: var(--primary-bg);
+    }
+
+    #header > div:nth-child(2) ul {
+        text-align: center;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    #header > div:nth-child(2).is_open {
+        width: 100%;
+    }
+}
+
+@media(max-width: 750px) {
+    #header > div:first-of-type img {
+        width: 80px;
+    }
+}
+
+@media(max-width: 350px) {
+    #menu_burger {
+        left: auto;
+        right: 65px;
+        transform: translateY(-50%);
+    }
 }
 
 /*************************/

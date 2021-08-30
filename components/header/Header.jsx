@@ -1,10 +1,15 @@
 import styles from './header.module.css'
 import Image from 'next/image'
-import logo from '../../assets/images/logo-rybin.png'
+import logo from '../../assets/images/logo-rybin2.png'
 import { useEffect, useState } from 'react';
 
 export default function Header({mode, handleMode}) {
     const [animOK, setAnimOK] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    function handleMenuOpen() {
+        setMenuOpen(!menuOpen);
+    }
 
     function changeMode() {
         handleMode();
@@ -29,13 +34,17 @@ export default function Header({mode, handleMode}) {
                 <Image src={logo} alt="logo sven rybin" />
             </div>
 
-            <div>
+            <div className={menuOpen ? styles.is_open : ""}>
                 <ul>
                     <li><a href="">Accueil</a></li>
                     <li><a href="">Biographie</a></li>
                     <li><a href="">Galeries</a></li>
                     <li><a href="">Contact</a></li>
                 </ul>
+            </div>
+
+            <div id={styles.menu_burger} onClick={() => handleMenuOpen()}>
+                <span></span>
             </div>
 
             {/*<div onClick={() => handleMode()}>{mode ? 'light-mode' : 'dark-mode'}</div>*/}
