@@ -8,6 +8,17 @@ import imagesLoaded from 'imagesloaded'
 import GalerieImages from '../../components/galerie/galerie-images/GalerieImages'
 import FiltreFormGalerie from '../../components/galerie/filtre-form-galerie/FiltreFormGalerie'
 import Head from 'next/head'
+ 
+export async function getStaticProps() {
+    // le CORS_ALLOW_ORIGIN devrait suffire à authorizer certains accés à l'api ?
+    let resultAuth = { token: null, error: false };
+    await axios.post(process.env.ADRESS_LOGIN, { username: process.env.USERNAME_API, password: process.env.PASSWORD_API }).then(response => resultAuth = { ...resultAuth, token: response.data.token}).catch(error => resultAuth = { ...resultAuth, error: true });
+    return {
+        props: {
+            resultAuth,
+        },
+    }
+}
 
 const initialState = {
     clientAxios: null,
@@ -87,8 +98,8 @@ function reducer(state, action) {
             return { ...state, images: [], dataFiltre: { ...state.dataFiltre, galerieSelect: action.payload.galerieSelect, themeSelect: action.payload.themeSelect, sizeSelect: action.payload.sizeSelect, minYearSelect: action.payload.minYearSelect, maxYearSelect: action.payload.maxYearSelect }, request: { id: action.payload.id, theme: action.payload.theme, page: 1, sizeMin: action.payload.sizeMin, sizeMax: action.payload.sizeMax, yearMin: action.payload.yearMin, yearMax: action.payload.yearMax} };
         }
         case 'nextPage':
-            console.log(state.request);
             if(state.request.page != state.nbPages) {
+                console.log(state.request);
                 return { ...state, previousPageLoaded: false, request: { ...state.request, page: state.request.page+1 }};
             }
             return {  ...state};
@@ -101,7 +112,7 @@ function reducer(state, action) {
     }
 }
 
-export default function Galeries({galerieId = 240}) {
+export default function Galeries({resultAuth, galerieId = 240}) {
     const [stateGalerie, dispatch] = useReducer(reducer, initialState);
     const [moduleMasonry, setModuleMasonry] = useState(false);
     const [masonry, setMasonry] = useState();
@@ -188,7 +199,6 @@ export default function Galeries({galerieId = 240}) {
     },[indexLightbox,stateGalerie.images]);
 
     useEffect(()=> {
-        console.log(stateGalerie.previousPageLoaded);
         if(stateGalerie.previousPageLoaded) { 
             window.addEventListener('scroll', handleScroll, {
                 passive: true
@@ -214,21 +224,25 @@ export default function Galeries({galerieId = 240}) {
     },[stateGalerie.request, stateGalerie.clientAxios]);
 
     useEffect(() => {
-        const client = axios.create({ baseURL: stateGalerie.adress });
-        axiosRetry(client, {
-            retries: 3,
-            retryDelay: (retryCount) => {
-                console.log(`retry attempt: ${retryCount}`);
-                return retryCount * 1000;
-            },
-            retryCondition: (error) => {
-                return error.response.status >= 400;
-            },
-        });
-        const formatWebp = canUseWebp();
-        client.get(`/galeries?reference=${stateGalerie.reference}`).then(response => {dispatch({type: 'initGalerie', payload: { clientAxios: client, formatWeb: formatWebp, galeries: response.data['hydra:member'], id: galerieId}});console.log(response)}).catch(error => {dispatch({type:'errorInitGalerie'});console.log(error)});
+        if(!resultAuth.error) {
+            const client = axios.create({ baseURL: stateGalerie.adress, headers: {'authorization': 'Bearer '+resultAuth.token} });
+            axiosRetry(client, {
+                retries: 3,
+                retryDelay: (retryCount) => {
+                    console.log(`retry attempt: ${retryCount}`);
+                    return retryCount * 1000;
+                },
+                retryCondition: (error) => {
+                    return error.response.status >= 400;
+                },
+            });
+            const formatWebp = canUseWebp();
+            client.get(`/galeries?reference=${stateGalerie.reference}`).then(response => {dispatch({type: 'initGalerie', payload: { clientAxios: client, formatWeb: formatWebp, galeries: response.data['hydra:member'], id: galerieId}});console.log(response)}).catch(error => {dispatch({type:'errorInitGalerie'});console.log(error)});
 
-        import('masonry-layout').then( data => setModuleMasonry(data));
+            import('masonry-layout').then( data => setModuleMasonry(data));
+        } else {
+            dispatch({type:'errorInitGalerie'}); 
+        }
     }, []);
 
     function StatutGalerieBottom() {
