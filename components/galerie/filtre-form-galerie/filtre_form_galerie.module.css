@@ -9,10 +9,16 @@
 
 #container_form form > div:first-of-type {
   display: grid;
-  justify-content: center;
+  justify-content: space-between;
   grid-template-columns: repeat(auto-fit, minmax(300px , max-content));
   grid-gap: 32px;
   margin-bottom: 50px;
+}
+
+@media(max-width: 1415px) {
+  #container_form form > div:first-of-type {
+    justify-content: center;
+  }
 }
 
 #container_form form > div:last-of-type {
@@ -30,7 +36,7 @@
   display: block;
   margin-bottom: 10px;
   font-weight: 600;
-  color: var(--mongoose);
+  color: var(--tertiary-typo);
 }
 
 .select_control_themes, .select_control_sizes, .select_control_galeries {

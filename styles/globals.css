@@ -3,11 +3,11 @@
 }*/
 
 :root {
-  --white: #fff;
   --white-solid: #fdfdfd;
   --ebony-clay: #2d3242;
   --mirage: #161928;
   --mongoose: #b1a079;
+  --sorrell-brown: #CEB98F;
   --pampas: #f5f3ef;
   --grey: #3e4351;
 }
@@ -16,7 +16,8 @@
   --primary-typo: var(--mongoose); 
   --secondary-typo: var(--ebony-clay);
   --tertiary-typo: var(--ebony-clay);
-  --primary-bg: var(--white);
+  --fourtiary-typo: black;
+  --primary-bg: var(--white-solid);
   --secondary-bg: var(--pampas);
   --tertiary-bg: var(--white-solid);
   --footer-bg: var(--grey);
@@ -25,9 +26,10 @@
 }
 
 :root .dark_mode {
-  --primary-typo: var(--white); 
+  --primary-typo: var(--white-solid); 
   --secondary-typo: var(--mongoose);
-  --tertiary-typo: var(--white);
+  --tertiary-typo: var(--pampas);
+  --fourtiary-typo: var(--sorrell-brown);
   --primary-bg: var(--ebony-clay);
   --secondary-bg: var(--grey);
   --tertiary-bg: var(--mongoose);
@@ -39,6 +41,11 @@
 html {
   background-color: var(--primary-bg);
   font-family: 'Spartan', sans-serif;
+}
+
+section {
+  max-width: 1540px;
+  width: 100%;
 }
 
 .global_padding {
@@ -78,7 +85,8 @@ input, .btn {
   font-family: 'Spartan', sans-serif;
   outline: none;
   color: var(--mongoose);
-  background-color: var(--secondary-bg);
+  /*background-color: var(--secondary-bg);*/
+  background-color: transparent;
   letter-spacing: 0.32px;
   font-size: 16px;
   cursor: pointer;
@@ -97,7 +105,7 @@ input[type="submit"], .btn {
 @media (hover: hover) and (pointer: fine) {
   input[type="submit"]:hover, .btn:hover {
     background-color: var(--mongoose);
-    color: var(--white);
+    color: var(--primary-bg);
   }
 }
 
@@ -109,12 +117,26 @@ h1 {
   color: var(--primary-typo);
 }
 
+@media(max-width: 1250px) {
+  h1 {
+    font-size: 76px;
+    line-height: 100px;
+  }
+}
+
+@media(max-width: 1050px) {
+  h1 {
+    font-size: 64px;
+    line-height: 84px;
+  }
+}
+
 h2 {
   font-family: 'Playfair Display', serif;
   font-weight: normal;
   font-size: 96px;
   line-height: 128px;
-  color: var(--secondary-typo);
+  color: var(--primary-typo);
 }
 
 @media(max-width: 420px) {
@@ -128,7 +150,7 @@ h3 {
   font-weight: medium;
   font-size: 16px;
   line-height: 40px;
-  color: var(--primary-typo);
+  color: var(--secondary-typo);
 }
 
 h4 {

@@ -10,13 +10,13 @@
   text-align: center;
 }
 
-#galerie_title h3 {
+/*#galerie_title h3 {
   color: var(--mongoose);
-}
+}*/
 
-#galerie_title h2 {
+/*#galerie_title h2 {
   color: var(--tertiary-typo);
-}
+}*/
 
 @media(max-width: 1060px) {
   #galerie_title {
