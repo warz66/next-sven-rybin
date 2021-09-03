@@ -1,13 +1,12 @@
 import Image from 'next/image'
 import styles from './hero.module.css'
 import heroImg from '../../../assets/images/home/hero.jpg'
-import vg from '../../../assets/images/home/Van_Gogh_portrait.png'
 import ch from '../../../assets/images/home/ch_portrait.png'
 
 export default function Hero() {
   return (
-    <section id={styles.hero} className="global_padding">
-        <div id={styles.wrapper_hero}>
+    <section id={styles.hero}>
+        <div id={styles.wrapper_hero} className="wrapper global_padding">
             <div>
                 <h1>Sven Rybin</h1>
                 <span>Artiste Peintre</span>

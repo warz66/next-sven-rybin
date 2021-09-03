@@ -20,6 +20,7 @@
   --primary-bg: var(--white-solid);
   --secondary-bg: var(--pampas);
   --tertiary-bg: var(--white-solid);
+  --fourtiary-bg: var(--mongoose);
   --footer-bg: var(--grey);
 
   background-color: var(--primary-bg);
@@ -33,6 +34,7 @@
   --primary-bg: var(--ebony-clay);
   --secondary-bg: var(--grey);
   --tertiary-bg: var(--mongoose);
+  --fourtiary-bg: var(--ebony-clay);
   --footer-bg: var(--mirage);
 
   background-color: var(--primary-bg);
@@ -44,8 +46,12 @@ html {
 }
 
 section {
-  max-width: 1540px;
   width: 100%;
+}
+
+.wrapper {
+  max-width: 1540px;
+  margin: 0 auto;
 }
 
 .global_padding {

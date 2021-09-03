@@ -1,6 +1,5 @@
 #hero {
     background-color: var(--primary-bg);
-    margin: 0 auto;
     padding-top: 135px;
     padding-bottom: 135px;
     position: relative;
@@ -22,12 +21,6 @@
         font-size: 15.2vw;
     }
 }
-
-/*@media(max-width: 1200px) {
-    #wrapper_hero h1 {
-        white-space: normal;
-    }
-}*/
 
 #wrapper_hero > div:first-of-type {
     display: flex;
