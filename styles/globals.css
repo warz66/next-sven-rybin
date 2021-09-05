@@ -17,6 +17,7 @@
   --secondary-typo: var(--ebony-clay);
   --tertiary-typo: var(--ebony-clay);
   --fourtiary-typo: black;
+  --fifth-typo: var(--ebony-clay);
   --primary-bg: var(--white-solid);
   --secondary-bg: var(--pampas);
   --tertiary-bg: var(--white-solid);
@@ -31,6 +32,7 @@
   --secondary-typo: var(--mongoose);
   --tertiary-typo: var(--pampas);
   --fourtiary-typo: var(--sorrell-brown);
+  --fifth-typo: var(--white-solid);
   --primary-bg: var(--ebony-clay);
   --secondary-bg: var(--grey);
   --tertiary-bg: var(--mongoose);
@@ -178,6 +180,7 @@ p {
   font-family: 'EB Garamond', serif;
   font-size: 20px;
   line-height: 30px;
+  letter-spacing: 0.4px;
 }
 
 .clignote {

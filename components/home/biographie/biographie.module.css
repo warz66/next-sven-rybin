@@ -1,10 +1,7 @@
 #biographie {
     background-color: var(--secondary-bg);
     padding: 135px 0;
-}
-
-#wrapper_biographie {
-
+    color: var(--fifth-typo);
 }
 
 .title_section {
@@ -18,13 +15,21 @@
 }
 
 .main_content {
-    display: flex;
-    column-gap: 6%;
-    position: relative;
+    display: grid;
+    grid-template-rows: minmax(250px, max-content) 1fr;
+    grid-template-columns: minmax(250px, max-content) 1fr;
+    grid-template-areas: "a b"
+                         "c b";
+    row-gap: 90px;
+    column-gap: 7%;
 }
 
 .main_content div:first-of-type {
-    
+    grid-area: a;
+}
+
+.main_content div:nth-child(2) {
+    grid-area: b;
 }
 
 .main_content div:nth-child(2) > p {
@@ -41,14 +46,24 @@
 }
 
 .main_content > div:nth-child(2) > div > div {
-    width: 40%;
+    width: 42%;
     align-self: center;
+}
+
+.main_content > div:last-of-type {
+    grid-area: c;
+    color: var(--mongoose);
+    font-family: 'EB Garamond', serif;
+    font-size: 26px;
+    margin-left: 30px;
+    max-width: 400px;
+    width: 28vw;
 }
 
 #portrait_img {
     position: relative;
     display: inline-block;
-    margin-left: 50px;
+    margin-left: 30px;
     margin-top: 30px;
     max-width: 400px;
     max-height: 420px;
@@ -61,7 +76,7 @@
     position: absolute;
     content: "";
     background-color: var(--mongoose);
-    bottom: 0px;
+    bottom: 0;
     right: 0;
     max-width: 370px;
     max-height: 460px;
@@ -69,15 +84,4 @@
     height: 33vw;
     transform-origin: bottom right;
     transform: rotate(-10deg);
-}
-
-.main_content > div:last-of-type {
-    position: absolute;
-    color: var(--mongoose);
-    font-family: 'EB Garamond', serif;
-    font-size: 28px;
-    max-width: 400px;
-    width: 28vw;
-    top: 540px;
-    left: 50px;
 }

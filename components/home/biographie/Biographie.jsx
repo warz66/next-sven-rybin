@@ -7,7 +7,7 @@ import sven2 from '../../../assets/images/home/svenrybin.png'
 export default function Biographie() {
   return (
     <section id={styles.biographie}>
-        <div id={styles.wrapper_biographie} className="global_padding wrapper">
+        <div className="global_padding wrapper">
 
             <div className={styles.title_section}>
                 <span>ARTISTE COSMIQUE</span>
@@ -18,10 +18,8 @@ export default function Biographie() {
             </div>
 
             <div className={styles.main_content}>
-                <div>
-                    <div id={styles.portrait_img}>
-                        <Image layout="responsive" src={sven} alt=""/>
-                    </div>
+                <div id={styles.portrait_img}>
+                    <Image layout="responsive" src={sven} alt=""/>
                 </div>
                 <div>
                     <p>Sven Rybin, est né en 1914 à Stockholm (Suède), il a étudie à l'école de peinture Edward Berggren de 1943 à 1944, mais se considère comme un autodidacte . Au cours de ses longs séjours à Paris entre les années 1940 et 1950 et de ses voyages d'études (Danemark 1946, Corse de 1948 à 49, Espagne et Iles Canaries de 1950 à 51), il étudie l'art dans divers musées et expositions.</p>
