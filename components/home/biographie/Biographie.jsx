@@ -11,7 +11,7 @@ export default function Biographie() {
 
             <div className={styles.title_section}>
                 <span>ARTISTE COSMIQUE</span>
-                <h2>Biographie</h2>
+                <h2 className="h2_home">Biographie</h2>
                 <div>
                     <Image layout="fixed" width={150} height={190} src={ch} alt=""/>
                 </div>
@@ -33,6 +33,7 @@ export default function Biographie() {
                 </div>
                 <div>
                     <span>Rybin nous quittera le 28 mai 2012 à Antibes, France.</span>
+                    <a href="">Télécharger la Biographie de S.Rybin/ PDF</a>
                 </div>
             </div>
 

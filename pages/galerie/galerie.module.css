@@ -27,6 +27,12 @@
   }
 }
 
+@media(max-width: 420px) {
+  #galerie_title h2 {
+    font-size: 23vw;
+  }
+}
+
 #galerie_first_loading, #galerie_vide, #galerie_error, #galerie_filtre_loaded {
   margin: 0 auto;
   display: flex;

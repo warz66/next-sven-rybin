@@ -147,9 +147,21 @@ h2 {
   color: var(--primary-typo);
 }
 
-@media(max-width: 420px) {
-  h2 {
-    font-size: 23vw;
+.h2_home {
+  margin-bottom: 20px;
+}
+
+@media(max-width: 1050px) {
+  .h2_home {
+    font-size: 76px;
+    line-height: 100px;
+  }
+}
+
+@media(max-width: 440px) {
+  .h2_home {
+    font-size: 17.3vw;
+    line-height: 80px;
   }
 }
 

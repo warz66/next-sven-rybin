@@ -20,7 +20,7 @@
     grid-template-columns: minmax(250px, max-content) 1fr;
     grid-template-areas: "a b"
                          "c b";
-    row-gap: 90px;
+    row-gap: 130px;
     column-gap: 7%;
 }
 
@@ -34,6 +34,13 @@
 
 .main_content div:nth-child(2) > p {
     margin-bottom: 50px;
+    margin-right: 85px;
+}
+
+@media(max-width: 1400px) {
+    .main_content div:nth-child(2) > p {
+        margin-right: 0px;
+    }
 }
 
 .main_content > div:nth-child(2) > div {
@@ -52,12 +59,24 @@
 
 .main_content > div:last-of-type {
     grid-area: c;
-    color: var(--mongoose);
-    font-family: 'EB Garamond', serif;
-    font-size: 26px;
     margin-left: 30px;
     max-width: 400px;
     width: 28vw;
+}
+
+.main_content > div:last-of-type span {
+    display: block;
+    color: var(--mongoose);
+    font-family: 'EB Garamond', serif;
+    font-size: 26px;
+    margin-bottom: 10px;
+}
+
+.main_content > div:last-of-type a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--fifth-typo);
+    text-decoration: underline;
 }
 
 #portrait_img {
@@ -84,4 +103,71 @@
     height: 33vw;
     transform-origin: bottom right;
     transform: rotate(-10deg);
+}
+
+@media(max-width: 1150px) {
+    .main_content {
+        column-gap: 5%;
+    }
+    #portrait_img {
+        margin-left: 0;
+    }
+    .main_content > div:last-of-type {
+        margin-left: 0;
+    }
+}
+
+@media(max-width: 900px) {
+    .main_content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 0;
+        column-gap: 0;
+    }
+    #portrait_img {
+        margin-top: 0;
+        margin-bottom: 130px;
+        width: 100%;
+        height: auto;
+    }
+    #portrait_img::before {
+        width: 370px;
+        height: 460px;
+    }
+    .main_content > div:nth-child(2) > div {
+        margin-bottom: 50px;
+    }
+    .main_content > div:last-of-type {
+        text-align: center;
+        max-width: 100%;
+        width: 100%;
+    } 
+}
+
+@media(max-width: 750px) {
+    .main_content > div:nth-child(2) > div {
+        display: flex;
+        flex-direction: column;
+    }
+    .main_content > div:nth-child(2) > div p {
+        width: 100%;
+        margin-bottom: 50px;
+    }
+    .main_content > div:nth-child(2) > div > div {
+        max-width: 350px;
+        width: 100%;
+    } 
+}
+
+@media(max-width: 450px) {
+    #portrait_img {
+        margin-bottom: 100px;
+    }
+    #portrait_img::before {
+        right: -15px;
+        bottom: 20px;
+        width: 85vw;
+        height: 102vw;
+    }    
 }
