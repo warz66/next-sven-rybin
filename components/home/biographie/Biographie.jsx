@@ -1,23 +1,20 @@
 import Image from 'next/image'
 import styles from './biographie.module.css'
+import Link from 'next/link'
+import TitleSection from '../../title-section/TitleSection'
 import ch from '../../../assets/images/home/ch_portrait.png'
 import sven from '../../../assets/images/home/svenrybin@2x.png'
 import sven2 from '../../../assets/images/home/svenrybin.png'
+import bioImg2 from '../../../assets/images/home/bio_img2.jpg'
 
 export default function Biographie() {
   return (
     <section id={styles.biographie}>
-        <div className="global_padding wrapper">
+        <div className="global_paddingX wrapper">
 
-            <div className={styles.title_section}>
-                <span>ARTISTE COSMIQUE</span>
-                <h2 className="h2_home">Biographie</h2>
-                <div>
-                    <Image layout="fixed" width={150} height={190} src={ch} alt=""/>
-                </div>
-            </div>
+            <TitleSection title={"Biographie"} text={"ARTISTE COSMIQUE"} image={ch} titleColor="--primary-typo" textColor="--secondary-typo"/>
 
-            <div className={styles.main_content}>
+            <div className={styles.main_content_1}>
                 <div id={styles.portrait_img}>
                     <Image layout="responsive" src={sven} alt=""/>
                 </div>
@@ -35,6 +32,23 @@ export default function Biographie() {
                     <span>Rybin nous quittera le 28 mai 2012 à Antibes, France.</span>
                     <a href="">Télécharger la Biographie de S.Rybin/ PDF</a>
                 </div>
+            </div>
+
+            <div className={styles.main_content_2}>
+                <div>
+                    <Image layout="responsive" src={bioImg2} alt=""/>
+                </div>
+                <div>
+                    Il reçoit le prix de la Fondation Taylor à Paris en 1979 ainsi que le Prix d'Excellence " Grand Prix International de Peinture de la Riviera Côtes d'Azur" en 1990.
+                </div>
+            </div>
+
+            <div>
+                <Link href="/galerie">
+                    <div className={`btn ${styles.btn_bio}`}>
+                        GALERIES
+                    </div>
+                </Link>
             </div>
 
         </div>

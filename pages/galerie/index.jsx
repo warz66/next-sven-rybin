@@ -290,7 +290,7 @@ export default function Galeries({resultAuth, galerieId = 240}) {
 
     return (
 
-        <main id={styles.galerie} className="global_padding">
+        <main id={styles.galerie} className="global_paddingX">
 
             <Head>
                 <title>Galerie | Sven Rybin</title>

@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function Footer() {
     return(
-        <footer id={styles.footer} className="global_padding">
+        <footer id={styles.footer} className="global_paddingX">
             <div>Sven Rybin</div>
             <div>
                 <ul>

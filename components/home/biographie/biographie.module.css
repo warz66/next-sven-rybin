@@ -1,20 +1,9 @@
 #biographie {
     background-color: var(--secondary-bg);
-    padding: 135px 0;
     color: var(--fifth-typo);
 }
 
-.title_section {
-    text-align: center;
-    margin-bottom: 100px;
-}
-
-.title_section span {
-    color: var(--secondary-typo);
-    font-weight: 500;
-}
-
-.main_content {
+.main_content_1 {
     display: grid;
     grid-template-rows: minmax(250px, max-content) 1fr;
     grid-template-columns: minmax(250px, max-content) 1fr;
@@ -22,49 +11,44 @@
                          "c b";
     row-gap: 130px;
     column-gap: 7%;
+    margin-bottom: 150px;
 }
 
-.main_content div:first-of-type {
+.main_content_1 div:first-of-type {
     grid-area: a;
 }
 
-.main_content div:nth-child(2) {
+.main_content_1 div:nth-child(2) {
     grid-area: b;
 }
 
-.main_content div:nth-child(2) > p {
+.main_content_1 div:nth-child(2) > p {
     margin-bottom: 50px;
     margin-right: 85px;
 }
 
-@media(max-width: 1400px) {
-    .main_content div:nth-child(2) > p {
-        margin-right: 0px;
-    }
-}
-
-.main_content > div:nth-child(2) > div {
+.main_content_1 > div:nth-child(2) > div {
     display: flex;
     justify-content: space-between;
 }
 
-.main_content > div:nth-child(2) > div p {
+.main_content_1 > div:nth-child(2) > div p {
     width: 50%;
 }
 
-.main_content > div:nth-child(2) > div > div {
+.main_content_1 > div:nth-child(2) > div > div {
     width: 42%;
     align-self: center;
 }
 
-.main_content > div:last-of-type {
+.main_content_1 > div:last-of-type {
     grid-area: c;
     margin-left: 30px;
     max-width: 400px;
     width: 28vw;
 }
 
-.main_content > div:last-of-type span {
+.main_content_1 > div:last-of-type span {
     display: block;
     color: var(--mongoose);
     font-family: 'EB Garamond', serif;
@@ -72,9 +56,9 @@
     margin-bottom: 10px;
 }
 
-.main_content > div:last-of-type a {
+.main_content_1 > div:last-of-type a {
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--fifth-typo);
     text-decoration: underline;
 }
@@ -105,25 +89,82 @@
     transform: rotate(-10deg);
 }
 
+.main_content_2 {
+    display: flex;
+    column-gap: 5%;
+    margin-bottom: 150px;
+}
+
+.main_content_2 > div:first-of-type {
+    max-width: 770px;
+    width: 100%;
+    box-shadow: 0px 10px 10px #000000de;
+}
+
+.main_content_2 > div:last-of-type {
+    position: relative;
+    align-self: center;
+    max-width: 40%;
+    padding-left: 80px;
+    color: var(--mongoose);
+    font-family: 'EB Garamond', serif;
+    font-size: 26px;
+}
+
+.main_content_2 > div:last-of-type::after {
+    position: absolute;
+    background: no-repeat url("../../../assets/images/home/guillemets.svg");
+    background-size: 70px;
+    content: "";
+    width: 70px;
+    height: 70px;
+    top: 0;
+    left: 0;
+}
+
+.btn_bio {
+    margin: 0 auto;
+    border-width: 2px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+#biographie > div:last-of-type::after {
+    display: block;
+    content: "";
+    width: 2px;
+    height: 45px;
+    background-color: var(--mongoose);
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+@media(max-width: 1400px) {
+    .main_content_1 div:nth-child(2) > p {
+        margin-right: 0px;
+    }
+}
+
 @media(max-width: 1150px) {
-    .main_content {
+    .main_content_1 {
         column-gap: 5%;
     }
     #portrait_img {
         margin-left: 0;
     }
-    .main_content > div:last-of-type {
+    .main_content_1 > div:last-of-type {
         margin-left: 0;
     }
 }
 
 @media(max-width: 900px) {
-    .main_content {
+    .main_content_1 {
         display: flex;
         flex-direction: column;
         align-items: center;
         row-gap: 0;
         column-gap: 0;
+        margin-bottom: 120px;
     }
     #portrait_img {
         margin-top: 0;
@@ -135,29 +176,65 @@
         width: 370px;
         height: 460px;
     }
-    .main_content > div:nth-child(2) > div {
+    .main_content_1 > div:nth-child(2) > div {
         margin-bottom: 50px;
     }
-    .main_content > div:last-of-type {
+    .main_content_1 > div:last-of-type {
         text-align: center;
         max-width: 100%;
         width: 100%;
+    }
+    .main_content_2 {
+        display: block;
+        margin-bottom: 100px;
+    }
+    .main_content_2 > div:first-of-type {
+        box-shadow: none;
+        max-width: 900px;
+        width: calc(100% + 60px);
+        margin-left: -30px;
+        margin-bottom: 60px;
+    }
+    .main_content_2 > div:last-of-type {
+        max-width: 100%;
+        padding: 0 30px 0 80px;
     } 
 }
 
 @media(max-width: 750px) {
-    .main_content > div:nth-child(2) > div {
+    .main_content_1 > div:nth-child(2) > div {
         display: flex;
         flex-direction: column;
     }
-    .main_content > div:nth-child(2) > div p {
+    .main_content_1 > div:nth-child(2) > div p {
         width: 100%;
         margin-bottom: 50px;
     }
-    .main_content > div:nth-child(2) > div > div {
+    .main_content_1 > div:nth-child(2) > div > div {
         max-width: 350px;
         width: 100%;
     } 
+}
+
+@media(max-width: 500px) {
+    .main_content_1 {
+        margin-bottom: 100px;
+    }
+    .main_content_2 > div:first-of-type {
+        width: calc(100% + 30px);
+        margin-left: -15px;
+    }    
+}
+
+@media(max-width: 400px) {
+    .main_content_2 > div:last-of-type {
+        padding: 0 0px 0 60px;
+    } 
+    .main_content_2 > div:last-of-type::after {
+        background-size: 60px;
+        width: 60px;
+        height: 60px;
+    }
 }
 
 @media(max-width: 450px) {

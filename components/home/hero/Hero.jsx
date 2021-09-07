@@ -6,7 +6,7 @@ import ch from '../../../assets/images/home/ch_portrait.png'
 export default function Hero() {
   return (
     <section id={styles.hero}>
-        <div id={styles.wrapper_hero} className="wrapper global_padding">
+        <div id={styles.wrapper_hero} className="wrapper global_paddingX">
             <div>
                 <h1>Sven Rybin</h1>
                 <span>Artiste Peintre</span>
