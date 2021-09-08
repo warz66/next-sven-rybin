@@ -2,3 +2,131 @@
     background-color: var(--tertiary-bg);
     color: var(--fifth-typo);
 }
+
+#expositions h3 {
+    font-family: 'EB Garamond', serif;
+    font-size: 28px;
+    letter-spacing: 0.64px;
+    line-height: 32px;
+    color: var(--primary-typo);
+    margin-bottom: 50px;
+}
+#expositions p {
+    font-weight: 600;
+    color: var(--sixth-typo);
+}
+
+.main_content_1 {
+    display: grid;
+    grid-template-columns: minmax(auto, 500px) minmax(250px, 100%);
+    grid-template-areas: "a c"
+                         "b c"
+                         "d e";
+    column-gap: 8%;
+    row-gap: 100px;
+}
+
+.main_content_1 > div:first-of-type {
+    max-width: 550px;
+    grid-area: a;
+}
+
+.main_content_1 > div:nth-child(3) {
+    grid-area: b;
+}
+
+.main_content_1 > div:nth-child(3) {
+    align-self: start;
+    position: relative;
+    line-height: 30px;
+    max-width: 370px;
+    padding-left: 80px;
+    color: var(--primary-typo);
+    font-family: 'EB Garamond', serif;
+    font-size: 26px;
+}
+
+.main_content_1 > div:nth-child(3)::after {
+    position: absolute;
+    background: no-repeat url("../../../assets/images/home/guillemets.svg");
+    background-size: 70px;
+    content: "";
+    width: 70px;
+    height: 70px;
+    top: 0;
+    left: 0;
+}
+
+.main_content_1 > div:nth-child(2) {
+    grid-area: c;
+    max-width: 600px;
+    width: 100%;
+    justify-self: end;
+    align-self: center;
+    box-shadow: 0px 10px 10px #000000de;
+}
+
+.main_content_1 > div:nth-child(4) {
+    grid-area: d;
+    height: max-content;
+    width: 100%;
+    box-shadow: 0px 10px 10px #000000de;
+}
+
+.main_content_1 > div:last-of-type {
+    grid-area: e;
+    max-width: 600px;
+    justify-self: end;
+}
+
+@media(max-width: 1300px) {
+    .main_content_1 > div:nth-child(4) {
+        align-self: center;
+        width: 100%;
+    }    
+}
+
+@media(max-width: 900px) {
+    .main_content_1 {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+    } 
+
+    .main_content_1 > div:first-of-type {
+        max-width: 100%;
+        margin-bottom: 100px;
+    }
+    .main_content_1 > div:nth-child(2) {
+        box-shadow: none;
+        max-width: 900px;
+        width: calc(100% + 60px);
+        margin-bottom: 60px;
+    }
+    .main_content_1 > div:nth-child(3) {
+        max-width: initial;
+        margin-left: -10px;
+        margin-bottom: 100px;
+    }   
+    .main_content_1 > div:nth-child(4) {
+        box-shadow: none;
+        max-width: 900px;
+        width: calc(100% + 60px);
+        margin-bottom: 100px;
+    }   
+    .main_content_1 > div:last-of-type {
+        max-width: 100%;
+    }   
+}
+
+@media(max-width: 400px) {
+    .main_content_1 > div:nth-child(3) {
+        padding: 0 0px 0 60px;
+    } 
+    .main_content_1 > div:nth-child(3)::after {
+        background-size: 60px;
+        width: 60px;
+        height: 60px;
+    }
+}

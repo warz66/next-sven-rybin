@@ -22,10 +22,16 @@
         line-height: 100px;
     }
 }
+
+@media(max-width: 900px) {
+    .title_section {
+        margin-bottom: 120px;
+    }
+}
   
-@media(max-width: 440px) {
+@media(max-width: 480px) {
     .title_section h2  {
-        font-size: 17.3vw;
+        font-size: 15vw;
         line-height: 80px;
     }
 }

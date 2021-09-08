@@ -297,7 +297,7 @@ export default function Galeries({resultAuth, galerieId = 240}) {
             </Head>
 
             <div id={styles.galerie_title}>
-                <h3>SVEN RYBIN</h3>
+                <span>SVEN RYBIN</span>
                 <h2>Galerie</h2>
             </div>
 

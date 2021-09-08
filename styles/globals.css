@@ -18,6 +18,7 @@
   --tertiary-typo: var(--ebony-clay);
   --fourtiary-typo: black;
   --fifth-typo: var(--ebony-clay);
+  --sixth-typo: var(--ebony-clay);
   --primary-bg: var(--white-solid);
   --secondary-bg: var(--pampas);
   --tertiary-bg: var(--white-solid);
@@ -33,6 +34,7 @@
   --tertiary-typo: var(--pampas);
   --fourtiary-typo: var(--sorrell-brown);
   --fifth-typo: var(--white-solid);
+  --sixth-typo: black;
   --primary-bg: var(--ebony-clay);
   --secondary-bg: var(--grey);
   --tertiary-bg: var(--mongoose);
@@ -80,11 +82,11 @@ section {
   }
 }
 
-@media(max-width: 500px) {
+/*@media(max-width: 500px) {
   .global_paddingX {
     padding: 0 15px;
   }
-}
+}*/
 
 a {
   color: inherit;
@@ -149,13 +151,13 @@ h2 {
   color: var(--primary-typo);
 }
 
-h3 {
+/*h3 {
   font-family: 'Spartan', sans-serif;
   font-weight: medium;
   font-size: 16px;
   line-height: 40px;
   color: var(--secondary-typo);
-}
+}*/
 
 h4 {
   font-family: 'EB Garamond', serif;

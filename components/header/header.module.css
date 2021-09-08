@@ -128,11 +128,11 @@
         overflow: hidden;
         position: absolute;
         z-index: 1000;
-        top: 110px;
+        top: 95px;
         bottom: 0;
         right: 0;
         width: 0;
-        height: 163px;
+        height: 150px;
         transition: width .3s;
         background-color: var(--primary-bg);
     }
@@ -157,7 +157,7 @@
 @media(max-width: 410px) {
     #menu_burger {
         left: auto;
-        right: 60px;
+        right: 75px;
         transform: translateY(-50%);
     }
 }

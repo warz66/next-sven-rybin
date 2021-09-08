@@ -1,6 +1,7 @@
 #hero {
     background-color: var(--primary-bg);
     position: relative;
+    padding-top: 105px;
 }
 
 #wrapper_hero {
