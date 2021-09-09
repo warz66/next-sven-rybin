@@ -48,7 +48,7 @@
 
 .main_content_1 > div:nth-child(3)::after {
     position: absolute;
-    background: no-repeat url("../../../assets/images/home/guillemets.svg");
+    background: no-repeat var(--url-guillemets);
     background-size: 70px;
     content: "";
     width: 70px;

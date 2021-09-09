@@ -1,0 +1,9 @@
+#galeries {
+    background-color: var(--secondary-bg);
+}
+
+#galeries_content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 100px;
+}

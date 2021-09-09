@@ -8,13 +8,21 @@ import imagesLoaded from 'imagesloaded'
 import GalerieImages from '../../components/galerie/galerie-images/GalerieImages'
 import FiltreFormGalerie from '../../components/galerie/filtre-form-galerie/FiltreFormGalerie'
 import Head from 'next/head'
- 
-export async function getStaticProps() {
+
+/*Galeries.getInitialProps = async ({query}) => {
+    // le CORS_ALLOW_ORIGIN devrait suffire à authorizer certains accés à l'api ?
+    let resultAuth = { token: null, error: false };
+    await axios.post(process.env.ADRESS_LOGIN, { username: process.env.USERNAME_API, password: process.env.PASSWORD_API }).then(response => resultAuth = { ...resultAuth, token: response.data.token}).catch(error => resultAuth = { ...resultAuth, error: true });
+    return { resultAuth: resultAuth, galerieId: query.id }
+}*/
+
+export async function getServerSideProps(context) {
     // le CORS_ALLOW_ORIGIN devrait suffire à authorizer certains accés à l'api ?
     let resultAuth = { token: null, error: false };
     await axios.post(process.env.ADRESS_LOGIN, { username: process.env.USERNAME_API, password: process.env.PASSWORD_API }).then(response => resultAuth = { ...resultAuth, token: response.data.token}).catch(error => resultAuth = { ...resultAuth, error: true });
     return {
         props: {
+            galerieId: context.query.id,
             resultAuth,
         },
     }
@@ -112,7 +120,7 @@ function reducer(state, action) {
     }
 }
 
-export default function Galeries({resultAuth, galerieId = 240}) {
+export default function Galeries({resultAuth, galerieId}) {
     const [stateGalerie, dispatch] = useReducer(reducer, initialState);
     const [moduleMasonry, setModuleMasonry] = useState(false);
     const [masonry, setMasonry] = useState();

@@ -22,8 +22,10 @@
   --primary-bg: var(--white-solid);
   --secondary-bg: var(--pampas);
   --tertiary-bg: var(--white-solid);
-  --fourtiary-bg: var(--mongoose);
+  /*--fourtiary-bg: var(--mongoose);*/
   --footer-bg: var(--grey);
+
+  --url-guillemets: url("../assets/images/home/guillemets_mongoose.svg");
 
   background-color: var(--primary-bg);
 }
@@ -38,8 +40,10 @@
   --primary-bg: var(--ebony-clay);
   --secondary-bg: var(--grey);
   --tertiary-bg: var(--mongoose);
-  --fourtiary-bg: var(--ebony-clay);
+  /*--fourtiary-bg: var(--ebony-clay);*/
   --footer-bg: var(--mirage);
+
+  --url-guillemets: url("../assets/images/home/guillemets_white_solid.svg");
 
   background-color: var(--primary-bg);
 }

@@ -5,6 +5,7 @@ import styles from '../styles/home.module.css'
 import Hero from '../components/home/hero/Hero'
 import Biographie from '../components/home/biographie/Biographie'
 import Expositions from '../components/home/expositions/Expositions'
+import Galeries from '../components/home/galeries/Galeries'
 
 export default function Home() {
   return (
@@ -20,6 +21,8 @@ export default function Home() {
 
       <Expositions/>
 
+      <Galeries/>
+      
     </>
   )
 }

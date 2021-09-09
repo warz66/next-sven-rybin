@@ -115,7 +115,7 @@
 
 .main_content_2 > div:last-of-type::after {
     position: absolute;
-    background: no-repeat url("../../../assets/images/home/guillemets.svg");
+    background: no-repeat url("../../../assets/images/home/guillemets_mongoose.svg");
     background-size: 70px;
     content: "";
     width: 70px;
