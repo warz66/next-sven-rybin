@@ -49,9 +49,34 @@
 }
 
 html {
-  background-color: var(--primary-bg);
   font-family: 'Spartan', sans-serif;
 }
+
+/***** scrollbar *****/
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 3px rgba(0,0,0,0.2);
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 2px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
+  border-radius: 9999px;
+  background-color: var(--mongoose);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--sorrell-brown);
+  background-clip: padding-box;
+}
+
+/********************/
 
 section {
   width: 100%;

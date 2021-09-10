@@ -6,6 +6,7 @@ import Hero from '../components/home/hero/Hero'
 import Biographie from '../components/home/biographie/Biographie'
 import Expositions from '../components/home/expositions/Expositions'
 import Galeries from '../components/home/galeries/Galeries'
+import Contact from '../components/home/contact/Contact'
 
 export default function Home() {
   return (
@@ -23,6 +24,8 @@ export default function Home() {
 
       <Galeries/>
       
+      <Contact/>
+
     </>
   )
 }

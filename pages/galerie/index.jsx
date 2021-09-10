@@ -18,11 +18,15 @@ import Head from 'next/head'
 
 export async function getServerSideProps(context) {
     // le CORS_ALLOW_ORIGIN devrait suffire à authorizer certains accés à l'api ?
+    let galerieId = null
+    if(context.query.id) {
+        galerieId =  context.query.id;       
+    }
     let resultAuth = { token: null, error: false };
     await axios.post(process.env.ADRESS_LOGIN, { username: process.env.USERNAME_API, password: process.env.PASSWORD_API }).then(response => resultAuth = { ...resultAuth, token: response.data.token}).catch(error => resultAuth = { ...resultAuth, error: true });
     return {
         props: {
-            galerieId: context.query.id,
+            galerieId: galerieId,
             resultAuth,
         },
     }
@@ -120,7 +124,7 @@ function reducer(state, action) {
     }
 }
 
-export default function Galeries({resultAuth, galerieId}) {
+export default function Galeries({resultAuth, galerieId = null}) {
     const [stateGalerie, dispatch] = useReducer(reducer, initialState);
     const [moduleMasonry, setModuleMasonry] = useState(false);
     const [masonry, setMasonry] = useState();
