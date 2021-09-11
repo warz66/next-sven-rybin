@@ -1,0 +1,164 @@
+#form_contact {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    right: 0;
+    /*background-color: transparent;*/
+}
+
+#form_contact input {
+    margin-bottom: 35px;
+    padding: 10px 0;
+}
+
+#form_contact textarea {
+    height: 90px;
+    padding: 10px 0;
+    resize: none;
+}
+
+#form_contact input, #form_contact textarea {
+    text-indent: 5px;
+    font-family: 'Spartan', sans-serif;
+    cursor: pointer;
+    color: var(--primary-typo);
+    font-size: 16px;
+    width: 100%;
+    border: none;
+    background-color: var(--tertiary-bg);
+    box-shadow: 0px 1px 0px 0.2px var(--mongoose);
+    /*box-shadow: 0px -1px 0px var(--mongoose) inset;*/
+    transition: 0.3s;
+}
+
+#form_contact .active_input_error {
+    box-shadow: 0px -1px 0px 0.2px var(--roman) inset;
+}
+
+#form_contact .active_input_error::placeholder {
+    color: var(--roman);
+    opacity: 0.5;
+}
+
+#form_contact input::placeholder, #form_contact textarea::placeholder {
+    color: var(--seventh-typo);
+    opacity: 0.7;
+}
+
+#form_contact input:focus::placeholder, #form_contact textarea:focus::placeholder {
+    color: var(--seventh-typo);
+}
+
+#form_contact textarea:focus, #form_contact input:focus {
+    outline: none;
+    color: var(--primary-typo);
+    /*box-shadow: 0px -3px 0px 0.2px var(--mongoose) inset !important;*/
+}
+
+#form_contact #msg_send_result {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 35px;
+    font-size: 16px;
+    color: var(--mongoose);
+    opacity: 0;
+    transition: 0.3s;
+}
+@media(max-width: 600px) {
+    #form_contact #msg_send_result {
+        width: 100%;
+        text-align: center;
+        bottom: 25px;
+    }
+}
+
+#form_contact > div:nth-child(3) {
+    z-index: 101;
+}
+
+#form_contact button {
+    z-index: 100;
+    margin-top: -5px; /* hack ? */ 
+    /*margin-bottom: 20px;*/
+    align-self: flex-end;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    background-color: var(--form-button-bg);
+    width: 60px;
+    height: 60px;
+    transition: 0.3s;
+} 
+#form_contact button {
+    stroke: var(--pampas);
+}
+
+#form_contact button:focus {
+    outline: none;    
+} 
+
+#form_contact button:hover {
+    background-color: var(--sorrell-brown);
+}
+
+#form_contact > div  {
+    position: relative;
+}
+
+#form_contact > div .msg_error {
+    position: absolute;
+    padding: 10px 5px;
+    font-size: 14px;
+    line-height: 18px;
+    right: 0px;
+    top: 3px;
+    color: var(--roman);
+    opacity: 0;
+    transition: 0.3s;
+    pointer-events: none;
+}
+
+#form_contact > div .active_msg_error {
+    opacity: 1;
+}
+
+#form_contact input:-webkit-autofill,
+#form_contact input:-webkit-autofill:hover, 
+#form_contact input:-webkit-autofill:focus,
+#form_contact textarea:-webkit-autofill,
+#form_contact textarea:-webkit-autofill:hover,
+#form_contact textarea:-webkit-autofill:focus,
+#form_contact select:-webkit-autofill,
+#form_contact select:-webkit-autofill:hover,
+#form_contact select:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--mongoose) !important;
+    box-shadow: 0px -1px 0px 0.2px var(--mongoose) inset !important;
+    transition: background-color 5000s ease-in-out 0s !important;
+}
+
+#form_contact > div:last-of-type {
+    display: flex;
+    justify-content: space-between;
+    max-height: 55px;
+}
+
+#grecaptcha_marque {
+    color: var(--form-recaptcha-marque);
+    display: inline;
+    align-self: center;
+    font-weight: 500;
+    font-size: 10px;
+    width: calc(100% - 80px);
+    line-height: 15px;
+}
+
+#grecaptcha_marque a {
+    text-decoration: none;
+    color: var(--fifth-typo);
+}
+
+.grecaptcha_badge { 
+    visibility: hidden;
+}

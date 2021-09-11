@@ -3,6 +3,7 @@ import Image from 'next/image'
 import TitleSection from "../../title-section/TitleSection"
 import ch from '../../../assets/images/home/ch_portrait.png'
 import imgPortrait from '../../../assets/images/home/contact_portrait.jpg'
+import Form from "./form/Form"
 
 export default function Contact() {
     return (
@@ -16,7 +17,10 @@ export default function Contact() {
                     <Image layout="responsive" src={imgPortrait} alt=""/>
                 </div>
                 <div>
-
+                    <h3>FONDATION</h3>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit iusto labore alias maiores error voluptates vero earum adipisci natus blanditiis, sapiente, accusamus rem! Corrupti molestias rem sequi tenetur error cumque.</p>
+                    <Form/>
+                    <span>Merci de votre visite.</span>
                 </div>
             </div>
 
