@@ -8,7 +8,7 @@ export default function Galerie({reverse = false, title, text, srcImg, galerieId
         <div className={styles.galerie_intro} style={{ flexDirection: reverse ? "row-reverse" : "row" }}>
 
             <div>
-                <Image layout="fill" objectFit="cover" className={'image'} src={srcImg} alt={alt}/>
+                <Image priority={true} layout="fill" objectFit="cover" className={'image'} src={srcImg} alt={alt}/>
             </div>
 
             <div>

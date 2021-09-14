@@ -127,7 +127,7 @@
 #form_contact select:-webkit-autofill,
 #form_contact select:-webkit-autofill:hover,
 #form_contact select:-webkit-autofill:focus {
-    -webkit-text-fill-color: var(--mongoose) !important;
+    -webkit-text-fill-color: var(--fifth-typo) !important;
     box-shadow: 0px -1px 0px 0.2px var(--mongoose) inset !important;
     transition: background-color 5000s ease-in-out 0s !important;
 }

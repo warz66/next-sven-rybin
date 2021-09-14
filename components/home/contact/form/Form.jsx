@@ -23,6 +23,7 @@ export default function Form() {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
+        console.log('lol');
         setActiveMsgReturn(false);
         let submit = true;
         if(e.target.name.value === '') {

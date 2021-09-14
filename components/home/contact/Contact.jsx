@@ -14,7 +14,7 @@ export default function Contact() {
 
             <div className={styles.main_content}>
                 <div id={styles.contact_img}>
-                    <Image layout="responsive" src={imgPortrait} alt=""/>
+                    <Image priority={true} layout="responsive" src={imgPortrait} alt=""/>
                 </div>
                 <div>
                     <h3>FONDATION</h3>

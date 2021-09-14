@@ -4,9 +4,10 @@ header("Access-Control-Allow-Origin: {$_ENV['ACCESS_CONTROL_ALLOW_ORIGIN']}");
 
 //Import PHPMailer classes into the global namespace
 //These must be at the top of your script, not inside a function
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
 use GuzzleHttp\Client;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
+
 
 //phpinfo();
 
@@ -15,12 +16,13 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 $name = isset($_POST['name']) ? $_POST['name'] : null;
 $email = isset($_POST['email']) ? $_POST['email'] : null;
+$objet = isset($_POST['objet']) ? $_POST['objet'] : null;
 $message = isset($_POST['message']) ? $_POST['message'] : null;
 $tokenGrecaptcha = isset($_POST['tokenGrecaptcha']) ? $_POST['tokenGrecaptcha'] : null;
 
 if($tokenGrecaptcha) {
 
-    if($name && $email && $message) {
+    if($name && $email && $objet && $message) {
 
         // on gére la protection google recaptcha
         $secretKeyGrecaptcha =  $_ENV['CLE_GRECAPTCHA_API_SECRET'];
@@ -64,7 +66,7 @@ if($tokenGrecaptcha) {
 
                 //Content
                 $mail->isHTML(true);                                  //Set email format to HTML
-                $mail->Subject = 'React Form';
+                $mail->Subject = 'Svenrybin.fr contact: ' . $objet;
                 $mail->Body    = '<b>Name:</b> ' . $name . '<br />
                                 <b>Email:</b> ' . $email . '<br />
                                 <b>Message:</b> ' . $message;

@@ -11,11 +11,11 @@ export default function Hero() {
                 <h1>Sven Rybin</h1>
                 <span>Artiste Peintre</span>
                 <div id={styles.wrapper_img_text}>
-                    <Image layout="fixed" width={190} height={240} src={ch} alt=""/>
+                    <Image priority={true} layout="fixed" width={190} height={240} src={ch} alt=""/>
                 </div>
             </div>
             <div>
-                <Image src={heroImg} layout="responsive" alt="Tableau cosmique présentation Sven Rybin"/>
+                <Image priority={true} src={heroImg} layout="responsive" alt="Tableau cosmique présentation Sven Rybin"/>
             </div>
         </div>
     </section>

@@ -20,7 +20,7 @@ export default function Expositions() {
 				</div>
 
 				<div>
-					<Image layout="responsive" src={expoImg} alt=""/>
+					<Image priority={true} layout="responsive" src={expoImg} alt=""/>
 				</div>
 
 				<div>
@@ -28,7 +28,7 @@ export default function Expositions() {
 				</div>
 
 				<div>
-					<Image layout="responsive" src={expoImg2} alt=""/>
+					<Image priority={true} layout="responsive" src={expoImg2} alt=""/>
 				</div>
 
 				<div>
@@ -55,7 +55,7 @@ export default function Expositions() {
 
 			{/*<div className={styles.main_content_2}>
 				<div>
-					<Image layout="responsive" src={expoImg} alt=""/>
+					<Image priority={true} layout="responsive" src={expoImg} alt=""/>
 				</div>
 				<div>
 					<h3>LES SUITES DE SA CARRIERE</h3>
