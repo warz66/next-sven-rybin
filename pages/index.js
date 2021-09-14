@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import styles from '../styles/home.module.css'
+//import styles from '../styles/home.module.css'
 import React, { useEffect } from 'react'
 import Hero from '../components/home/hero/Hero'
 import Biographie from '../components/home/biographie/Biographie'
