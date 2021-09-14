@@ -4,6 +4,7 @@ import styles from './form.module.css';
 export default function Form() {
     const [activeErrorName, setActiveErrorName] = useState(false);
     const [activeErrorEmail, setActiveErrorEmail] = useState(false);
+    const [activeErrorObjet, setActiveErrorObjet] = useState(false);
     const [activeErrorMessage, setActiveErrorMessage] = useState(false);
     const [activeMsgReturn, setActiveMsgReturn] = useState(false);
     const [activeMsgResult, setActiveMsgResult] = useState(false);
@@ -30,6 +31,10 @@ export default function Form() {
         }
         if(e.target.email.value === '') {
             setActiveErrorEmail(true);
+            submit = false;
+        }
+        if(e.target.objet.value === '') {
+            setActiveErrorObjet(true);
             submit = false;
         }
         if(e.target.message.value === '') {
@@ -64,6 +69,7 @@ export default function Form() {
                 setActiveMsgResult("Message Envoyé");
                 e.target.name.value = '';
                 e.target.email.value = '';
+                e.target.objet.value = '';
                 e.target.message.value = '';
                 console.log(res);
             } else {
@@ -86,6 +92,10 @@ export default function Form() {
             <div>
                 <input className={activeErrorEmail ? styles.active_input_error : ""} type="email" aria-label="email" name="email" placeholder="Email" onChange={() => {setActiveErrorEmail(false);setActiveMsgReturn(false)}} onClick={() => {setActiveErrorEmail(false);setActiveMsgReturn(false)}}/>
                 <span className={styles.msg_error+(activeErrorEmail ? " "+styles.active_msg_error : "")}>Ne peut-être vide</span>
+            </div>
+            <div>
+                <input className={activeErrorObjet ? styles.active_input_error : ""} type="text" aria-label="objet" name="objet" placeholder="Objet" onChange={() => {setActiveErrorObjet(false);setActiveMsgReturn(false)}} onClick={() => {setActiveErrorObjet(false);setActiveMsgReturn(false)}}/>
+                <span className={styles.msg_error+(activeErrorObjet ? " "+styles.active_msg_error : "")}>Ne peut-être vide</span>
             </div>
             <div>
                 <textarea className={activeErrorMessage ? styles.active_input_error : ""} aria-label="message" name="message" placeholder="Message" rows="3" onChange={() => {setActiveErrorMessage(false);setActiveMsgReturn(false)}} onClick={() => {setActiveErrorMessage(false);setActiveMsgReturn(false)}}/>

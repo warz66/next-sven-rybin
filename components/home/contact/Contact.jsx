@@ -18,8 +18,14 @@ export default function Contact() {
                 </div>
                 <div>
                     <h3>FONDATION</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit iusto labore alias maiores error voluptates vero earum adipisci natus blanditiis, sapiente, accusamus rem! Corrupti molestias rem sequi tenetur error cumque.</p>
+                    <p>
+                        <span>E-mail: bernard.oeslick@wanadoo.fr</span><br/>
+                        <span>Tel: 06.01.02.03.04</span>
+                    </p>
+                    <p>Veniam eaque autem eveniet debitis molestiae ducimus incidunt magnam quae et nemo culpa cum quasi expedita, ipsum minus natus ipsa odit dolore.</p>
                     <Form/>
+                </div>
+                <div>
                     <span>Merci de votre visite.</span>
                 </div>
             </div>

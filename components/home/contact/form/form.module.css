@@ -4,31 +4,27 @@
     flex-direction: column;
     justify-content: center;
     right: 0;
-    /*background-color: transparent;*/
 }
 
 #form_contact input {
     margin-bottom: 35px;
-    padding: 10px 0;
 }
 
 #form_contact textarea {
     height: 90px;
-    padding: 10px 0;
     resize: none;
 }
 
 #form_contact input, #form_contact textarea {
-    text-indent: 5px;
+    padding: 10px 5px;
     font-family: 'Spartan', sans-serif;
     cursor: pointer;
-    color: var(--primary-typo);
+    color: var(--fifth-typo);
     font-size: 16px;
     width: 100%;
     border: none;
     background-color: var(--tertiary-bg);
     box-shadow: 0px 1px 0px 0.2px var(--mongoose);
-    /*box-shadow: 0px -1px 0px var(--mongoose) inset;*/
     transition: 0.3s;
 }
 
@@ -52,8 +48,7 @@
 
 #form_contact textarea:focus, #form_contact input:focus {
     outline: none;
-    color: var(--primary-typo);
-    /*box-shadow: 0px -3px 0px 0.2px var(--mongoose) inset !important;*/
+    color: var(--fifth-typo);
 }
 
 #form_contact #msg_send_result {
@@ -74,14 +69,13 @@
     }
 }
 
-#form_contact > div:nth-child(3) {
+#form_contact > div:nth-child(4) {
     z-index: 101;
 }
 
 #form_contact button {
     z-index: 100;
     margin-top: -5px; /* hack ? */ 
-    /*margin-bottom: 20px;*/
     align-self: flex-end;
     border: none;
     padding: 0;
@@ -100,7 +94,7 @@
 } 
 
 #form_contact button:hover {
-    background-color: var(--sorrell-brown);
+    background-color: var(--form-button-bg-hover);
 }
 
 #form_contact > div  {
