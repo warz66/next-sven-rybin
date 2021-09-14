@@ -14,7 +14,7 @@ export default function Footer() {
                 </ul>
             </div>
             <div>
-                <span>Développer par <a href="https://david-oeslick.fr" target="_blank">David Oeslick</a> et designer par <a href="https://aurore-graphique.fr" target="_blank">Aurore Graphique</a>. Copyright 2021.</span>
+                <span>Développer par <a href="https://david-oeslick.fr" target="_blank" rel="noreferrer">David Oeslick</a> et designer par <a href="https://aurore-graphique.fr" target="_blank" rel="noreferrer">Aurore Graphique</a>. Copyright 2021.</span>
             </div>
         </footer>
     );
