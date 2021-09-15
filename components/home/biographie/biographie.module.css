@@ -1,4 +1,4 @@
-#biographie {
+.biographie {
     background-color: var(--secondary-bg);
     color: var(--fifth-typo);
 }
@@ -131,7 +131,7 @@
     font-weight: 500;
 }
 
-#biographie > div:last-of-type::after {
+.biographie > div:last-of-type::after {
     display: block;
     content: "";
     width: 2px;

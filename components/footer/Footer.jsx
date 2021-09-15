@@ -8,9 +8,10 @@ export default function Footer() {
             <div>
                 <ul>
                     <li><Link href="/">Accueil</Link></li>
-                    <li>Biographie</li>
-                    <li><Link href="/galerie">Galeries</Link></li>
-                    <li>Contact</li>
+                    <li><Link href="/#biographie">Biographie</Link></li>
+                    <li><Link href="/#expositions">Expositions</Link></li>
+                    <li><Link href="/#galeries">Galeries</Link></li>
+                    <li><Link href="/#contact">Contact</Link></li>
                 </ul>
             </div>
             <div>

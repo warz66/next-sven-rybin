@@ -7,7 +7,7 @@ import Form from "./form/Form"
 
 export default function Contact() {
     return (
-        <section id={styles.contact}>
+        <section id="contact" className={styles.contact}>
             <div className="global_paddingX wrapper">
 
             <TitleSection title="Contact" text="FONDATION SVEN RYBIN" image={ch} titleColor="--primary-typo" textColor="--secondary-typo"/>

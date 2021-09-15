@@ -1,9 +1,9 @@
-#expositions {
+.expositions {
     background-color: var(--tertiary-bg);
     color: var(--fifth-typo);
 }
 
-#expositions h3 {
+.expositions h3 {
     font-family: 'EB Garamond', serif;
     font-size: 28px;
     letter-spacing: 0.64px;

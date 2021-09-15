@@ -10,7 +10,7 @@ import portraitImg from '../../../assets/images/home/galerie_cover_portrait.jpg'
 
 export default function Galeries() {
     return (
-        <section id={styles.galeries}>
+        <section id="galeries" className={styles.galeries}>
             <div className="global_paddingX wrapper">
 
                 <TitleSection title="Les Galeries" text="SVEN RYBIN" image={ch} titleColor="--primary-typo" textColor="--secondary-typo"/>

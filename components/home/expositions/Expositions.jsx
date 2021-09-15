@@ -7,7 +7,7 @@ import expoImg2 from '../../../assets/images/home/expo_img2.jpg'
 
 export default function Expositions() {
   return (
-    <section id={styles.expositions}>
+    <section id="expositions" className={styles.expositions}>
         <div className="global_paddingX wrapper">
 
         	<TitleSection title={"Expositions"} text={"CARRIERE"} image={ch} titleColor="--primary-typo" textColor="--ebony-clay"/>

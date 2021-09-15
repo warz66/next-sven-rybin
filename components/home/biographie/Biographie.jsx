@@ -9,7 +9,7 @@ import bioImg2 from '../../../assets/images/home/bio_img2.jpg'
 
 export default function Biographie() {
   return (
-    <section id={styles.biographie}>
+    <section id="biographie" className={styles.biographie}>
         <div className="global_paddingX wrapper">
 
             <TitleSection title={"Biographie"} text={"ARTISTE COSMIQUE"} image={ch} titleColor="--primary-typo" textColor="--secondary-typo"/>
