@@ -1,4 +1,5 @@
 #form_contact {
+    position: relative;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -28,6 +29,10 @@
     transition: 0.3s;
 }
 
+#form_contact input:valid, #form_contact textarea:valid {
+    background-color: var(--tertiary-bg);
+}
+
 #form_contact .active_input_error {
     box-shadow: 0px -1px 0px 0.2px var(--roman) inset;
 }
@@ -55,17 +60,14 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 35px;
-    font-size: 16px;
-    color: var(--mongoose);
+    bottom: -30px;
+    color: var(--fifth-typo) !important;
     opacity: 0;
     transition: 0.3s;
 }
-@media(max-width: 600px) {
+@media(max-width: 900px) {
     #form_contact #msg_send_result {
-        width: 100%;
-        text-align: center;
-        bottom: 25px;
+        bottom: -50px;
     }
 }
 
@@ -151,8 +153,4 @@
 #grecaptcha_marque a {
     text-decoration: none;
     color: var(--fifth-typo);
-}
-
-.grecaptcha_badge { 
-    visibility: hidden;
 }

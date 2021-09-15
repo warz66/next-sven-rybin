@@ -186,6 +186,10 @@ p {
   letter-spacing: 0.4px;
 }
 
+.grecaptcha-badge { 
+  visibility: hidden;
+}
+
 .clignote {
   animation: clignote 1s linear infinite;
 }

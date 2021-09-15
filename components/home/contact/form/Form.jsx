@@ -23,7 +23,6 @@ export default function Form() {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        console.log('lol');
         setActiveMsgReturn(false);
         let submit = true;
         if(e.target.name.value === '') {
@@ -44,7 +43,7 @@ export default function Form() {
         }
         if(submit) {
             let msgFormReturn = document.getElementById(styles.msg_send_result);
-            msgFormReturn.style.color = 'var(--secondary)'
+            msgFormReturn.style.color = 'var(--primary-typo)'
 
             setActiveMsgReturn(true);
 
@@ -54,7 +53,7 @@ export default function Form() {
 
             const promise = new Promise((resolve, reject) => {
                 window.grecaptcha.ready(() => { 
-                    window.grecaptcha.execute(process.env.REACT_APP_CLE_GRECAPTCHA_API, {action: 'submit'}).then( function(tokenGrecaptacha) {
+                    window.grecaptcha.execute(process.env.NEXT_PUBLIC_CLE_GRECAPTCHA_API, {action: 'submit'}).then( function(tokenGrecaptacha) {
                         resolve(sendMessageForm(tokenGrecaptacha));
                     });
                 });
