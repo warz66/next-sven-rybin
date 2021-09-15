@@ -43,7 +43,7 @@
 .main_content > div:last-of-type {
     grid-area: c;
     text-align: center;
-    margin-top: 50px;
+    margin-top: 80px;
     font-size: 28px;
     color: var(--fifth-typo);
 }
@@ -97,5 +97,8 @@
     }
     .main_content > div:last-of-type {
         order: 3;
+    }
+    .main_content > div:last-of-type {
+        margin-top: 50px;
     }
 }
