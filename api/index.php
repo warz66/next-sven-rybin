@@ -11,7 +11,7 @@ use PHPMailer\PHPMailer\PHPMailer;
 //phpinfo();
 
 //Load Composer's autoloader
-require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 $name = isset($_POST['name']) ? $_POST['name'] : null;
 $email = isset($_POST['email']) ? $_POST['email'] : null;
