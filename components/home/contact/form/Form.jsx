@@ -15,7 +15,7 @@ export default function Form() {
         setTimeout(() => controller.abort(), 8000);
         const data = new FormData(form.current);
         data.set('tokenGrecaptcha', tokenGrecaptacha);
-        return fetch(process.env.REACT_APP_ADRESS_FILE_FORM_BACK, { method: 'POST', body: data, signal: controller.signal })
+        return fetch(process.env.NEXT_PUBLIC_FORM_CONTACT_BACK, { method: 'POST', body: data, signal: controller.signal })
             .then(res => {  return res.json() })
             .then(result => { return result })
             .catch(error => { return error });
