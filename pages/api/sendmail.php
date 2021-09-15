@@ -8,11 +8,10 @@ use GuzzleHttp\Client;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 
-
 //phpinfo();
 
 //Load Composer's autoloader
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 $name = isset($_POST['name']) ? $_POST['name'] : null;
 $email = isset($_POST['email']) ? $_POST['email'] : null;
@@ -79,7 +78,7 @@ if($tokenGrecaptcha) {
                 echo json_encode($arrResult);
             }
         } else {
-            $arrResult = array ('result'=>'error', 'response'=>'La réponse de google recaptacha n\'est pas aprrouvée.');
+            $arrResult = array ('result'=>'error', 'response'=>'La réponse de google recaptacha n\'est pas approuvée.');
             echo json_encode($arrResult);
         }
     } else {
