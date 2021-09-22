@@ -1,19 +1,23 @@
 import styles from './galeries.module.css'
+import { useContext } from 'react'
+import { ModeContext }from '../../../pages/_app'
 import TitleSection from '../../title-section/TitleSection'
 import Galerie from './galerie/Galerie';
-import ch from '../../../assets/images/home/ch_portrait.png'
 import cosmiqueImg from '../../../assets/images/home/galerie_cover_cosmique.jpg'
 import paysageImg from '../../../assets/images/home/galerie_cover_paysage.jpg'
 import natureMorteImg from '../../../assets/images/home/galerie_cover_nature_morte.jpg'
 import nuImg from '../../../assets/images/home/galerie_cover_nu.jpg'
 import portraitImg from '../../../assets/images/home/galerie_cover_portrait.jpg'
+import bt_e from '../../../assets/images/home/bateau_ebony.svg'
+import bt_mg from '../../../assets/images/home/bateau_mongoose.svg'
 
 export default function Galeries() {
+    const mode = useContext(ModeContext);
     return (
         <section id="galeries" className={styles.galeries}>
             <div className="global_paddingX wrapper">
 
-                <TitleSection title="Les Galeries" text="SVEN RYBIN" image={ch} titleColor="--primary-typo" textColor="--secondary-typo"/>
+                <TitleSection title="Les Galeries" text="SVEN RYBIN" image={mode ? bt_e : bt_mg} titleColor="--primary-typo" textColor="--secondary-typo"/>
 
                 <div id={styles.galeries_content}>
                     <Galerie 

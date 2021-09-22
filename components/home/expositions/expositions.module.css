@@ -1,5 +1,5 @@
 .expositions {
-    background-color: var(--tertiary-bg);
+    background-color: var(--primary-bg);
     color: var(--fifth-typo);
 }
 
@@ -8,13 +8,8 @@
     font-size: 28px;
     letter-spacing: 0.64px;
     line-height: 32px;
-    color: var(--primary-typo);
+    color: var(--mongoose);
     margin-bottom: 50px;
-}
-
-.main_content p {
-    font-weight: 600;
-    color: var(--sixth-typo);
 }
 
 .main_content {
@@ -42,14 +37,14 @@
     line-height: 30px;
     max-width: 370px;
     padding-left: 80px;
-    color: var(--primary-typo);
+    color: var(--mongoose);
     font-family: 'EB Garamond', serif;
     font-size: 26px;
 }
 
 .main_content > div:nth-child(3)::after {
     position: absolute;
-    background: no-repeat var(--url-guillemets);
+    background: no-repeat url("../../../assets/images/home/guillemets_mongoose.svg");
     background-size: 70px;
     content: "";
     width: 70px;

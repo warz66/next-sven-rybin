@@ -28,8 +28,6 @@
   --form-button-bg-hover: var(--sorrell-brown);
   --form-recaptcha-marque: var(--lynch);
 
-  --url-guillemets: url("../assets/images/home/guillemets_mongoose.svg");
-
   background-color: var(--primary-bg);
 }
 
@@ -48,8 +46,6 @@
   --form-button-bg: var(--mirage);
   --form-button-bg-hover: var(--ebony);
   --form-recaptcha-marque: var(--heather);
-
-  --url-guillemets: url("../assets/images/home/guillemets_white_solid.svg");
 
   background-color: var(--primary-bg);
 }

@@ -1,16 +1,20 @@
 import styles from "./contact.module.css"
 import Image from 'next/image'
+import { useContext } from 'react'
+import { ModeContext }from '../../../pages/_app'
 import TitleSection from "../../title-section/TitleSection"
-import ch from '../../../assets/images/home/ch_portrait.png'
 import imgPortrait from '../../../assets/images/home/contact_portrait.jpg'
 import Form from "./form/Form"
+import main_e from '../../../assets/images/home/main_ebony.svg'
+import main_mg from '../../../assets/images/home/main_mongoose.svg'
 
 export default function Contact() {
+    const mode = useContext(ModeContext);
     return (
         <section id="contact" className={styles.contact}>
             <div className="global_paddingX wrapper">
 
-            <TitleSection title="Contact" text="FONDATION SVEN RYBIN" image={ch} titleColor="--primary-typo" textColor="--secondary-typo"/>
+            <TitleSection title="Contact" text="FONDATION SVEN RYBIN" image={mode ? main_e : main_mg} titleColor="--primary-typo" textColor="--secondary-typo"/>
 
             <div className={styles.main_content}>
                 <div id={styles.contact_img}>
