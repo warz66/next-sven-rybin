@@ -1,4 +1,3 @@
-import Head from 'next/head'
 //import styles from '../styles/home.module.css'
 import React, { useEffect } from 'react'
 import Hero from '../components/home/hero/Hero'
@@ -35,10 +34,6 @@ export default function Home() {
 
   return (
     <>
-
-      <Head>
-        <title>Accueil | Sven Rybin</title>
-      </Head>
 
       <Hero/>
 

@@ -7,7 +7,6 @@ import axiosRetry from 'axios-retry'
 import imagesLoaded from 'imagesloaded'
 import GalerieImages from '../../components/galerie/galerie-images/GalerieImages'
 import FiltreFormGalerie from '../../components/galerie/filtre-form-galerie/FiltreFormGalerie'
-import Head from 'next/head'
 
 /*Galeries.getInitialProps = async ({query}) => {
     // le CORS_ALLOW_ORIGIN devrait suffire à authorizer certains accés à l'api ?
@@ -303,10 +302,6 @@ export default function Galeries({resultAuth, galerieId = null}) {
     return (
 
         <main id={styles.galerie} className="global_paddingX">
-
-            <Head>
-                <title>Galerie | Sven Rybin</title>
-            </Head>
 
             <div id={styles.galerie_title}>
                 <span>SVEN RYBIN</span>
