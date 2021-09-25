@@ -8,7 +8,7 @@ export default function TitleSection({title, text, image, titleColor, textColor}
             <h2 style={{ color : `var(${titleColor})` }}>{title}</h2>
             <div>
                 {/*<Image priority={true} layout="responsive" src={image} alt=""/>*/}
-                <img src={image.src} alt=""/>
+                <img src={image.src} alt="dessin de design illustrant la section"/>
             </div>
         </div>
   )

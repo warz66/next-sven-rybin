@@ -18,7 +18,7 @@ export default function Contact() {
 
             <div className={styles.main_content}>
                 <div id={styles.contact_img}>
-                    <Image priority={true} layout="responsive" src={imgPortrait} alt=""/>
+                    <Image priority={true} layout="responsive" src={imgPortrait} alt="Tableau portrait joueuse d'echec de 1983"/>
                 </div>
                 <div>
                     <h3>FONDATION</h3>
