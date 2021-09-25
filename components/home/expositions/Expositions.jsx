@@ -24,7 +24,7 @@ export default function Expositions() {
 					</div>
 
 					<div>
-						<Image priority={true} layout="responsive" src={expoImg} alt="Peinture cosmique SLAKTA LANTARNOR de 1962"/>
+						<Image priority={true} layout="responsive" src={expoImg} alt="Tableau cosmique SLAKTA LANTARNOR de 1962"/>
 					</div>
 
 					<div>
@@ -32,7 +32,7 @@ export default function Expositions() {
 					</div>
 
 					<div>
-						<Image priority={true} layout="responsive" src={expoImg2} alt="Peinture de 1980"/>
+						<Image priority={true} layout="responsive" src={expoImg2} alt="Tableau de 1980"/>
 					</div>
 
 					<div>

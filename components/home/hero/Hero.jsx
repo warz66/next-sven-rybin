@@ -15,7 +15,7 @@ export default function Hero() {
                 <h1>Sven Rybin</h1>
                 <span>Artiste Peintre</span>
                 <div id={styles.wrapper_img_text}>
-                    <Image priority={true} layout="fixed" width={190} height={240} src={mode ? fb_e : fb_mg} alt="Peinture DANSANDS FLOMMOT de 1970"/>
+                    <Image priority={true} layout="fixed" width={190} height={240} src={mode ? fb_e : fb_mg} alt="Tableau DANSANDS FLOMMOT de 1970"/>
                 </div>
             </div>
             <div>

@@ -24,6 +24,7 @@ export default function Galeries() {
                         title="Cosmique" 
                         text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et"
                         srcImg={cosmiqueImg}
+                        alt="Tableau cosmique RIGNEBULOSA de 1968"
                         galerieId={process.env.NEXT_PUBLIC_GALERIE_COSMIQUE}
                     />
 
@@ -32,6 +33,7 @@ export default function Galeries() {
                         title="Paysage" 
                         text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et"
                         srcImg={paysageImg}
+                        alt="Tableau ULYSSE de 1976"
                         galerieId={process.env.NEXT_PUBLIC_GALERIE_PAYSAGE}
                     />
 
@@ -39,6 +41,7 @@ export default function Galeries() {
                         title="Nature Morte" 
                         text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et"
                         srcImg={natureMorteImg}
+                        alt="Tableau nature morte de 1959"
                         galerieId={process.env.NEXT_PUBLIC_GALERIE_NATURE_MORTE}
                     />
 
@@ -47,6 +50,7 @@ export default function Galeries() {
                         title="Nu" 
                         text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et"
                         srcImg={nuImg}
+                        alt="Tableau de nu de 1982"
                         galerieId={process.env.NEXT_PUBLIC_GALERIE_NU}
                     />
 
@@ -54,6 +58,7 @@ export default function Galeries() {
                         title="Portrait" 
                         text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et"
                         srcImg={portraitImg}
+                        alt="Tableau portrait de 1958"
                         galerieId={process.env.NEXT_PUBLIC_GALERIE_PORTRAIT}
                     />
                 </div>
