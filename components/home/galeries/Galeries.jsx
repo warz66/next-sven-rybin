@@ -2,7 +2,7 @@ import styles from './galeries.module.css'
 import { useContext } from 'react'
 import { ModeContext }from '../../../pages/_app'
 import TitleSection from '../../title-section/TitleSection'
-import Galerie from './galerie/Galerie';
+import Galerie from './galerie/Galerie'
 import cosmiqueImg from '../../../assets/images/home/galerie_cover_cosmique.jpg'
 import paysageImg from '../../../assets/images/home/galerie_cover_paysage.jpg'
 import natureMorteImg from '../../../assets/images/home/galerie_cover_nature_morte.jpg'
@@ -22,7 +22,7 @@ export default function Galeries() {
                 <div id={styles.galeries_content}>
                     <Galerie 
                         title="Cosmique" 
-                        text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et"
+                        text={`L'art cosmique... Où quand "l'esprit contemplatif regarde le ciel différemment". S.RYBIN`}
                         srcImg={cosmiqueImg}
                         alt="Tableau cosmique RIGNEBULOSA de 1968"
                         galerieId={process.env.NEXT_PUBLIC_GALERIE_COSMIQUE}
@@ -30,8 +30,8 @@ export default function Galeries() {
 
                     <Galerie 
                         reverse={true}
-                        title="Paysage" 
-                        text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et"
+                        title="Paysage"
+                        text={`Le Paysage dans les œuvres de Rybin, tend moins à être reproduit qu'à être interprété, de manière originale, propre à l'artiste.`}
                         srcImg={paysageImg}
                         alt="Tableau ULYSSE de 1976"
                         galerieId={process.env.NEXT_PUBLIC_GALERIE_PAYSAGE}
@@ -39,7 +39,7 @@ export default function Galeries() {
 
                     <Galerie 
                         title="Nature Morte" 
-                        text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et"
+                        text={`La nature morte, vue selon l'artiste. Représentation d'une composition d’objets ou de choses inanimés mis en scène.`}
                         srcImg={natureMorteImg}
                         alt="Tableau nature morte de 1959"
                         galerieId={process.env.NEXT_PUBLIC_GALERIE_NATURE_MORTE}
@@ -48,7 +48,7 @@ export default function Galeries() {
                     <Galerie 
                         reverse={true}
                         title="Nu" 
-                        text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et"
+                        text={`Les nus de Rybin démontrent l’harmonie et la distorsion des corps dans une esthétique singulière.`}
                         srcImg={nuImg}
                         alt="Tableau de nu de 1982"
                         galerieId={process.env.NEXT_PUBLIC_GALERIE_NU}
@@ -56,7 +56,7 @@ export default function Galeries() {
 
                     <Galerie 
                         title="Portrait" 
-                        text="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et"
+                        text={`Dans cette discipline, l'artiste représente plus un caractère, une personnalité, un sentiment, au-delà de la simple apparence de ses modèles.`}
                         srcImg={portraitImg}
                         alt="Tableau portrait de 1958"
                         galerieId={process.env.NEXT_PUBLIC_GALERIE_PORTRAIT}
