@@ -60,7 +60,11 @@ if($tokenGrecaptcha) {
 
                 //Recipients
                 $mail->setFrom($_ENV['CONTACT_MAIL_REDIRECTING'], 'Svenrybin.fr Contact React Form');
-                $mail->addAddress($_ENV['CONTACT_MAIL_RECIPIENTS'], 'Svenrybin.fr Contact React Form');           
+                $recipients = explode(',',$_ENV['CONTACT_MAIL_RECIPIENTS']);
+                foreach($recipients as $recipient) {
+                    $mail->addAddress($recipient, 'Svenrybin.fr Contact React Form');    
+                }
+                //$mail->addAddress($_ENV['CONTACT_MAIL_RECIPIENTS'], 'Svenrybin.fr Contact React Form');           
                 $mail->addReplyTo($email, 'Information');
 
                 //Content
