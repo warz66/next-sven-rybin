@@ -59,7 +59,7 @@ if($tokenGrecaptcha) {
                 $mail->Port       = 587;
 
                 //Recipients
-                //$mail->setFrom($_ENV['CONTACT_MAIL_REDIRECTION'], 'Svenrybin.fr Contact React Form');
+                $mail->setFrom(null, 'Svenrybin.fr Contact React Form');
                 $mail->addAddress($_ENV['CONTACT_MAIL_REDIRECTION'], 'Svenrybin.fr Contact React Form');           
                 $mail->addReplyTo($email, 'Information');
 
