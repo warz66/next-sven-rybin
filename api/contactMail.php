@@ -45,7 +45,7 @@ if($tokenGrecaptcha) {
                 //$mail->Host       = 'localhost';                     //Set the SMTP server to send through
                 $mail->Host       = 'smtp.gmail.com'; 
                 $mail->SMTPAuth   = true;                            //Enable SMTP authentication
-                $mail->Username   = 'david.oeslick@gmail.com';                     //SMTP username
+                $mail->Username   = $_ENV['CONTACT_MAIL_REDIRECTING'];                     //SMTP username
                 $mail->Password   = $_ENV['APPLICATION_PASS_GMAIL'];                      //SMTP password
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
                 $mail->SMTPOptions = array(
@@ -59,8 +59,8 @@ if($tokenGrecaptcha) {
                 $mail->Port       = 587;
 
                 //Recipients
-                $mail->setFrom('david.oeslick@gmail.com', 'Svenrybin.fr Contact React Form');
-                $mail->addAddress($_ENV['CONTACT_MAIL_REDIRECTION'], 'Svenrybin.fr Contact React Form');           
+                $mail->setFrom($_ENV['CONTACT_MAIL_REDIRECTING'], 'Svenrybin.fr Contact React Form');
+                $mail->addAddress($_ENV['CONTACT_MAIL_RECIPIENTS'], 'Svenrybin.fr Contact React Form');           
                 $mail->addReplyTo($email, 'Information');
 
                 //Content
