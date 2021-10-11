@@ -91,7 +91,7 @@ function reducer(state, action) {
             });
             themesSelect = [...new Set(themesSelect)];
             themesSelect.unshift('Tous les thèmes');
-            return { ...state, clientAxios: action.payload.clientAxios, galeriesLoaded: true, galeries: action.payload.galeries, dataFiltre: { ...state.dataFiltre, galerieSelect: galerieSelect, galeriesSelect: galeriesSelect, themesSelect: themesSelect, themeSelect: themeSelect}, request: {...state.request, id: id, page: 1 } };
+            return { ...state, clientAxios: action.payload.clientAxios, formatWebp: action.payload.formatWebp, galeriesLoaded: true, galeries: action.payload.galeries, dataFiltre: { ...state.dataFiltre, galerieSelect: galerieSelect, galeriesSelect: galeriesSelect, themesSelect: themesSelect, themeSelect: themeSelect}, request: {...state.request, id: id, page: 1 } };
         }
         case 'errorInitGalerie': 
             return { ...state, errorInitGalerie: true };
@@ -248,7 +248,7 @@ export default function Galeries({resultAuth, galerieId = null}) {
                 },
             });
             const formatWebp = canUseWebp();
-            client.get(`/galeries?reference=${stateGalerie.reference}`).then(response => {dispatch({type: 'initGalerie', payload: { clientAxios: client, formatWeb: formatWebp, galeries: response.data['hydra:member'], id: galerieId}});console.log(response)}).catch(error => {dispatch({type:'errorInitGalerie'});console.log(error)});
+            client.get(`/galeries?reference=${stateGalerie.reference}`).then(response => {dispatch({type: 'initGalerie', payload: { clientAxios: client, formatWebp: formatWebp, galeries: response.data['hydra:member'], id: galerieId}});console.log(response)}).catch(error => {dispatch({type:'errorInitGalerie'});console.log(error)});
 
             import('masonry-layout').then( data => setModuleMasonry(data));
         } else {
