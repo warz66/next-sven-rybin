@@ -7,6 +7,9 @@ import Footer from '../components/footer/Footer'
 import Header from '../components/header/Header'
 import RetourHaut from '../components/retour-haut/RetourHaut'
 import React, { useState } from 'react'
+import NProgress from 'nprogress';
+import Router from 'next/router';
+import "nprogress/nprogress.css";
 
 export const ModeContext = React.createContext();
 
@@ -16,6 +19,17 @@ function MyApp({ Component, pageProps }) {
   function handleMode() {
     setMode(!mode);
   }
+
+  NProgress.configure({
+    minimum: 0.3,
+    easing: 'ease',
+    speed: 800,
+    showSpinner: false,
+  });
+
+  Router.events.on('routeChangeStart', () => NProgress.start());
+  Router.events.on('routeChangeComplete', () => NProgress.done());
+  Router.events.on('routeChangeError', () => NProgress.done());
 
   return (
     <>
