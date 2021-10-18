@@ -230,7 +230,7 @@ export default function Galeries({resultAuth, galerieId = null}) {
             let yearMin = /*""*/stateGalerie.request.yearMin;
             let yearMax = /*""*/stateGalerie.request.yearMax;
 
-            stateGalerie.clientAxios.get(`/images?galerie.reference=${stateGalerie.reference}&galerie.id=${id}${theme}&order[ordre]=asc&tableau.surface[gte]=${sizeMin}&tableau.surface[lte]=${sizeMax}&tableau.year[gte]=${yearMin}&tableau.year[lte]=${yearMax}&page=${page}`).then(response => {dispatch({type: 'imagesUpdate', payload: {images: response.data['hydra:member'], totalItems: response.data['hydra:totalItems']}});console.log(response)}).catch(error => {dispatch({type:'errorImagesUpdate'});console.log(error)});
+            stateGalerie.clientAxios.get(`/images?galerie.reference=${stateGalerie.reference}&galerie.id=${id}${theme}&order[ordre]=asc&tableau.surface[gte]=${sizeMin}&tableau.surface[lte]=${sizeMax}&tableau.year[gte]=${yearMin}&tableau.year[lte]=${yearMax}&tableau.year=null&page=${page}`).then(response => {dispatch({type: 'imagesUpdate', payload: {images: response.data['hydra:member'], totalItems: response.data['hydra:totalItems']}});console.log(response)}).catch(error => {dispatch({type:'errorImagesUpdate'});console.log(error)});
         }
     },[stateGalerie.request, stateGalerie.clientAxios]);
 
