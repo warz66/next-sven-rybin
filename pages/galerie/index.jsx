@@ -227,8 +227,8 @@ export default function Galeries({resultAuth, galerieId = null}) {
             let page = stateGalerie.request.page;
             let sizeMin = stateGalerie.request.sizeMin;
             let sizeMax = stateGalerie.request.sizeMax;
-            let yearMin = ""/*stateGalerie.request.yearMin;*/
-            let yearMax = ""/*stateGalerie.request.yearMax;*/
+            let yearMin = /*""*/stateGalerie.request.yearMin;
+            let yearMax = /*""*/stateGalerie.request.yearMax;
 
             stateGalerie.clientAxios.get(`/images?galerie.reference=${stateGalerie.reference}&galerie.id=${id}${theme}&order[ordre]=asc&tableau.surface[gte]=${sizeMin}&tableau.surface[lte]=${sizeMax}&tableau.year[gte]=${yearMin}&tableau.year[lte]=${yearMax}&page=${page}`).then(response => {dispatch({type: 'imagesUpdate', payload: {images: response.data['hydra:member'], totalItems: response.data['hydra:totalItems']}});console.log(response)}).catch(error => {dispatch({type:'errorImagesUpdate'});console.log(error)});
         }
