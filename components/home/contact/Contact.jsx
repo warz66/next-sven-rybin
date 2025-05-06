@@ -5,8 +5,8 @@ import { ModeContext }from '../../../pages/_app'
 import TitleSection from "../../title-section/TitleSection"
 import imgPortrait from '../../../assets/images/home/contact_portrait.jpg'
 import Form from "./form/Form"
-import main_e from '../../../assets/images/home/main_ebony.svg'
-import main_mg from '../../../assets/images/home/main_mongoose.svg'
+import fb_e from '../../../assets/images/home/femme_au_ballon_ebony.svg'
+import fb_mg from '../../../assets/images/home/femme_au_ballon_mongoose.svg'
 
 export default function Contact() {
     const mode = useContext(ModeContext);
@@ -14,7 +14,7 @@ export default function Contact() {
         <section id="contact" className={styles.contact}>
             <div className="global_paddingX wrapper">
 
-            <TitleSection title="Contact" text="FONDATION SVEN RYBIN" image={mode ? main_e : main_mg} titleColor="--primary-typo" textColor="--secondary-typo"/>
+            <TitleSection title="Contact" text="FONDATION SVEN RYBIN" image={mode ? fb_e : fb_mg} titleColor="--primary-typo" textColor="--secondary-typo"/>
 
             <div className={styles.main_content}>
                 <div id={styles.contact_img}>

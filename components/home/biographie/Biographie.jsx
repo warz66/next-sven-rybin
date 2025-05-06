@@ -4,8 +4,8 @@ import Link from 'next/link'
 import { useContext } from 'react'
 import { ModeContext }from '../../../pages/_app'
 import TitleSection from '../../title-section/TitleSection'
-import ap_e from '../../../assets/images/home/autoportrait_ebony.svg'
-import ap_mg from '../../../assets/images/home/autoportrait_mongoose.svg'
+import main_e from '../../../assets/images/home/main_ebony.svg'
+import main_mg from '../../../assets/images/home/main_mongoose.svg'
 import sven from '../../../assets/images/home/svenrybin@2x.png'
 import sven2 from '../../../assets/images/home/portrait_rybin.jpg'
 import bioImg2 from '../../../assets/images/home/bio_img2.jpg'
@@ -16,7 +16,7 @@ export default function Biographie() {
         <section id="biographie" className={styles.biographie}>
             <div className="global_paddingX wrapper">
 
-                <TitleSection title={"Biographie"} text={"ARTISTE COSMIQUE"} image={mode ? ap_e : ap_mg} titleColor="--primary-typo" textColor="--secondary-typo"/>
+                <TitleSection title={"Biographie"} text={"ARTISTE COSMIQUE"} image={mode ? main_e : main_mg} titleColor="--primary-typo" textColor="--secondary-typo"/>
 
                 <div className={styles.main_content_1}>
                     <div id={styles.portrait_img}>
