@@ -112,7 +112,7 @@ export default function Biographie() {
 
 				<div className={styles.main_content_2}>
 					<div>
-						Il reçoit le prix de la Fondation Taylor à Paris en 1979 ainsi que le Prix d'Excellence "Grand Prix International de Peinture de la Riviera Côtes d'Azur" en 1990.
+						{`Il reçoit le prix de la Fondation Taylor à Paris en 1979 ainsi que le Prix d'Excellence "Grand Prix International de Peinture de la Riviera Côtes d'Azur" en 1990.`}
 					</div>
 					<div>
 						<Image priority src={bioImg2} alt="Tableau cosmique de 1967" />
