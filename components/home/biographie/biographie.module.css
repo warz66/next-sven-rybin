@@ -23,7 +23,7 @@
 }
 
 .main_content_1 div:nth-child(2) > p {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
     margin-right: 85px;
 }
 
@@ -97,13 +97,13 @@
     margin-bottom: 150px;
 }
 
-.main_content_2 > div:first-of-type {
+.main_content_2 > div:last-of-type {
     max-width: 770px;
     width: 100%;
     box-shadow: 0px 10px 10px #000000de;
 }
 
-.main_content_2 > div:last-of-type {
+.main_content_2 > div:first-of-type {
     position: relative;
     align-self: center;
     max-width: 40%;
@@ -114,7 +114,7 @@
     font-size: 26px;
 }
 
-.main_content_2 > div:last-of-type::after {
+.main_content_2 > div:first-of-type::after {
     position: absolute;
     background: no-repeat url("../../../assets/images/home/guillemets_mongoose.svg");
     background-size: 70px;
@@ -191,14 +191,14 @@
         display: block;
         margin-bottom: 100px;
     }
-    .main_content_2 > div:first-of-type {
+    .main_content_2 > div:last-of-type {
         box-shadow: none;
         max-width: 900px;
         width: calc(100% + 60px);
         margin-left: -30px;
-        margin-bottom: 60px;
+        margin-top: 60px;
     }
-    .main_content_2 > div:last-of-type {
+    .main_content_2 > div:first-of-type {
         margin-left: -10px;
         max-width: 100%;
         padding: 0 30px 0 80px;

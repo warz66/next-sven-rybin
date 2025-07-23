@@ -6,7 +6,9 @@ import TitleSection from '../../title-section/TitleSection'
 import forme_e from '../../../assets/images/home/forme_ebony.svg'
 import forme_mg from '../../../assets/images/home/forme_mongoose.svg'
 import expoImg from '../../../assets/images/home/expo_img1.jpg'
-import expoImg2 from '../../../assets/images/home/expo_img2.jpg'
+// import expoImg2 from '../../../assets/images/home/expo_img2.jpg'
+import expoImg2 from "../../../assets/images/home/L'AMBASSADEUR MR INGMAR HAGGLOF A RECU LA TOILE  FORMATION CELESTE EXPOSE A LA GALERIE JACQUESTER.jpg"
+import expoImg3 from '../../../assets/images/home/photo divers sven rybin.jpg'
 
 export default function Expositions() {
 	const mode = useContext(ModeContext);
@@ -31,8 +33,10 @@ export default function Expositions() {
 						{"Ses Collections sont aujourd'hui représentées au musée de Tours, de Pau et de Montparnasse à Paris ainsi qu'à l'institut Tessin Centre Culturel Suédois à Paris, au musée de Gâvie en Suéde, au cercle Suèdois de Paris et également dans des collections privées en Suède, France et Espagne."}
 					</div>
 
-					<div>
+					<div style={{ display: "flex", flexDirection: "column", gap: "50px", justifyContent: "center", height: "100%"}}>
+						{/*<Image priority={true} layout="responsive" src={expoImg2} alt="Tableau de 1980"/>*/}
 						<Image priority={true} layout="responsive" src={expoImg2} alt="Tableau de 1980"/>
+						<Image priority={true} layout="responsive" src={expoImg3} alt="Tableau de 1980"/>
 					</div>
 
 					<div>
