@@ -11,7 +11,7 @@
                          "c b";
     row-gap: 130px;
     column-gap: 7%;
-    margin-bottom: 150px;
+    margin-bottom: 50px;
 }
 
 .main_content_1 div:first-of-type {
@@ -91,6 +91,11 @@
     transform: rotate(-10deg);
 }
 
+.image_full {
+    width: 100%;
+    margin-bottom: 100px;
+}
+
 .main_content_2 {
     display: flex;
     column-gap: 5%;
@@ -167,7 +172,7 @@
         align-items: center;
         row-gap: 0;
         column-gap: 0;
-        margin-bottom: 120px;
+        margin-bottom: 40px;
     }
     #portrait_img {
         margin-top: 0;
@@ -222,7 +227,7 @@
 
 @media(max-width: 500px) {
     .main_content_1 {
-        margin-bottom: 100px;
+        margin-bottom: 40px;
     }   
 }
 

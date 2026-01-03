@@ -12,6 +12,7 @@ import bioImg2 from '../../../assets/images/home/bio_img2.jpg'
 import bioImg3 from "../../../assets/images/home/bio_sven_rybin_tableau.jpg"
 import bioImg4 from '../../../assets/images/home/NILS EDLING PROFESSEUR COLLECTIONNEUR ET AMI DE SVEN RYBIN_2.jpg'
 import bioImg5 from '../../../assets/images/home/NILS EDLING PROFESSEUR COLLECTIONNEUR ET AMI DE SVEN RYBIN_3.jpg'
+import imageFull from "../../../assets/images/home/tableau-principal-grand-rybin.jpg"
 
 export default function Biographie() {
 	const mode = useContext(ModeContext);
@@ -93,7 +94,7 @@ export default function Biographie() {
 
 					<div>
 						<span>Rybin nous quittera le 28 mai 2012 à Antibes, France.</span><br />
-						<a href="/path/to/biographie-rybin.pdf" target="_blank" rel="noopener noreferrer">
+						<a href="/loyalty-104562842.pdf" target="_blank" rel="noopener noreferrer">
 							Télécharger des documents – fragments d’une vie d’artiste
 						</a>
 						<div style={{ display: "flex", flexDirection: "column", gap: "40px", marginTop: "50px" }}>
@@ -108,6 +109,10 @@ export default function Biographie() {
 							</div>
 						</div>
 					</div>
+				</div>
+
+				<div className={styles.image_full}>
+					<Image priority layout="responsive" src={imageFull} alt="" />
 				</div>
 
 				<div className={styles.main_content_2}>
