@@ -94,7 +94,7 @@ export default function Biographie() {
 
 					<div>
 						<span>Rybin nous quittera le 28 mai 2012 à Antibes, France.</span><br />
-						<a href="/loyalty-104562842.pdf" target="_blank" rel="noopener noreferrer">
+						<a href="/fragment-vie-artiste.pdf" target="_blank" rel="noopener noreferrer">
 							Télécharger des documents – fragments d’une vie d’artiste
 						</a>
 						<div style={{ display: "flex", flexDirection: "column", gap: "40px", marginTop: "50px" }}>
